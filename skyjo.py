@@ -1,27 +1,40 @@
 import random
 
-def verifColonne(J):
-    for i in range(len(J)):
-        if J[0][i]==J[1][i] and J[1][i]==J[2][i] and J[2][i]==J[3][i]:
+def verifColonne(listeJn):
+    for i in range(len(listeJn[0])):
+        if listeJn[0][i]==listeJn[1][i] and listeJn[1][i]==listeJn[2][i] :
             return True
     return False
 
-def melangeCartes(CarteTrie):
-    pioche=[]
-    for i in range (len(CarteTrie)):
-        choix=random.choice(CarteTrie)
-        pioche.append(choix)
-        CarteTrie.remove(choix)
-    return pioche
+def melangeCartes(listeCarteTrie):
+    listePioche=[]
+    for i in range (len(listeCarteTrie)):
+        choix=random.choice(listeCarteTrie)
+        listePioche.append(choix)
+        listeCarteTrie.remove(choix)
+    return listePioche
 
-def echangeCarte(J,EtatCarteJ,cartejouer,position):
-    J[position]=cartejouer
-    EtatCarteJ[position]=True
-    return J, EtatCarteJ
+def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
+    ligne = (position-1)//4
+    colonne = (position-1)%4
+    listeJn[ligne][colonne] = carteJouer
+    listeEtatCarteJn[ligne][colonne] = True
+    return listeJn, listeEtatCarteJn
 
-def recupPositionCarte(coordoClic,dicoCoordonneesJ):
-    if coordoClic in dicoCoordonneesJ:
-        pass
+def recupPositionCarte(coordoClic,dicoCoordonneesJn):
+    position=0
+    for cle, valeur in dicoCoordonneesJn.items():
+        if coordoClic == valeur :
+            position = cle
+    return position
+
+def totalPointJn(listeJn):
+    s = 0
+    for i in range(len(listeJn)):
+        for j in range(len(listeJn[i])):
+            s += listeJn[i][j]
+    return s
+
 
 
 def convertirJeuCartes3Tableau (listeJoueur):
