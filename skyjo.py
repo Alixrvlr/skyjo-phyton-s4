@@ -24,3 +24,13 @@ def recupPositionCarte(coordoClic,dicoCoordonneesJ):
         pass
 
 
+def convertirJeuCartes3Tableau (listeJoueur):
+    listeTrie =[]
+    indice=0
+    for i in range (3):
+        L=[]
+        for j in range(4):
+            L.append(listeJoueur[indice])
+            indice+=1
+        listeTrie.append(L)
+    return listeTrie
