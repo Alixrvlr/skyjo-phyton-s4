@@ -64,6 +64,9 @@ can.create_rectangle(250, 120, 325, 225,width=1,fill="#808080")
 can.create_rectangle(250, 230, 325, 335,width=1,fill="#808080") 
 
 
+versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
+can.create_image(90+75/2,10+105/2,image=versocarte)
+can.pack(fill="both",expand=YES)
 
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
