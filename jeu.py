@@ -43,28 +43,71 @@ defausse.append(pioche.pop(0))
 gagner = False
 print(listeJ1)
 
+
+# Chaque joueur retourne deux avant de commencer
+for i in range (4):
+    pass
+
+
 while not gagner :
     joueur=0
     print("Joueur :",joueur+1)
     for i in range (nbJoueur):
         
+        if "clic dans carte pioche":
+            typeJeu = "pioche"
+        elif"clic dans carte défausse":
+            typeJeu= "defausse"
+        elif "clic sur une des carte de son jeu":
+            typeJeu ="retourneCarte"
+
+
+
         position = int(input("choix position"))            #recuperer l'endroit du clic
-        typeJeu = "piocher"          #recuperer ce que le joueuer veut faire en fonction d'ou il clic
+        typeJeu = "retourneCarte"          #recuperer ce que le joueuer veut faire en fonction d'ou il clic
        
+
+
+
         if typeJeu=="piocher" :
             jouerCarte = True                        # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
+            cartePioche=pioche.pop(0)
             if jouerCarte :
                 #position = 2                           #recuperer l'endroit du clic
-                listeJn[joueur],listeEtatCarteJn[joueur]=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],1,position)
-            pass
+                listeJn[joueur],listeEtatCarteJn[joueur]=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],cartePioche,position)
+            else :
+                defausse.insert(0,cartePioche)
+                typeJeu = "retourneCarte"
       
+
+
+
+
         if typeJeu=="defausse" :
-            pass
-    
+            carteDefausse = defausse.pop(0)
+            if jouerCarte :
+                #position = 2                           #recuperer l'endroit du clic
+                listeJn[joueur],listeEtatCarteJn[joueur]=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],carteDefausse,position)
+            else :
+                defausse.insert(0,cartePioche)
+                typeJeu = "retourneCarte"
+
+
+
+
+
         if typeJeu=="retourneCarte" :
-            position= int(input("choix position"))
-            listeEtatCarteJn[joueur][]
+            
+            ligne,colonne = convetirPosition(position)
+            listeEtatCarteJn[joueur][ligne][colonne]= True
+
+
+        # Verifier colonne
+        if verifColonne[0] == True:
+            listeJn[joueur]= supColonne(listeJn[joueur],verifColonne[1])
+
         print(listeJn[joueur])
+        print(listeEtatCarteJn[joueur])
         joueur +=1
         
 

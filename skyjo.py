@@ -3,7 +3,7 @@ import random
 def verifColonne(listeJn):
     for i in range(len(listeJn[0])):
         if listeJn[0][i]==listeJn[1][i] and listeJn[1][i]==listeJn[2][i] :
-            return True
+            return True,i
     return False
 
 def melangeCartes(listeCarteTrie):
@@ -52,3 +52,9 @@ def convertirJeuCartes3Tableau (listeJoueur):
             indice+=1
         listeTrie.append(L)
     return listeTrie
+
+def supColonne (listeJn,colonne):
+    for i in range (3):
+        listeJn[i][colonne]= 0
+
+    return listeJn
