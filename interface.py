@@ -37,14 +37,31 @@ expand=True : utilise tout l’espace disponible
 # width=(largeur/2)-(largeur/10) = 550
 # height=((hauteur-60)/2)-70 = 290
 
-print(hauteur-60, fenetre.winfo_screenwidth())
+# Délimitation d'une carte 
+# width = 75
+# height = 290//3 = 105
+
 
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
-can.place(anchor="nw", width=550, height=290, x=0, y=0)
+can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
 
+# cartes J1 (haut gauche)
+can.create_rectangle(10, 10, 85, 115,width=1,fill="#808080") 
+can.create_rectangle(10, 120, 85, 225,width=1,fill="#808080") 
+can.create_rectangle(10, 230, 85, 335,width=1,fill="#808080") 
 
+can.create_rectangle(90, 10, 165, 115,width=1,fill="#808080") 
+can.create_rectangle(90, 120, 165, 225,width=1,fill="#808080") 
+can.create_rectangle(90, 230, 165, 335,width=1,fill="#808080") 
 
+can.create_rectangle(170, 10, 245, 115,width=1,fill="#808080") 
+can.create_rectangle(170, 120, 245, 225,width=1,fill="#808080") 
+can.create_rectangle(170, 230, 245, 335,width=1,fill="#808080") 
+
+can.create_rectangle(250, 10, 325, 115,width=1,fill="#808080") 
+can.create_rectangle(250, 120, 325, 225,width=1,fill="#808080") 
+can.create_rectangle(250, 230, 325, 335,width=1,fill="#808080") 
 
 
 
