@@ -14,9 +14,14 @@ def melangeCartes(listeCarteTrie):
         listeCarteTrie.remove(choix)
     return listePioche
 
-def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
+
+def convetirPosition(position):
     ligne = (position-1)//4
     colonne = (position-1)%4
+    return ligne,colonne
+
+def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
+    ligne ,colonne =convetirPosition(position)
     listeJn[ligne][colonne] = carteJouer
     listeEtatCarteJn[ligne][colonne] = True
     return listeJn, listeEtatCarteJn
