@@ -1,5 +1,5 @@
 from skyjo import *
-def jeu (event):
+def jeu():      #def jeu (event):
     nbJoueur=4
     cartes =([-2]*5 +[0]*15 +[-1]*10 +[1]*10 +[2]*10 +[3]*10 +[4]*10 +[5]*10 +[6]*10 +[7]*10 +[8]*10 +[9]*10 +[10]*10 +[11]*10 +[12]*10)
 
@@ -41,7 +41,7 @@ def jeu (event):
 
 
     gagner = False
-    print(listeJ1)
+    
 
 
     # Chaque joueur retourne deux avant de commencer
@@ -51,9 +51,12 @@ def jeu (event):
 
     while not gagner :
         joueur=0
-        print("Joueur :",joueur+1)
+        
         for i in range (nbJoueur):
-            
+            print("Joueur :",joueur+1)
+            print(listeJ1)
+            print ("defausse",defausse[0])
+
             if "clic dans carte pioche":
                 typeJeu = "pioche"
             elif"clic dans carte défausse":
@@ -62,19 +65,22 @@ def jeu (event):
                 typeJeu ="retourneCarte"
 
 
+            typeJeu=int(input("1-piocher, 2-defausse, 3-retourner carte"))  #typeJeu = "retourneCarte"          #recuperer ce que le joueuer veut faire en fonction d'ou il clic
 
-            position = int(input("choix position"))            #recuperer l'endroit du clic
-            typeJeu = "retourneCarte"          #recuperer ce que le joueuer veut faire en fonction d'ou il clic
+            #position = int(input("choix position"))            #recuperer l'endroit du clic
         
 
 
 
-            if typeJeu=="piocher" :
+            if typeJeu==1:  #if typeJeu=="piocher" :
                 jouerCarte = True                        # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
                 cartePioche=pioche.pop(0)
+                print("Carte pioché",cartePioche)
+                position = int(input("choix position"))
                 if jouerCarte :
                     #position = 2                           #recuperer l'endroit du clic
-                    listeJn[joueur],listeEtatCarteJn[joueur]=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],cartePioche,position)
+                    listeJn[joueur],listeEtatCarteJn[joueur],carteEnleve=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],cartePioche,position)
+                    defausse.insert(0,carteEnleve)
                 else :
                     defausse.insert(0,cartePioche)
                     typeJeu = "retourneCarte"
@@ -83,31 +89,33 @@ def jeu (event):
 
 
 
-            if typeJeu=="defausse" :
+            if typeJeu==2:  #if typeJeu=="defausse" :
                 carteDefausse = defausse.pop(0)
-                if jouerCarte :
-                    #position = 2                           #recuperer l'endroit du clic
-                    listeJn[joueur],listeEtatCarteJn[joueur]=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],carteDefausse,position)
-                else :
-                    defausse.insert(0,cartePioche)
-                    typeJeu = "retourneCarte"
+                position = int(input("choix position"))
+                #position = 2                           #recuperer l'endroit du clic
+                listeJn[joueur],listeEtatCarteJn[joueur],carteEnleve=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],carteDefausse,position)
+                defausse.insert(0,carteEnleve)
 
 
 
 
 
-            if typeJeu=="retourneCarte" :
+            if typeJeu==3:  #if typeJeu=="retourneCarte" :
                 
                 ligne,colonne = convetirPosition(position)
                 listeEtatCarteJn[joueur][ligne][colonne]= True
 
 
             # Verifier colonne
-            if verifColonne[0] == True:
+            """ if verifColonne(listeJn[joueur])[0] == True:
                 listeJn[joueur]= supColonne(listeJn[joueur],verifColonne[1])
+            """
 
             print(listeJn[joueur])
             print(listeEtatCarteJn[joueur])
             joueur +=1
-            
+        print("")
+        print("")
+        print(listeEtatCarteJn[joueur])    
 
+jeu ()
