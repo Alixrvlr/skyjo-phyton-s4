@@ -40,6 +40,9 @@ expand=True : utilise tout l’espace disponible
 # width = 75
 # height = 290//3 = 105
 
+# width/2 = 683
+# height/2 = 355
+
 
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
@@ -117,6 +120,13 @@ can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080")
 can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
 
 
+# Cartes de pioche et défausse 
+# width/2 = 683
+# height/2 = 355
+can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080") 
+can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080") 
+
+
 versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
 can.create_image(90+75/2,10+105/2,image=versocarte)
 can.pack(fill="both",expand=YES)
@@ -125,10 +135,13 @@ can.pack(fill="both",expand=YES)
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-#bQuitter.grid(row=35, column=0, sticky="s", padx = 5, pady = 1)
+bQuitter.place(anchor="se", x=80, y=730)
 
 bRejouer= Button(fenetre, text ='Rejouer')
-#bRejouer.grid(row=35, column=5, sticky="s", padx = 5, pady = 1)
+bRejouer.place(anchor="sw", x=1275, y=730)
+
+
+''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 
 
 #grille()
