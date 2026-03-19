@@ -40,6 +40,9 @@ expand=True : utilise tout l’espace disponible
 # width = 75
 # height = 290//3 = 105
 
+# width/2 = 683
+# height/2 = 355
+
 
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
@@ -137,10 +140,13 @@ can.pack(fill="both",expand=YES)
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-#bQuitter.grid(row=35, column=0, sticky="s", padx = 5, pady = 1)
+bQuitter.place(anchor="se", x=80, y=730)
 
 bRejouer= Button(fenetre, text ='Rejouer')
-#bRejouer.grid(row=35, column=5, sticky="s", padx = 5, pady = 1)
+bRejouer.place(anchor="sw", x=1275, y=730)
+
+
+''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 
 
 #grille()
