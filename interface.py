@@ -88,7 +88,7 @@ can.create_rectangle(270, 230, 345, 335,width=1,fill="#808080")
 
 
 # cartes J2 (haut droite)
-can.create_rectangle(1010, 10, 1085, 115,width=1,fill="#804848") 
+can.create_rectangle(1010, 10, 1085, 115,width=1,fill="#808080") 
 can.create_rectangle(1010, 120, 1085, 225,width=1,fill="#808080") 
 can.create_rectangle(1010, 230, 1085, 335,width=1,fill="#808080") 
 
@@ -185,26 +185,26 @@ def popupChoix() :
     miniFenetre.iconbitmap("eseoLogo.ico")
     miniFenetre.config(background='white')
     miniFenetre.title('Choix')
-    miniFenetre.geometry("300x400+550+200")
-    message = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Calibri 15 bold')
+    miniFenetre.geometry("280x340+550+200")
+    message = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
 
     # emplacement de la carte
     # largeur = 125
     # hauteur = 175
-    carte = Canvas(miniFenetre, bg ='black',width=125, height=175)
+    carte = Canvas(miniFenetre, bg ='black',width=140, height=195)
 
     # boutons
     oui = Button(miniFenetre, text ='Oui')
     non = Button(miniFenetre, text ='Non')
 
     # placer les boutons
-    message.pack()
-    carte.pack()
-    oui.pack()
-    non.pack()
+    message.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
+    carte.grid(row=2, column=0, sticky="n", padx = 5, pady = 10)
+    oui.grid(row=4, column=0, sticky="w", padx = 5, pady = 5)
+    non.grid(row=4, column=0, sticky="e", padx = 5, pady = 5)
 
 '''test popup'''
-popupChoix()
+#popupChoix()
 
 
 
