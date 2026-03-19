@@ -124,13 +124,14 @@ J1=(0,0)
 J2=(980,0)
 J3=(980,360)
 J4=(0,360)
+images=[]
 def affichagecarteJn(a,b):
     versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
     x=[30,30,30,110,110,110,190,190,190,270,270,270]
     y=[10,120,230,10,120,230,10,120,230,10,120,230]
     for i in range (12):
         can.create_image(x[i]+a+75/2,y[i]+b+105/2,image=versocarte)
-        can.image=versocarte
+    images.append(versocarte)
 
 
 affichagecarteJn(J1[0],J1[1])
