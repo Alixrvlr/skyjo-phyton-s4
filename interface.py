@@ -145,6 +145,8 @@ can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")
 can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080") 
 
 
+''' Faces des cartes ---------------------------------------------------------------------------------------'''
+
 J1=(0,0)
 J2=(980,0)
 J3=(980,360)
@@ -164,6 +166,8 @@ affichagecarteJn(J2[0],J2[1])
 affichagecarteJn(J3[0],J3[1])
 affichagecarteJn(J4[0],J4[1])
 can.pack(fill="both",expand=YES)
+
+
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
