@@ -1,6 +1,7 @@
 from tkinter import *
 from jeu import *
 
+
 # Fichier Interface Graphique du jeu - projet S4 informatique
 
 ''' Création de la fenêtre ----------------------------------------------------------------------------------------'''
@@ -214,8 +215,9 @@ def popupChoix() :
 
 
 
+case = can.bind('<Button-1>',deroulerJeu)
 
-case = can.bind('<Button-1>', jeu)
+print(etat)
 
 
 fenetre.mainloop()
