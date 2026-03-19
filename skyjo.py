@@ -75,44 +75,44 @@ def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou 
             return "jeu3"        # Jeu J3
         
     elif x>=598 and x<=673:
-        if y>=315 and y<=370:
+        if y>=315 and y<=420:
             return "pioche" #pioche
         
     elif x>=693 and x<=768:
-        if y>=315 and y<=370:
+        if y>=315 and y<=420:
             return "defausse" #defausse
         
 def recupPositionCarte (x,y,decalageX,decalageY):
-    if x>=30 and x<= 105:
-        if y>=10 and y<=115:
+    if x-decalageX>=30 and x-decalageX<= 105:
+        if y-decalageY>=10 and y-decalageY<=115:
             return 1        
-        elif y>=120 and y<= 225:
+        elif y-decalageY>=120 and y-decalageY<= 225:
             return 5 
-        elif y>=230 and y<= 335:
+        elif y-decalageY>=230 and y-decalageY<= 335:
             return 9
         
-    elif x>=110 and x<= 185:
-        if y>=10 and y<=115:
+    elif x-decalageX>=110 and x-decalageX<= 185:
+        if y-decalageY>=10 and y-decalageY<=115:
             return 2        
-        elif y>=120 and y<= 225:
+        elif y-decalageY>=120 and y-decalageY<= 225:
             return 6 
-        elif y>=230 and y<= 335:
+        elif y-decalageY>=230 and y-decalageY<= 335:
             return 10
         
-    elif x>=190 and x<= 265:
-        if y>=10 and y<=115:
+    elif x-decalageX>=190 and x-decalageX<= 265:
+        if y-decalageY>=10 and y-decalageY<=115:
             return 3        
-        elif y>=120 and y<= 225:
+        elif y-decalageY>=120 and y-decalageY<= 225:
             return 7 
-        elif y>=230 and y<= 335:
+        elif y-decalageY>=230 and y-decalageY<= 335:
             return 11
         
-    elif x>=270 and x<= 345:
-        if y>=10 and y<=115:
+    elif x-decalageX>=270 and x-decalageX<= 345:
+        if y-decalageY>=10 and y-decalageY<=115:
             return 4        
-        elif y>=120 and y<= 225:
+        elif y-decalageY>=120 and y-decalageY<= 225:
             return 8 
-        elif y>=230 and y<= 335:
+        elif y-decalageY>=230 and y-decalageY<= 335:
             return 12
     else :
         return None

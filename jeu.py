@@ -1,11 +1,11 @@
 from skyjo import *
 
-
+'''
 global listeJn
 global listeEtatCarteJn
 global nbJoueur
 global defausse
-global pioche
+global pioche'''
 
 
 etat = 'start'
@@ -22,6 +22,7 @@ def deroulerJeu(event):
     global nbJoueur
     global defausse
     global pioche
+    global typeJeu
 
 
     x=event.x #donnera la valeur de x
@@ -42,19 +43,29 @@ def deroulerJeu(event):
     #print ("defausse",defausse[0])
 
     elif etat =='choix_pioche':
+        print(f"Joueuer{joueur}")
         positionClic = recupPosition(x,y)
-
+        
         if positionClic == 'pioche' or positionClic == 'defausse':
             typeJeu = positionClic
+            etat = 'choix_carte'
+            print(f"position clic : {positionClic}")
 
-        if positionClic == 'jeu1' and joueur ==1 and recupPositionCarte(x,y,decalage[joueur][0],decalage[joueur][1]) != None  :
+        elif positionClic == 'jeu1' and joueur ==1 and recupPositionCarte(x,y,decalage[joueur-1][0],decalage[joueur-1][1]) != None  :
             typeJeu = 'retourneCarte'
+            etat = 'choix_carte'
+            print (f"position clic dans jeu {positionClic}")
         
-        etat = 'choix_carte'
+        
+        
+        
 
 
 
     elif etat == 'choix_carte':
+        print(f"Joueuer{joueur}")
+        print ("Choisir la carte du jeu")
+        print(f"type de jeu {typeJeu}")
         if typeJeu=="piocher" :
             cartePioche=pioche.pop(0)
             print("Carte pioché",cartePioche)
@@ -63,9 +74,13 @@ def deroulerJeu(event):
         
             if jouerCarte == 1:     #if jouerCarte :
                 #position = 2                           #recuperer l'endroit du clic
-                position = int(input("choix position"))
+                position=recupPositionCarte(x,y,decalage[joueur-1][0],decalage[joueur-1][1])                  #position = int(input("choix position"))
+                print(f"position choix {position}")
+                print(f"decalage {decalage[joueur-1]}")
                 listeJn[joueur],listeEtatCarteJn[joueur],carteEnleve=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],cartePioche,position)
                 defausse.insert(0,carteEnleve)
+                print("changement carte ok")
+                etat= 'choix_pioche'
             else :
                 defausse.insert(0,cartePioche)
                 typeJeu = 3     #typeJeu = "retourneCarte"
@@ -73,21 +88,28 @@ def deroulerJeu(event):
 
         if typeJeu=="defausse" :
             carteDefausse = defausse.pop(0)
-            position=recupPositionCarte(x,y)        #position = int(input("choix position"))
-                                       #recuperer l'endroit du clic
+            position=recupPositionCarte(x,y,decalage[joueur-1][0],decalage[joueur-1][1])        #position = int(input("choix position"))
+            print(f"position choix {position}")                           #recuperer l'endroit du clic
+            print(f"decalage {decalage[joueur-1]}")
             listeJn[joueur],listeEtatCarteJn[joueur],carteEnleve=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],carteDefausse,position)
             defausse.insert(0,carteEnleve)
+            print("changement carte ok")
+            etat= 'choix_pioche'
 
 
 
 
 
         if typeJeu=="retourneCarte" :
-            position=recupPositionCarte(x,y)        #position = int(input("choix position"))
+            position=recupPositionCarte(x,y,decalage[joueur-1][0],decalage[joueur-1][1])        #position = int(input("choix position"))
+            print(f"position choix {position}")
+            print(f"decalage {decalage[joueur-1]}")
             ligne,colonne = convetirPosition(position)
-            listeEtatCarteJn[joueur][ligne][colonne]= True    
+            listeEtatCarteJn[joueur][ligne][colonne]= True 
+            print("changement carte ok")
+            etat= 'choix_pioche'   
             
-
+        joueur =(joueur+1)%4
 
 
         
@@ -114,7 +136,7 @@ def deroulerJeu(event):
 
     print(listeJn[joueur])
     print(listeEtatCarteJn[joueur])'''
-    joueur =(joueur+1)%4
+    
     print(etat)
     print("")
     print("")
