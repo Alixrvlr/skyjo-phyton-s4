@@ -141,8 +141,8 @@ can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080")
 can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
 
 # Cartes de pioche et défausse 
-can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080") 
-can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080") 
+can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
+can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche
 
 
 ''' Faces des cartes ---------------------------------------------------------------------------------------'''
