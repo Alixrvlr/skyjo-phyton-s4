@@ -1,4 +1,5 @@
 from tkinter import *
+from jeu import *
 
 # Fichier Interface Graphique du jeu - projet S4 informatique
 
@@ -64,7 +65,7 @@ can.create_rectangle(270, 230, 345, 335,width=1,fill="#808080")
 
 
 # cartes J2 (haut droite)
-can.create_rectangle(1010, 10, 1085, 115,width=1,fill="#808080") 
+can.create_rectangle(1010, 10, 1085, 115,width=1,fill="#804848") 
 can.create_rectangle(1010, 120, 1085, 225,width=1,fill="#808080") 
 can.create_rectangle(1010, 230, 1085, 335,width=1,fill="#808080") 
 
@@ -139,7 +140,7 @@ bRejouer= Button(fenetre, text ='Rejouer')
 
 
 
-
+case = can.bind('<Button-1>', jeu)
 
 
 fenetre.mainloop()

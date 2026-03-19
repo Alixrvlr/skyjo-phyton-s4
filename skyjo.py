@@ -61,3 +61,17 @@ def supColonne (listeJn,colonne):
     return listeJn
 
 
+def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
+    if x>=30 and x<= 345:
+        if y>=10 and y<=335:
+            return 1        # Jeu J1
+        elif y>=370 and y<= 695:
+            return 4        # Jeu J4
+    
+    elif x>=1010 and x<=1325:
+        if y>=10 and y<=335:
+            return 2        # Jeu J2
+        elif y>=370 and y<= 695:
+            return 3        # Jeu J3
+        
+    

@@ -1,5 +1,10 @@
 from skyjo import *
-def jeu():      #def jeu (event):
+def jeu (event):       #def jeu(): 
+
+    x=event.x #donnera la valeur de x
+    y=event.y # donnera la valeur de y
+    print(x,y)
+
     nbJoueur=4
     cartes =([-2]*5 +[0]*15 +[-1]*10 +[1]*10 +[2]*10 +[3]*10 +[4]*10 +[5]*10 +[6]*10 +[7]*10 +[8]*10 +[9]*10 +[10]*10 +[11]*10 +[12]*10)
 
@@ -112,21 +117,21 @@ def jeu():      #def jeu (event):
 
 
             if typeJeu==3:  #if typeJeu=="retourneCarte" :
-                
+                position = int(input("choix position"))
                 ligne,colonne = convetirPosition(position)
                 listeEtatCarteJn[joueur][ligne][colonne]= True
 
 
             # Verifier colonne
-            """ if verifColonne(listeJn[joueur])[0] == True:
+            if verifColonne(listeJn[joueur])[0] == True:
                 listeJn[joueur]= supColonne(listeJn[joueur],verifColonne[1])
-            """
+            
 
             print(listeJn[joueur])
             print(listeEtatCarteJn[joueur])
             joueur =(joueur+1)%4
             print("")
             print("")
-        #print(listeEtatCarteJn[joueur])    
+           
 
-jeu ()
+#jeu ()
