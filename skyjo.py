@@ -4,7 +4,7 @@ def verifColonne(listeJn):
     for i in range(len(listeJn[0])):
         if listeJn[0][i]==listeJn[1][i] and listeJn[1][i]==listeJn[2][i] :
             return True,i
-    return False
+    return False,None
 
 def melangeCartes(listeCarteTrie):
     listePioche=[]
@@ -22,9 +22,10 @@ def convetirPosition(position):
 
 def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
     ligne ,colonne =convetirPosition(position)
+    carteEnleve = listeJn[ligne][colonne]
     listeJn[ligne][colonne] = carteJouer
     listeEtatCarteJn[ligne][colonne] = True
-    return listeJn, listeEtatCarteJn
+    return listeJn, listeEtatCarteJn, carteEnleve
 
 def recupPositionCarte(coordoClic,dicoCoordonneesJn):
     position=0
@@ -58,3 +59,5 @@ def supColonne (listeJn,colonne):
         listeJn[i][colonne]= 0
 
     return listeJn
+
+
