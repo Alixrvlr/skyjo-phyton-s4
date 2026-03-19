@@ -12,7 +12,7 @@ largeur = fenetre.winfo_screenwidth()
 hauteur = fenetre.winfo_screenheight()
 
 # la fenêtre prend tout l'écran
-fenetre.geometry(f"{largeur}x{hauteur}")
+fenetre.geometry(f"{largeur}x{hauteur}+0+0")
 
 
 """
@@ -119,19 +119,24 @@ can.create_rectangle(270, 370, 345, 475,width=1,fill="#808080")
 can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080") 
 can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
 
+J1=(0,0)
+J2=(980,0)
+J3=(980,360)
+J4=(0,360)
+def affichagecarteJn(a,b):
+    versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
+    x=[30,30,30,110,110,110,190,190,190,270,270,270]
+    y=[10,120,230,10,120,230,10,120,230,10,120,230]
+    for i in range (12):
+        can.create_image(x[i]+a+75/2,y[i]+b+105/2,image=versocarte)
+        can.image=versocarte
 
-# Cartes de pioche et défausse 
-# width/2 = 683
-# height/2 = 355
-can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080") 
-can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080") 
 
-
-versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
-can.create_image(90+75/2,10+105/2,image=versocarte)
+affichagecarteJn(J1[0],J1[1])
+affichagecarteJn(J2[0],J2[1])
+affichagecarteJn(J3[0],J3[1])
+affichagecarteJn(J4[0],J4[1])
 can.pack(fill="both",expand=YES)
-
-
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
