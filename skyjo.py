@@ -61,17 +61,56 @@ def supColonne (listeJn,colonne):
     return listeJn
 
 
-def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
+def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou defausse) qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
     if x>=30 and x<= 345:
         if y>=10 and y<=335:
-            return 1        # Jeu J1
+            return "jeu1"        # Jeu J1
         elif y>=370 and y<= 695:
-            return 4        # Jeu J4
+            return "jeu4"        # Jeu J4
     
     elif x>=1010 and x<=1325:
         if y>=10 and y<=335:
-            return 2        # Jeu J2
+            return "jeu1"        # Jeu J2
         elif y>=370 and y<= 695:
-            return 3        # Jeu J3
+            return "jeu3"        # Jeu J3
         
-    
+    elif x>=598 and x<=673:
+        if y>=315 and y<=370:
+            return "pioche" #pioche
+        
+    elif x>=693 and x<=768:
+        if y>=315 and y<=370:
+            return "defausse" #defausse
+        
+def recupPositionCarte (x,y,decalageX,decalageY):
+    if x>=30 and x<= 105:
+        if y>=10 and y<=115:
+            return 1        
+        elif y>=120 and y<= 225:
+            return 5 
+        elif y>=230 and y<= 335:
+            return 9
+        
+    elif x>=110 and x<= 185:
+        if y>=10 and y<=115:
+            return 2        
+        elif y>=120 and y<= 225:
+            return 6 
+        elif y>=230 and y<= 335:
+            return 10
+        
+    elif x>=190 and x<= 265:
+        if y>=10 and y<=115:
+            return 3        
+        elif y>=120 and y<= 225:
+            return 7 
+        elif y>=230 and y<= 335:
+            return 11
+        
+    elif x>=270 and x<= 345:
+        if y>=10 and y<=115:
+            return 4        
+        elif y>=120 and y<= 225:
+            return 8 
+        elif y>=230 and y<= 335:
+            return 12
