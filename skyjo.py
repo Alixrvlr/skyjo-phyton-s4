@@ -70,7 +70,7 @@ def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou 
     
     elif x>=1010 and x<=1325:
         if y>=10 and y<=335:
-            return "jeu1"        # Jeu J2
+            return "jeu2"        # Jeu J2
         elif y>=370 and y<= 695:
             return "jeu3"        # Jeu J3
         
@@ -114,3 +114,6 @@ def recupPositionCarte (x,y,decalageX,decalageY):
             return 8 
         elif y>=230 and y<= 335:
             return 12
+    else :
+        return None
+        
