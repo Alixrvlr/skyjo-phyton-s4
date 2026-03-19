@@ -179,16 +179,35 @@ bRejouer.place(anchor="sw", x=1275, y=730)
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 def popupChoix() :
-    messageChoix = "Seu voulez-vous faire ?"
-    fenetre = Toplevel()
-    fenetre.iconbitmap("eseoLogo.ico")
-    fenetre.config(background='white')
-    fenetre.title('Erreur')
-    fenetre.geometry("300x75+200+200")
-    message = Label(fenetre, text=messageChoix, fg="blue", bg="white", font='Calibri 15 bold')
-    message.pack()
+    # fenêtre popup : à terminer !!!!
+    messageChoix = "Voulez-vous jouer cette carte ?"
+    miniFenetre = Toplevel()
+    miniFenetre.iconbitmap("eseoLogo.ico")
+    miniFenetre.config(background='white')
+    miniFenetre.title('Choix')
+    miniFenetre.geometry("300x400+550+200")
+    message = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Calibri 15 bold')
 
-#grille()
+    # emplacement de la carte
+    # largeur = 125
+    # hauteur = 175
+    carte = Canvas(miniFenetre, bg ='black',width=125, height=175)
+
+    # boutons
+    oui = Button(miniFenetre, text ='Oui')
+    non = Button(miniFenetre, text ='Non')
+
+    # placer les boutons
+    message.pack()
+    carte.pack()
+    oui.pack()
+    non.pack()
+
+'''test popup'''
+popupChoix()
+
+
+
 #case = can.bind('<Button-1>', dessiner)
 
 
