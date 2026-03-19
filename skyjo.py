@@ -59,3 +59,5 @@ def supColonne (listeJn,colonne):
         listeJn[i][colonne]= 0
 
     return listeJn
+
+

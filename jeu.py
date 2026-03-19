@@ -45,16 +45,27 @@ def jeu():      #def jeu (event):
 
 
     # Chaque joueur retourne deux avant de commencer
-    for i in range (4):
-        pass
+    
+    
+    sommeJn=[0,0,0,0]
+    for joueur in range (4):
+        print("Joueur",joueur+1)
+        for j in range (2):
+            position=int(input(f"Position carte retourner{j+1}"))
+            ligne,colonne=convetirPosition(position)
+            listeEtatCarteJn[joueur][ligne][colonne]=True
+            sommeJn[joueur]+=listeJn[joueur][ligne][colonne]
+
+    joueurDebut=sommeJn.index(max(sommeJn))+1
 
 
     while not gagner :
-        joueur=0
+        joueur=joueurDebut
         
         for i in range (nbJoueur):
             print("Joueur :",joueur+1)
-            print(listeJ1)
+            print(listeJn[joueur])
+            print(listeEtatCarteJn[joueur])
             print ("defausse",defausse[0])
 
             if "clic dans carte pioche":
@@ -70,20 +81,20 @@ def jeu():      #def jeu (event):
             #position = int(input("choix position"))            #recuperer l'endroit du clic
         
 
-
-
-            if typeJeu==1:  #if typeJeu=="piocher" :
-                jouerCarte = True                        # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
+            if typeJeu==1:          #if typeJeu=="piocher" :
                 cartePioche=pioche.pop(0)
                 print("Carte pioché",cartePioche)
-                position = int(input("choix position"))
-                if jouerCarte :
+                jouerCarte=int(input("jouer la carte 1-oui, 2-non"))  #jouerCarte = True       # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
+
+                
+                if jouerCarte == 1:     #if jouerCarte :
                     #position = 2                           #recuperer l'endroit du clic
+                    position = int(input("choix position"))
                     listeJn[joueur],listeEtatCarteJn[joueur],carteEnleve=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],cartePioche,position)
                     defausse.insert(0,carteEnleve)
                 else :
                     defausse.insert(0,cartePioche)
-                    typeJeu = "retourneCarte"
+                    typeJeu = 2     #typeJeu = "retourneCarte"
         
 
 
@@ -113,9 +124,9 @@ def jeu():      #def jeu (event):
 
             print(listeJn[joueur])
             print(listeEtatCarteJn[joueur])
-            joueur +=1
-        print("")
-        print("")
-        print(listeEtatCarteJn[joueur])    
+            joueur =(joueur+1)%4
+            print("")
+            print("")
+        #print(listeEtatCarteJn[joueur])    
 
 jeu ()
