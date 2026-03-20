@@ -1,6 +1,7 @@
 from tkinter import *
 from jeu import *
 
+
 # Fichier Interface Graphique du jeu - projet S4 informatique
 
 ''' Création de la fenêtre ----------------------------------------------------------------------------------------'''
@@ -50,18 +51,18 @@ can = Canvas(fenetre, bg ='black')
 can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
 
 # fonction emplacement des cartes d'un joueur
-def emplacement_cartes_Jn(x0,y0) :
+def emplacement_cartes_Jn() :
     # à terminer !!!!!!!
-    can.create_rectangle(x0, y0, x0+75, y0+105,width=1,fill="#808080") 
-    can.create_rectangle(x0, y0+110, 105, 225,width=1,fill="#808080") 
-    can.create_rectangle(x0, 230, 105, 335,width=1,fill="#808080") 
+    can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
+    can.create_rectangle(30, 120, 105, 225,width=1,fill="#808080") 
+    can.create_rectangle(30, 230, 105, 335,width=1,fill="#808080") 
 
     can.create_rectangle(110, 10, 185, 115,width=1,fill="#808080") 
     can.create_rectangle(110, 120, 185, 225,width=1,fill="#808080") 
     can.create_rectangle(110, 230, 185, 335,width=1,fill="#808080") 
 
     can.create_rectangle(190, 10, 265, 115,width=1,fill="#808080") 
-    can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080") 
+    can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080")
     can.create_rectangle(190, 230, 265, 335,width=1,fill="#808080") 
 
     can.create_rectangle(270, 10, 345, 115,width=1,fill="#808080") 
@@ -88,7 +89,7 @@ can.create_rectangle(270, 230, 345, 335,width=1,fill="#808080")
 
 
 # cartes J2 (haut droite)
-can.create_rectangle(1010, 10, 1085, 115,width=1,fill="#804848") 
+can.create_rectangle(1010, 10, 1085, 115,width=1,fill="#808080") 
 can.create_rectangle(1010, 120, 1085, 225,width=1,fill="#808080") 
 can.create_rectangle(1010, 230, 1085, 335,width=1,fill="#808080") 
 
@@ -141,8 +142,8 @@ can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080")
 can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
 
 # Cartes de pioche et défausse 
-can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080") 
-can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080") 
+can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
+can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche
 
 
 ''' Faces des cartes ---------------------------------------------------------------------------------------'''
@@ -188,24 +189,44 @@ bRejouer.place(anchor="sw", x=1275, y=730)
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 def popupChoix() :
-    messageChoix = "Seu voulez-vous faire ?"
-    fenetre = Toplevel()
-    fenetre.iconbitmap("eseoLogo.ico")
-    fenetre.config(background='white')
-    fenetre.title('Erreur')
-    fenetre.geometry("300x75+200+200")
-    message = Label(fenetre, text=messageChoix, fg="blue", bg="white", font='Calibri 15 bold')
-    message.pack()
+    # fenêtre popup : à terminer !!!!
+    messageChoix = "Voulez-vous jouer cette carte ?"
+    miniFenetre = Toplevel()
+    miniFenetre.iconbitmap("eseoLogo.ico")
+    miniFenetre.config(background='white')
+    miniFenetre.title('Choix')
+    miniFenetre.geometry("280x340+550+200")
+    message = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
 
-#grille()
+    # emplacement de la carte
+    # largeur = 125
+    # hauteur = 175
+    carte = Canvas(miniFenetre, bg ='black',width=140, height=195)
+
+    # boutons
+    oui = Button(miniFenetre, text ='Oui')
+    non = Button(miniFenetre, text ='Non')
+
+    # placer les boutons
+    message.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
+    carte.grid(row=2, column=0, sticky="n", padx = 5, pady = 10)
+    oui.grid(row=4, column=0, sticky="w", padx = 5, pady = 5)
+    non.grid(row=4, column=0, sticky="e", padx = 5, pady = 5)
+
+'''test popup'''
+#popupChoix()
+
+
+
 #case = can.bind('<Button-1>', dessiner)
 
 
 
 
 
+case = can.bind('<Button-1>',deroulerJeu)
 
-case = can.bind('<Button-1>', jeu)
+print(etat)
 
 
 fenetre.mainloop()

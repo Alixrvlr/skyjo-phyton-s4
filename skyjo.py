@@ -61,17 +61,59 @@ def supColonne (listeJn,colonne):
     return listeJn
 
 
-def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
+def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou defausse) qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
     if x>=30 and x<= 345:
         if y>=10 and y<=335:
-            return 1        # Jeu J1
+            return "jeu1"        # Jeu J1
         elif y>=370 and y<= 695:
-            return 4        # Jeu J4
+            return "jeu4"        # Jeu J4
     
     elif x>=1010 and x<=1325:
         if y>=10 and y<=335:
-            return 2        # Jeu J2
+            return "jeu2"        # Jeu J2
         elif y>=370 and y<= 695:
-            return 3        # Jeu J3
+            return "jeu3"        # Jeu J3
         
-    
+    elif x>=598 and x<=673:
+        if y>=315 and y<=420:
+            return "pioche" #pioche
+        
+    elif x>=693 and x<=768:
+        if y>=315 and y<=420:
+            return "defausse" #defausse
+        
+def recupPositionCarte (x,y,decalageX,decalageY):
+    if x-decalageX>=30 and x-decalageX<= 105:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return 1        
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return 5 
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return 9
+        
+    elif x-decalageX>=110 and x-decalageX<= 185:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return 2        
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return 6 
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return 10
+        
+    elif x-decalageX>=190 and x-decalageX<= 265:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return 3        
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return 7 
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return 11
+        
+    elif x-decalageX>=270 and x-decalageX<= 345:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return 4        
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return 8 
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return 12
+    else :
+        return None
+        
