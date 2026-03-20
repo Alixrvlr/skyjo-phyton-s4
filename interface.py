@@ -50,18 +50,18 @@ can = Canvas(fenetre, bg ='black')
 can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
 
 # fonction emplacement des cartes d'un joueur
-def emplacement_cartes_Jn(x0,y0) :
+def emplacement_cartes_Jn() :
     # à terminer !!!!!!!
-    can.create_rectangle(x0, y0, x0+75, y0+105,width=1,fill="#808080") 
-    can.create_rectangle(x0, y0+110, 105, 225,width=1,fill="#808080") 
-    can.create_rectangle(x0, 230, 105, 335,width=1,fill="#808080") 
+    can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
+    can.create_rectangle(30, 120, 105, 225,width=1,fill="#808080") 
+    can.create_rectangle(30, 230, 105, 335,width=1,fill="#808080") 
 
     can.create_rectangle(110, 10, 185, 115,width=1,fill="#808080") 
     can.create_rectangle(110, 120, 185, 225,width=1,fill="#808080") 
     can.create_rectangle(110, 230, 185, 335,width=1,fill="#808080") 
 
     can.create_rectangle(190, 10, 265, 115,width=1,fill="#808080") 
-    can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080") 
+    can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080")
     can.create_rectangle(190, 230, 265, 335,width=1,fill="#808080") 
 
     can.create_rectangle(270, 10, 345, 115,width=1,fill="#808080") 
