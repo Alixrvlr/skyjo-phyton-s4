@@ -99,7 +99,7 @@ def jeu (event):       #def jeu():
                     defausse.insert(0,carteEnleve)
                 else :
                     defausse.insert(0,cartePioche)
-                    typeJeu = 2     #typeJeu = "retourneCarte"
+                    typeJeu = 3     #typeJeu = "retourneCarte"
         
 
 

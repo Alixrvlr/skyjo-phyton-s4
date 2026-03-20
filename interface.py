@@ -7,7 +7,7 @@ from jeu import *
 
 fenetre = Tk()
 fenetre.title("Skyjo")
-fenetre.iconbitmap("logo.ico")
+fenetre.iconbitmap("eseoLogo.ico")
 
 largeur = fenetre.winfo_screenwidth()
 hauteur = fenetre.winfo_screenheight()
@@ -48,6 +48,26 @@ expand=True : utilise tout l’espace disponible
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
 can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
+
+# fonction emplacement des cartes d'un joueur
+def emplacement_cartes_Jn(x0,y0) :
+    # à terminer !!!!!!!
+    can.create_rectangle(x0, y0, x0+75, y0+105,width=1,fill="#808080") 
+    can.create_rectangle(x0, y0+110, 105, 225,width=1,fill="#808080") 
+    can.create_rectangle(x0, 230, 105, 335,width=1,fill="#808080") 
+
+    can.create_rectangle(110, 10, 185, 115,width=1,fill="#808080") 
+    can.create_rectangle(110, 120, 185, 225,width=1,fill="#808080") 
+    can.create_rectangle(110, 230, 185, 335,width=1,fill="#808080") 
+
+    can.create_rectangle(190, 10, 265, 115,width=1,fill="#808080") 
+    can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080") 
+    can.create_rectangle(190, 230, 265, 335,width=1,fill="#808080") 
+
+    can.create_rectangle(270, 10, 345, 115,width=1,fill="#808080") 
+    can.create_rectangle(270, 120, 345, 225,width=1,fill="#808080") 
+    can.create_rectangle(270, 230, 345, 335,width=1,fill="#808080") 
+    
 
 # cartes J1 (haut gauche)
 can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
@@ -120,6 +140,13 @@ can.create_rectangle(270, 370, 345, 475,width=1,fill="#808080")
 can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080") 
 can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
 
+# Cartes de pioche et défausse 
+can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080") 
+can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080") 
+
+
+''' Faces des cartes ---------------------------------------------------------------------------------------'''
+
 J1=(0,0)
 J2=(980,0)
 J3=(980,360)
@@ -133,12 +160,23 @@ def affichagecarteJn(a,b):
         can.create_image(x[i]+a+75/2,y[i]+b+105/2,image=versocarte)
     images.append(versocarte)
 
+def affichagepioche():
+    pioche=PhotoImage(file="img/verso.png")
+    defausse=PhotoImage(file="img/-1.png")
+    can.create_image(598+75/2,315+105/2,image=pioche)
+    can.create_image(693+75/2,315+105/2,image=defausse)
+    images.append(pioche)
+    images.append(defausse)
+
+affichagepioche()
 
 affichagecarteJn(J1[0],J1[1])
 affichagecarteJn(J2[0],J2[1])
 affichagecarteJn(J3[0],J3[1])
 affichagecarteJn(J4[0],J4[1])
 can.pack(fill="both",expand=YES)
+
+
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
@@ -149,7 +187,15 @@ bRejouer.place(anchor="sw", x=1275, y=730)
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
-
+def popupChoix() :
+    messageChoix = "Seu voulez-vous faire ?"
+    fenetre = Toplevel()
+    fenetre.iconbitmap("eseoLogo.ico")
+    fenetre.config(background='white')
+    fenetre.title('Erreur')
+    fenetre.geometry("300x75+200+200")
+    message = Label(fenetre, text=messageChoix, fg="blue", bg="white", font='Calibri 15 bold')
+    message.pack()
 
 #grille()
 #case = can.bind('<Button-1>', dessiner)
