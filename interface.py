@@ -1,5 +1,6 @@
 from tkinter import *
 from jeu import *
+from skyjo import *
 
 
 # Fichier Interface Graphique du jeu - projet S4 informatique
@@ -120,11 +121,11 @@ can.create_rectangle(190, 590, 265, 695,width=1,fill="#808080")
 
 can.create_rectangle(270, 370, 345, 475,width=1,fill="#808080") 
 can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080") 
-can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") '''
+can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
 
 # Cartes de pioche et défausse 
 can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
-can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche
+can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche '''
 
 
 ''' Faces des cartes ---------------------------------------------------------------------------------------'''
@@ -157,6 +158,7 @@ affichagecarteJn(J2[0],J2[1])
 affichagecarteJn(J3[0],J3[1])
 affichagecarteJn(J4[0],J4[1])
 can.pack(fill="both",expand=YES)
+
 
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
@@ -199,6 +201,13 @@ def popupChoix() :
 
 ''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
 def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+    fenetreFin = Toplevel()
+    fenetreFin.iconbitmap("eseoLogo.ico")
+    fenetreFin.config(background='white')
+    fenetreFin.title('Fin de la partie')
+    fenetreFin.geometry("525x250+420+270") # dimensions et position de la fenêtre
+
+    # messages    
     messageBravo = "Bravo ! " 
     messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
     message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
@@ -206,11 +215,6 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
         message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
     if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
-    fenetreFin = Toplevel()
-    fenetreFin.iconbitmap("eseoLogo.ico")
-    fenetreFin.config(background='white')
-    fenetreFin.title('Vainqueur')
-    fenetreFin.geometry("525x250+420+270") # dimensions et position de la fenêtre
     message1 = Label(fenetreFin, text=messageBravo, fg="blue", bg="white", font='Selestin 15')
     message2 = Label(fenetreFin, text=messageVainqueur, fg="blue", bg="white", font='Selestin 15')
     message3 = Label(fenetreFin, text=message2e, fg="blue", bg="white", font='Selestin 13')
