@@ -49,27 +49,8 @@ expand=True : utilise tout l’espace disponible
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
 can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
-
-# fonction emplacement des cartes d'un joueur
-def emplacement_cartes_Jn() :
-    # à terminer !!!!!!!
-    can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
-    can.create_rectangle(30, 120, 105, 225,width=1,fill="#808080") 
-    can.create_rectangle(30, 230, 105, 335,width=1,fill="#808080") 
-
-    can.create_rectangle(110, 10, 185, 115,width=1,fill="#808080") 
-    can.create_rectangle(110, 120, 185, 225,width=1,fill="#808080") 
-    can.create_rectangle(110, 230, 185, 335,width=1,fill="#808080") 
-
-    can.create_rectangle(190, 10, 265, 115,width=1,fill="#808080") 
-    can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080")
-    can.create_rectangle(190, 230, 265, 335,width=1,fill="#808080") 
-
-    can.create_rectangle(270, 10, 345, 115,width=1,fill="#808080") 
-    can.create_rectangle(270, 120, 345, 225,width=1,fill="#808080") 
-    can.create_rectangle(270, 230, 345, 335,width=1,fill="#808080") 
     
-
+'''
 # cartes J1 (haut gauche)
 can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
 can.create_rectangle(30, 120, 105, 225,width=1,fill="#808080") 
@@ -139,7 +120,7 @@ can.create_rectangle(190, 590, 265, 695,width=1,fill="#808080")
 
 can.create_rectangle(270, 370, 345, 475,width=1,fill="#808080") 
 can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080") 
-can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
+can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") '''
 
 # Cartes de pioche et défausse 
 can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
@@ -180,14 +161,15 @@ bRejouer.place(anchor="sw", x=1275, y=730)
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 def popupChoix() :
-    # fenêtre popup : à terminer !!!!
+    messagePioche = "Vous avez pioché un"
     messageChoix = "Voulez-vous jouer cette carte ?"
     miniFenetre = Toplevel()
     miniFenetre.iconbitmap("eseoLogo.ico")
     miniFenetre.config(background='white')
     miniFenetre.title('Choix')
-    miniFenetre.geometry("280x340+550+200")
-    message = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
+    miniFenetre.geometry("280x360+550+200") # dimensions et position de la fenêtre
+    message1 = Label(miniFenetre, text=messagePioche, fg="blue", bg="white", font='Selestin 15')
+    message2 = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
 
     # emplacement de la carte
     # largeur = 125
@@ -198,18 +180,48 @@ def popupChoix() :
     oui = Button(miniFenetre, text ='Oui')
     non = Button(miniFenetre, text ='Non')
 
-    # placer les boutons
-    message.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
+    # placer sur l'écran
+    message1.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
     carte.grid(row=2, column=0, sticky="n", padx = 5, pady = 10)
-    oui.grid(row=4, column=0, sticky="w", padx = 5, pady = 5)
-    non.grid(row=4, column=0, sticky="e", padx = 5, pady = 5)
+    message2.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
+    oui.grid(row=6, column=0, sticky="w", padx = 5, pady = 5)
+    non.grid(row=6, column=0, sticky="e", padx = 5, pady = 5)
+
+
+''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
+def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+    messageBravo = "Bravo ! " 
+    messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
+    message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
+    if troisieme != 0 : # il y a un troisième joueur
+        message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
+    if quatrieme != 0 : # il y a un quatrième joueur
+        message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
+    fenetreFin = Toplevel()
+    fenetreFin.iconbitmap("eseoLogo.ico")
+    fenetreFin.config(background='white')
+    fenetreFin.title('Vainqueur')
+    fenetreFin.geometry("525x250+420+270") # dimensions et position de la fenêtre
+    message1 = Label(fenetreFin, text=messageBravo, fg="blue", bg="white", font='Selestin 15')
+    message2 = Label(fenetreFin, text=messageVainqueur, fg="blue", bg="white", font='Selestin 15')
+    message3 = Label(fenetreFin, text=message2e, fg="blue", bg="white", font='Selestin 13')
+    if troisieme != 0 : 
+        message4 = Label(fenetreFin, text=message3e, fg="blue", bg="white", font='Selestin 13')
+    if quatrieme != 0 :
+        message5 = Label(fenetreFin, text=message4e, fg="blue", bg="white", font='Selestin 13')
+
+    # placer sur l'écran
+    message1.grid(row=1, column=0, sticky="n", padx = 10, pady = 10)
+    message2.grid(row=2, column=0, sticky="n", padx = 10, pady = 10)
+    message3.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
+    if troisieme != 0 : 
+        message4.grid(row=5, column=0, sticky="n", padx = 10, pady = 10)
+    if quatrieme != 0 :
+        message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
 
 '''test popup'''
 #popupChoix()
-
-
-
-#case = can.bind('<Button-1>', dessiner)
+#popupScore("Joueur 1", 5, "Joueur 3", 13, "Joueur 2", 23, "Joueur 4", 55)
 
 
 
