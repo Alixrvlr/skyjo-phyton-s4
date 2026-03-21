@@ -13,7 +13,7 @@ decalage =[[0,0],[980,0],[980,360],[0,360]]
 
 
 
-def deroulerJeu(event):  
+def deroulerJeu(x,y):  
     global etat
     global decalage     
     global joueur
@@ -23,10 +23,13 @@ def deroulerJeu(event):
     global defausse
     global pioche
     global typeJeu
+    global nouvCarte
+    global position
+    #global x
+    #global y
 
-
-    x=event.x #donnera la valeur de x
-    y=event.y # donnera la valeur de y
+    #x=event.x #donnera la valeur de x
+    #y=event.y # donnera la valeur de y
     print(x,y)
 
     
@@ -79,8 +82,9 @@ def deroulerJeu(event):
                 print(f"decalage {decalage[joueur-1]}")
                 listeJn[joueur],listeEtatCarteJn[joueur],carteEnleve=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],cartePioche,position)
                 defausse.insert(0,carteEnleve)
+                nouvCarte = cartePioche
                 print("changement carte ok")
-                etat= 'choix_pioche'
+                etat= 'changement_carte'
             else :
                 defausse.insert(0,cartePioche)
                 typeJeu = 3     #typeJeu = "retourneCarte"
@@ -92,9 +96,10 @@ def deroulerJeu(event):
             print(f"position choix {position}")                           #recuperer l'endroit du clic
             print(f"decalage {decalage[joueur-1]}")
             listeJn[joueur],listeEtatCarteJn[joueur],carteEnleve=echangeCarte(listeJn[joueur],listeEtatCarteJn[joueur],carteDefausse,position)
+            nouvCarte = carteDefausse
             defausse.insert(0,carteEnleve)
             print("changement carte ok")
-            etat= 'choix_pioche'
+            etat= 'changement_carte'
 
 
 
@@ -106,8 +111,9 @@ def deroulerJeu(event):
             print(f"decalage {decalage[joueur-1]}")
             ligne,colonne = convetirPosition(position)
             listeEtatCarteJn[joueur][ligne][colonne]= True 
+            nouvCarte = listeJn[joueur][ligne][colonne]
             print("changement carte ok")
-            etat= 'choix_pioche'   
+            etat= 'changement_carte'   
             
         joueur =(joueur+1)%4
 
@@ -140,7 +146,7 @@ def deroulerJeu(event):
     print(etat)
     print("")
     print("")
-           
+    return etat       
 
 
 def actionStart ():
