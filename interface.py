@@ -158,7 +158,7 @@ def affichageCarteVerso (carte,x,y,a,b):
     test = PhotoImage(file=listeImgCarteVerso[carte+2])
     can.create_image(x+a+75/2,y+b+105/2,image=test)
     images.append(test)
-    etat= 'choix_pioche'
+    
     
 
 affichagecarteJnRecto(J1[0],J1[1])
@@ -248,27 +248,35 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
 #popupScore("Joueur 1", 5, "Joueur 3", 13, "Joueur 2", 23, "Joueur 4", 55)
 
 
-def go(event):
-    global decalage
+def go(event,variableJeu):
+    '''global decalage
     global nouvCarte
     #global x
     #global y
     global joueur
-    global etat
+    global etat'''
     x=event.x #donnera la valeur de x
     y=event.y # donnera la valeur de y
-    etat =deroulerJeu(x,y)
-    print (f"etat dans interface {etat}")
-    if etat=='changement_carte':
-        affichageCarteVerso(nouvCarte,x,y,decalage[joueur][0],decalage[joueur][1])
-        etat ='choix_pioche'
+
+    variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
+    
+    variableJeu =deroulerJeu(variableJeu)
+    print (f"etat dans interface {variableJeu["etat"]}")
+    if variableJeu["etat"]=='changement_carte':
+        affichageCarteVerso(variableJeu["nouvCarte"],x,y,variableJeu["decalage"][variableJeu["joueur"]-2][0],variableJeu["decalage"][variableJeu["joueur"]-2][1])
+        variableJeu["etat"] ='choix_pioche'
     
 
     #print (etat)
 
 
-case = can.bind('<Button-1>',go )
+variableJeu={
+    "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    
+    "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
+    }
 
+can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
 
 
