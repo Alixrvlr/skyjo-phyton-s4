@@ -135,6 +135,7 @@ J2=(980,0)
 J3=(980,360)
 J4=(0,360)
 images=[]
+
 def affichagecarteJnRecto(a,b):
     versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
     x=[30,30,30,110,110,110,190,190,190,270,270,270]
@@ -154,9 +155,10 @@ def affichagepioche():
 affichagepioche()
 
 def affichageCarteVerso (carte,x,y,a,b):
+    global images
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     test = PhotoImage(file=listeImgCarteVerso[carte+2])
-    can.create_image(x+a+75/2,y+b+105/2,image=test)
+    can.create_image(x+a+75/2, y+b+105/2, image=test)
     images.append(test)
     
     
@@ -263,8 +265,11 @@ def go(event,variableJeu):
     variableJeu =deroulerJeu(variableJeu)
     print (f"etat dans interface {variableJeu["etat"]}")
     if variableJeu["etat"]=='changement_carte':
+        print(x,y)
+        print(len(images))
         affichageCarteVerso(variableJeu["nouvCarte"],x,y,variableJeu["decalage"][variableJeu["joueur"]-2][0],variableJeu["decalage"][variableJeu["joueur"]-2][1])
         variableJeu["etat"] ='choix_pioche'
+        
     
 
     #print (etat)
@@ -272,7 +277,6 @@ def go(event,variableJeu):
 
 variableJeu={
     "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    
     "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
     }
 
