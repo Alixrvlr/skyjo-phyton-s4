@@ -118,4 +118,33 @@ def recupPositionCarte (x,y,decalageX,decalageY):
             return 12
     else :
         return None
+
+
+def recupCoordonnéeCarte (x,y,decalageX,decalageY):
+    if x-decalageX>=30 and x-decalageX<= 105:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return 30+decalageX, 10+decalageY      
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return 30+decalageX, 120+decalageY
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return 30+decalageX, 230+decalageY
+        
+    elif x-decalageX>=110 and x-decalageX<= 185:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return 110+decalageX, 10+decalageY   
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return  110+decalageX, 120+decalageY
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return  110+decalageX,230+decalageY
+        
+    elif x-decalageX>=190 and x-decalageX<= 265:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return  190+decalageX, 10+decalageY      
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return  190+decalageX,120+decalageY 
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return  190+decalageX,230+decalageY
+    else :
+        return None
+
         
