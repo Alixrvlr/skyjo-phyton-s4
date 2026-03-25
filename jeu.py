@@ -154,7 +154,7 @@ def deroulerJeu(variableJeu):
     return variableJeu       
 
 
-def actionStart (variableJeu):
+"""def actionStart ():
     '''global joueur
     global listeJn
     global listeEtatCarteJn
@@ -162,6 +162,8 @@ def actionStart (variableJeu):
     global defausse
     global pioche'''
     
+    
+
     # A faire qu'au premier tour
     nbJoueur=4
     cartes =([-2]*5 +[0]*15 +[-1]*10 +[1]*10 +[2]*10 +[3]*10 +[4]*10 +[5]*10 +[6]*10 +[7]*10 +[8]*10 +[9]*10 +[10]*10 +[11]*10 +[12]*10)
@@ -218,7 +220,7 @@ def actionStart (variableJeu):
     #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                        # Tuple avec les coordonnées du clic
     print(variableJeu["listeCarte"])
-    return variableJeu
+    return variableJeu"""
 
 
 # Chaque joueur retourne deux avant de commencer
