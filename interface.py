@@ -253,6 +253,8 @@ def actionStart ():
     #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                        # Tuple avec les coordonnées du clic
     print(variableJeu["listeCarte"])
+    affichagecarteJnRecto(variableJeu)
+    affichagepioche(variableJeu["defausse"][0])
     return variableJeu
 
 
@@ -355,6 +357,7 @@ def go(event,variableJeu):
         print(len(images))
         xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-2)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-2)%4][1])
         affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin,variableJeu["decalage"][(variableJeu["joueur"]-2)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-2)%4][1])
+        affichagepioche(variableJeu["defausse"][0])
         variableJeu["etat"] ='choix_pioche'
         
     
@@ -368,8 +371,7 @@ def go(event,variableJeu):
     "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
     }'''
 variableJeu=actionStart()
-affichagecarteJnRecto(variableJeu)
-affichagepioche(variableJeu["pioche"][0])
+
 
 can.pack(fill="both",expand=YES)
 
