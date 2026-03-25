@@ -144,6 +144,14 @@ def recupCoordonnéeCarte (x,y,decalageX,decalageY):
             return  190+decalageX,120+decalageY 
         elif y-decalageY>=230 and y-decalageY<= 335:
             return  190+decalageX,230+decalageY
+        
+    elif x-decalageX>=270 and x-decalageX<= 345:
+        if y-decalageY>=10 and y-decalageY<=115:
+            return 270+decalageX, 10+decalageY        
+        elif y-decalageY>=120 and y-decalageY<= 225:
+            return 270+decalageX, 120+decalageY 
+        elif y-decalageY>=230 and y-decalageY<= 335:
+            return 270+decalageX, 230+decalageY
     else :
         return None
 
