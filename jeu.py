@@ -237,11 +237,3 @@ def deroulerJeu(variableJeu):
 
     joueurDebut=sommeJn.index(max(sommeJn))+1
     joueur=joueurDebut'''
-
-
-
-
-
-
-
-

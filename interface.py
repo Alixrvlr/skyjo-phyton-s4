@@ -49,7 +49,7 @@ expand=True : utilise tout l’espace disponible
 
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
-can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
+can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=745, x=0, y=0)
     
 '''
 # cartes J1 (haut gauche)
@@ -148,7 +148,7 @@ def affichagecarteJnRecto(variableJeu):
 def affichagepioche(cartePioche):
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     pioche=PhotoImage(file="img/verso.png")
-    defausse=PhotoImage(file=listeImgCarteVerso[cartePioche+2])
+    defausse=PhotoImage(file="img/-1.png")
     can.create_image(598+75/2,315+105/2,image=pioche)
     can.create_image(693+75/2,315+105/2,image=defausse)
     images.append(pioche)
@@ -163,7 +163,7 @@ def affichageCarteVerso (carte,x,y,a,b):
     can.create_image(x+75/2, y+105/2, image=carte)      #can.create_image(x+a+75/2, y+b+105/2, image=carte)
     images.append(carte)
     
-
+    
 
 '''affichagecarteJnRecto(J1[0],J1[1])
 affichagecarteJnRecto(J2[0],J2[1])
@@ -364,25 +364,23 @@ def go(event,variableJeu):
     #print (etat)
 
 
-
-
-'''variableJeu={
+variableJeu={
     "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    }'''
-variableJeu=actionStart()
+    "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
+    }
+affichagecarteJnRecto(variableJeu)
+affichagepioche()
 
+#can.pack(fill="both",expand=YES)
 
-can.pack(fill="both",expand=YES)
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-bQuitter.place(anchor="se", x=80, y=730)
+bQuitter.place(anchor="se", x=405, y=690)
 
 bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
-bRejouer.place(anchor="sw", x=1275, y=730)
-
-
+bRejouer.place(anchor="sw", x=948, y=690)
 
 
 
