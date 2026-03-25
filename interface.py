@@ -49,7 +49,7 @@ expand=True : utilise tout l’espace disponible
 
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
-can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
+can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=745, x=0, y=0)
     
 '''
 # cartes J1 (haut gauche)
@@ -279,17 +279,16 @@ variableJeu={
 affichagecarteJnRecto(variableJeu)
 affichagepioche()
 
-can.pack(fill="both",expand=YES)
+#can.pack(fill="both",expand=YES)
+
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-bQuitter.pack(anchor="se", x=80, y=730)
+bQuitter.place(anchor="se", x=405, y=690)
 
 bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
-bRejouer.place(anchor="sw", x=1275, y=730)
-
-
+bRejouer.place(anchor="sw", x=948, y=690)
 
 
 
