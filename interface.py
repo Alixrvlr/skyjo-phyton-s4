@@ -144,6 +144,8 @@ def affichagecarteJnRecto(a,b):
         can.create_image(x[i]+a+75/2,y[i]+b+105/2,image=versocarte)
     images.append(versocarte)
 
+
+
 def affichagepioche():
     pioche=PhotoImage(file="img/verso.png")
     defausse=PhotoImage(file="img/-1.png")
