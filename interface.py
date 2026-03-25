@@ -147,7 +147,6 @@ def affichagecarteJnRecto(variableJeu):
 
 def affichagepioche(cartePioche):
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
-
     pioche=PhotoImage(file="img/verso.png")
     defausse=PhotoImage(file=listeImgCarteVerso[cartePioche+2])
     can.create_image(598+75/2,315+105/2,image=pioche)
@@ -160,9 +159,9 @@ def affichagepioche(cartePioche):
 def affichageCarteVerso (carte,x,y,a,b):
     global images
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
-    test = PhotoImage(file=listeImgCarteVerso[carte+2])
-    can.create_image(x+a+75/2, y+b+105/2, image=test)
-    images.append(test)
+    carte = PhotoImage(file=listeImgCarteVerso[carte+2])
+    can.create_image(x+75/2, y+105/2, image=carte)      #can.create_image(x+a+75/2, y+b+105/2, image=carte)
+    images.append(carte)
     
 
 
@@ -241,7 +240,7 @@ def actionStart ():
     #joueur=1
 
     variableJeu["etat"]= "choix_pioche"                     # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    variableJeu["joueur"]= 1                                # Donne le joueur auquel c'est le tour de jouer (de 1 à 4)
+    variableJeu["joueur"]= 0                                # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
     variableJeu["listeCarte"]= listeJn                      # Liste des jeux de chaque joueur (le chiffre des cartes)
     variableJeu["listeEtatCarte"]= listeEtatCarteJn         # Liste des états des cartes de chaque jeu
     variableJeu["nbJoueur"]= nbJoueur                       # Nombre de joueur qui jouent
@@ -355,8 +354,8 @@ def go(event,variableJeu):
     if variableJeu["etat"]=='changement_carte':
         print(x,y)
         print(len(images))
-        xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-2)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-2)%4][1])
-        affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin,variableJeu["decalage"][(variableJeu["joueur"]-2)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-2)%4][1])
+        xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-1)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%4][1])
+        affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin,variableJeu["decalage"][(variableJeu["joueur"]-1)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%4][1])
         affichagepioche(variableJeu["defausse"][0])
         variableJeu["etat"] ='choix_pioche'
         
