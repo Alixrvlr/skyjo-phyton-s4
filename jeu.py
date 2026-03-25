@@ -57,7 +57,7 @@ def deroulerJeu(variableJeu):
             variableJeu["etat"] = 'choix_carte'
             print(f"position clic : {variableJeu["typeJeu"]}")
 
-        elif positionClic == 'jeu1' and variableJeu["joueur"] ==1 and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]-1][0],variableJeu["decalage"][variableJeu["joueur"]-1][1]) != None  :
+        elif positionClic == ("jeu"+variableJeu["joueur"]) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]-1][0],variableJeu["decalage"][variableJeu["joueur"]-1][1]) != None  :
             variableJeu["typeJeu"] = 'retourneCarte'
             variableJeu["etat"] = 'choix_carte'
             print (f"position clic dans jeu {positionClic}")
@@ -100,7 +100,7 @@ def deroulerJeu(variableJeu):
             print(f"decalage {variableJeu["decalage"][variableJeu["joueur"]-1]}")
             print(variableJeu["listeCarte"][variableJeu["joueur"]-1])
             print(variableJeu["listeCarte"])
-            variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteEnleve=echangeCarte(variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1],carteDefausse,emplacementCarte)
+            variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1],carteEnleve=echangeCarte(variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1],carteDefausse,emplacementCarte)
             variableJeu["nouvCarte"] = carteDefausse
             variableJeu["defausse"].insert(0,carteEnleve)
             print("changement carte ok")
