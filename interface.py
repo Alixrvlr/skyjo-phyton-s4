@@ -1,5 +1,6 @@
 from tkinter import *
 from jeu import *
+import random
 
 
 # Fichier Interface Graphique du jeu - projet S4 informatique
@@ -160,6 +161,8 @@ def affichagecarteJn(a,b):
     for i in range (12):
         can.create_image(x[i]+a+75/2,y[i]+b+105/2,image=versocarte)
     images.append(versocarte)
+
+
 
 def affichagepioche():
     pioche=PhotoImage(file="img/verso.png")
