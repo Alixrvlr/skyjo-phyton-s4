@@ -130,19 +130,20 @@ can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche
 
 ''' Faces des cartes ---------------------------------------------------------------------------------------'''
 
-J1=(0,0)
+'''J1=(0,0)
 J2=(980,0)
 J3=(980,360)
-J4=(0,360)
+J4=(0,360)'''
 images=[]
 
-def affichagecarteJnRecto(a,b):
-    versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
-    x=[30,30,30,110,110,110,190,190,190,270,270,270]
-    y=[10,120,230,10,120,230,10,120,230,10,120,230]
-    for i in range (12):
-        can.create_image(x[i]+a+75/2,y[i]+b+105/2,image=versocarte)
-    images.append(versocarte)
+def affichagecarteJnRecto(variableJeu):
+    for j in range (4):
+        versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
+        x=[30,30,30,110,110,110,190,190,190,270,270,270]
+        y=[10,120,230,10,120,230,10,120,230,10,120,230]
+        for i in range (12):
+            can.create_image(x[i]+variableJeu["decalage"][j][0]+75/2, y[i]+variableJeu["decalage"][j][1]+105/2, image=versocarte)
+        images.append(versocarte)
 
 
 
@@ -154,7 +155,7 @@ def affichagepioche():
     images.append(pioche)
     images.append(defausse)
 
-affichagepioche()
+
 
 def affichageCarteVerso (carte,x,y,a,b):
     global images
@@ -165,26 +166,19 @@ def affichageCarteVerso (carte,x,y,a,b):
     
     
 
-affichagecarteJnRecto(J1[0],J1[1])
+'''affichagecarteJnRecto(J1[0],J1[1])
 affichagecarteJnRecto(J2[0],J2[1])
 affichagecarteJnRecto(J3[0],J3[1])
-affichagecarteJnRecto(J4[0],J4[1])
+affichagecarteJnRecto(J4[0],J4[1])'''
+
 
 #affichageCarteVerso(2,30,10,J1[0],J1[1])
-can.pack(fill="both",expand=YES)
 
 
-''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
+
 #Fonction pour remettre le jeu a zero
 def rejouer ():
     etat ='start'
-
-
-bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-bQuitter.place(anchor="se", x=80, y=730)
-
-bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
-bRejouer.place(anchor="sw", x=1275, y=730)
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
@@ -281,6 +275,23 @@ variableJeu={
     "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
     "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
     }
+affichagecarteJnRecto(variableJeu)
+affichagepioche()
+
+can.pack(fill="both",expand=YES)
+
+''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
+
+bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
+bQuitter.pack(anchor="se", x=80, y=730)
+
+bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
+bRejouer.place(anchor="sw", x=1275, y=730)
+
+
+
+
+
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
