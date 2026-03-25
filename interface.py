@@ -49,7 +49,7 @@ expand=True : utilise tout l’espace disponible
 
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
-can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
+can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=745, x=0, y=0)
     
 '''
 # cartes J1 (haut gauche)
@@ -121,11 +121,11 @@ can.create_rectangle(190, 590, 265, 695,width=1,fill="#808080")
 
 can.create_rectangle(270, 370, 345, 475,width=1,fill="#808080") 
 can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080") 
-can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") '''
+can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
 
 # Cartes de pioche et défausse 
 can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
-can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche
+can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche '''
 
 
 ''' Faces des cartes ---------------------------------------------------------------------------------------'''
@@ -145,11 +145,11 @@ def affichagecarteJnRecto(variableJeu):
             can.create_image(x[i]+variableJeu["decalage"][j][0]+75/2, y[i]+variableJeu["decalage"][j][1]+105/2, image=versocarte)
         images.append(versocarte)
 
+def affichagepioche(cartePioche):
+    listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
 
-
-def affichagepioche():
     pioche=PhotoImage(file="img/verso.png")
-    defausse=PhotoImage(file="img/-1.png")
+    defausse=PhotoImage(file=listeImgCarteVerso[cartePioche+2])
     can.create_image(598+75/2,315+105/2,image=pioche)
     can.create_image(693+75/2,315+105/2,image=defausse)
     images.append(pioche)
@@ -164,7 +164,7 @@ def affichageCarteVerso (carte,x,y,a,b):
     can.create_image(x+a+75/2, y+b+105/2, image=test)
     images.append(test)
     
-    
+
 
 '''affichagecarteJnRecto(J1[0],J1[1])
 affichagecarteJnRecto(J2[0],J2[1])
@@ -176,6 +176,96 @@ affichagecarteJnRecto(J4[0],J4[1])'''
 
 
 
+
+
+
+
+
+
+
+
+
+def actionStart ():
+    '''global joueur
+    global listeJn
+    global listeEtatCarteJn
+    global nbJoueur
+    global defausse
+    global pioche'''
+    
+    variableJeu = {}
+
+    # A faire qu'au premier tour
+    nbJoueur=4
+    cartes =([-2]*5 +[0]*15 +[-1]*10 +[1]*10 +[2]*10 +[3]*10 +[4]*10 +[5]*10 +[6]*10 +[7]*10 +[8]*10 +[9]*10 +[10]*10 +[11]*10 +[12]*10)
+
+    listeJ1 =[]
+    listeJ2 =[]
+    listeJ3 =[]
+    listeJ4 =[]
+
+    listeEtatCarteJ1 =[[False for i in range (4)] for i in range (3)]
+    listeEtatCarteJ2 =[[False for i in range (4)] for i in range (3)]
+    listeEtatCarteJ3 =[[False for i in range (4)] for i in range (3)]
+    listeEtatCarteJ4 =[[False for i in range (4)] for i in range (3)]
+
+    listeEtatCarteJn = [listeEtatCarteJ1,listeEtatCarteJ2,listeEtatCarteJ3,listeEtatCarteJ4]
+
+    # Distribution des cartes
+    pioche = melangeCartes(cartes)
+
+    for i in range (12):
+        listeJ1.append(pioche.pop(0))
+        listeJ2.append(pioche.pop(0))
+        listeJ3.append(pioche.pop(0))
+        listeJ4.append(pioche.pop(0))
+
+
+
+    print("")
+    listeJ1 = convertirJeuCartes3Tableau(listeJ1)
+    listeJ2 = convertirJeuCartes3Tableau(listeJ2)
+    listeJ3 = convertirJeuCartes3Tableau(listeJ3)
+    listeJ4 = convertirJeuCartes3Tableau(listeJ4)
+
+    listeJn = [listeJ1,listeJ2,listeJ3,listeJ4]
+
+
+    # On met la première carte dans la défausse
+    defausse =[]
+    defausse.append(pioche.pop(0))
+
+    
+    gagner = False
+    
+    #joueur=1
+
+    variableJeu["etat"]= "choix_pioche"                     # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    variableJeu["joueur"]= 1                                # Donne le joueur auquel c'est le tour de jouer (de 1 à 4)
+    variableJeu["listeCarte"]= listeJn                      # Liste des jeux de chaque joueur (le chiffre des cartes)
+    variableJeu["listeEtatCarte"]= listeEtatCarteJn         # Liste des états des cartes de chaque jeu
+    variableJeu["nbJoueur"]= nbJoueur                       # Nombre de joueur qui jouent
+    variableJeu["defausse"]= defausse                       # Liste avec les cartes qui constituent la défausse
+    variableJeu["pioche"]= pioche                           # Liste avec les cartes qui constituent la pioche
+    variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
+
+    #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
+    #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
+    #"position": None                        # Tuple avec les coordonnées du clic
+    print(variableJeu["listeCarte"])
+    affichagecarteJnRecto(variableJeu)
+    affichagepioche(variableJeu["defausse"][0])
+    return variableJeu
+
+
+
+
+
+
+
+
+
+''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 #Fonction pour remettre le jeu a zero
 def rejouer ():
     etat ='start'
@@ -212,6 +302,13 @@ def popupChoix() :
 
 ''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
 def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+    fenetreFin = Toplevel()
+    fenetreFin.iconbitmap("eseoLogo.ico")
+    fenetreFin.config(background='white')
+    fenetreFin.title('Fin de la partie')
+    fenetreFin.geometry("525x250+420+270") # dimensions et position de la fenêtre
+
+    # messages    
     messageBravo = "Bravo ! " 
     messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
     message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
@@ -219,11 +316,6 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
         message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
     if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
-    fenetreFin = Toplevel()
-    fenetreFin.iconbitmap("eseoLogo.ico")
-    fenetreFin.config(background='white')
-    fenetreFin.title('Vainqueur')
-    fenetreFin.geometry("525x250+420+270") # dimensions et position de la fenêtre
     message1 = Label(fenetreFin, text=messageBravo, fg="blue", bg="white", font='Selestin 15')
     message2 = Label(fenetreFin, text=messageVainqueur, fg="blue", bg="white", font='Selestin 15')
     message3 = Label(fenetreFin, text=message2e, fg="blue", bg="white", font='Selestin 13')
@@ -263,7 +355,9 @@ def go(event,variableJeu):
     if variableJeu["etat"]=='changement_carte':
         print(x,y)
         print(len(images))
-        affichageCarteVerso(variableJeu["nouvCarte"],x,y,variableJeu["decalage"][variableJeu["joueur"]-2][0],variableJeu["decalage"][variableJeu["joueur"]-2][1])
+        xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-2)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-2)%4][1])
+        affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin,variableJeu["decalage"][(variableJeu["joueur"]-2)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-2)%4][1])
+        affichagepioche(variableJeu["defausse"][0])
         variableJeu["etat"] ='choix_pioche'
         
     
@@ -271,24 +365,24 @@ def go(event,variableJeu):
     #print (etat)
 
 
-variableJeu={
-    "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
-    }
-affichagecarteJnRecto(variableJeu)
-affichagepioche()
 
-can.pack(fill="both",expand=YES)
+
+'''variableJeu={
+    "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    }'''
+variableJeu=actionStart()
+
+
+#can.pack(fill="both",expand=YES)
+
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-bQuitter.place(anchor="se", x=80, y=730)
+bQuitter.place(anchor="se", x=405, y=690)
 
 bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
-bRejouer.place(anchor="sw", x=1275, y=730)
-
-
+bRejouer.place(anchor="sw", x=948, y=690)
 
 
 
