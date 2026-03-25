@@ -18,10 +18,12 @@ def melangeCartes(listeCarteTrie):
 def convetirPosition(position):
     ligne = (position-1)//4
     colonne = (position-1)%4
-    return ligne,colonne
+    return ligne, colonne
 
 def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
     ligne ,colonne =convetirPosition(position)
+    print(ligne,colonne)
+    print(listeJn)
     carteEnleve = listeJn[ligne][colonne]
     listeJn[ligne][colonne] = carteJouer
     listeEtatCarteJn[ligne][colonne] = True

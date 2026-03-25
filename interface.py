@@ -1,6 +1,6 @@
 from tkinter import *
 from jeu import *
-import random
+from skyjo import *
 
 
 # Fichier Interface Graphique du jeu - projet S4 informatique
@@ -50,27 +50,8 @@ expand=True : utilise tout l’espace disponible
 # test taille joueur
 can = Canvas(fenetre, bg ='black')
 can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=710, x=0, y=0)
-
-# fonction emplacement des cartes d'un joueur
-def emplacement_cartes_Jn() :
-    # à terminer !!!!!!!
-    can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
-    can.create_rectangle(30, 120, 105, 225,width=1,fill="#808080") 
-    can.create_rectangle(30, 230, 105, 335,width=1,fill="#808080") 
-
-    can.create_rectangle(110, 10, 185, 115,width=1,fill="#808080") 
-    can.create_rectangle(110, 120, 185, 225,width=1,fill="#808080") 
-    can.create_rectangle(110, 230, 185, 335,width=1,fill="#808080") 
-
-    can.create_rectangle(190, 10, 265, 115,width=1,fill="#808080") 
-    can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080")
-    can.create_rectangle(190, 230, 265, 335,width=1,fill="#808080") 
-
-    can.create_rectangle(270, 10, 345, 115,width=1,fill="#808080") 
-    can.create_rectangle(270, 120, 345, 225,width=1,fill="#808080") 
-    can.create_rectangle(270, 230, 345, 335,width=1,fill="#808080") 
     
-
+'''
 # cartes J1 (haut gauche)
 can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
 can.create_rectangle(30, 120, 105, 225,width=1,fill="#808080") 
@@ -140,7 +121,7 @@ can.create_rectangle(190, 590, 265, 695,width=1,fill="#808080")
 
 can.create_rectangle(270, 370, 345, 475,width=1,fill="#808080") 
 can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080") 
-can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
+can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") '''
 
 # Cartes de pioche et défausse 
 can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
@@ -154,7 +135,8 @@ J2=(980,0)
 J3=(980,360)
 J4=(0,360)
 images=[]
-def affichagecarteJn(a,b):
+
+def affichagecarteJnRecto(a,b):
     versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
     x=[30,30,30,110,110,110,190,190,190,270,270,270]
     y=[10,120,230,10,120,230,10,120,230,10,120,230]
@@ -174,32 +156,48 @@ def affichagepioche():
 
 affichagepioche()
 
-affichagecarteJn(J1[0],J1[1])
-affichagecarteJn(J2[0],J2[1])
-affichagecarteJn(J3[0],J3[1])
-affichagecarteJn(J4[0],J4[1])
+def affichageCarteVerso (carte,x,y,a,b):
+    global images
+    listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
+    test = PhotoImage(file=listeImgCarteVerso[carte+2])
+    can.create_image(x+a+75/2, y+b+105/2, image=test)
+    images.append(test)
+    
+    
+
+affichagecarteJnRecto(J1[0],J1[1])
+affichagecarteJnRecto(J2[0],J2[1])
+affichagecarteJnRecto(J3[0],J3[1])
+affichagecarteJnRecto(J4[0],J4[1])
+
+#affichageCarteVerso(2,30,10,J1[0],J1[1])
 can.pack(fill="both",expand=YES)
 
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
+#Fonction pour remettre le jeu a zero
+def rejouer ():
+    etat ='start'
+
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
 bQuitter.place(anchor="se", x=80, y=730)
 
-bRejouer= Button(fenetre, text ='Rejouer')
+bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
 bRejouer.place(anchor="sw", x=1275, y=730)
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 def popupChoix() :
-    # fenêtre popup : à terminer !!!!
+    messagePioche = "Vous avez pioché un"
     messageChoix = "Voulez-vous jouer cette carte ?"
     miniFenetre = Toplevel()
     miniFenetre.iconbitmap("eseoLogo.ico")
     miniFenetre.config(background='white')
     miniFenetre.title('Choix')
-    miniFenetre.geometry("280x340+550+200")
-    message = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
+    miniFenetre.geometry("280x360+550+200") # dimensions et position de la fenêtre
+    message1 = Label(miniFenetre, text=messagePioche, fg="blue", bg="white", font='Selestin 15')
+    message2 = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
 
     # emplacement de la carte
     # largeur = 125
@@ -210,26 +208,84 @@ def popupChoix() :
     oui = Button(miniFenetre, text ='Oui')
     non = Button(miniFenetre, text ='Non')
 
-    # placer les boutons
-    message.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
+    # placer sur l'écran
+    message1.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
     carte.grid(row=2, column=0, sticky="n", padx = 5, pady = 10)
-    oui.grid(row=4, column=0, sticky="w", padx = 5, pady = 5)
-    non.grid(row=4, column=0, sticky="e", padx = 5, pady = 5)
+    message2.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
+    oui.grid(row=6, column=0, sticky="w", padx = 5, pady = 5)
+    non.grid(row=6, column=0, sticky="e", padx = 5, pady = 5)
+
+
+''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
+def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+    messageBravo = "Bravo ! " 
+    messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
+    message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
+    if troisieme != 0 : # il y a un troisième joueur
+        message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
+    if quatrieme != 0 : # il y a un quatrième joueur
+        message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
+    fenetreFin = Toplevel()
+    fenetreFin.iconbitmap("eseoLogo.ico")
+    fenetreFin.config(background='white')
+    fenetreFin.title('Vainqueur')
+    fenetreFin.geometry("525x250+420+270") # dimensions et position de la fenêtre
+    message1 = Label(fenetreFin, text=messageBravo, fg="blue", bg="white", font='Selestin 15')
+    message2 = Label(fenetreFin, text=messageVainqueur, fg="blue", bg="white", font='Selestin 15')
+    message3 = Label(fenetreFin, text=message2e, fg="blue", bg="white", font='Selestin 13')
+    if troisieme != 0 : 
+        message4 = Label(fenetreFin, text=message3e, fg="blue", bg="white", font='Selestin 13')
+    if quatrieme != 0 :
+        message5 = Label(fenetreFin, text=message4e, fg="blue", bg="white", font='Selestin 13')
+
+    # placer sur l'écran
+    message1.grid(row=1, column=0, sticky="n", padx = 10, pady = 10)
+    message2.grid(row=2, column=0, sticky="n", padx = 10, pady = 10)
+    message3.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
+    if troisieme != 0 : 
+        message4.grid(row=5, column=0, sticky="n", padx = 10, pady = 10)
+    if quatrieme != 0 :
+        message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
 
 '''test popup'''
 #popupChoix()
+#popupScore("Joueur 1", 5, "Joueur 3", 13, "Joueur 2", 23, "Joueur 4", 55)
+
+
+def go(event,variableJeu):
+    '''global decalage
+    global nouvCarte
+    #global x
+    #global y
+    global joueur
+    global etat'''
+    x=event.x #donnera la valeur de x
+    y=event.y # donnera la valeur de y
+
+    variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
+    
+    variableJeu =deroulerJeu(variableJeu)
+    print (f"etat dans interface {variableJeu["etat"]}")
+    if variableJeu["etat"]=='changement_carte':
+        print(x,y)
+        print(len(images))
+        affichageCarteVerso(variableJeu["nouvCarte"],x,y,variableJeu["decalage"][variableJeu["joueur"]-2][0],variableJeu["decalage"][variableJeu["joueur"]-2][1])
+        variableJeu["etat"] ='choix_pioche'
+        
+    
+
+    #print (etat)
+
+
+variableJeu={
+    "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
+    }
+
+can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
 
 
-#case = can.bind('<Button-1>', dessiner)
-
-
-
-
-
-case = can.bind('<Button-1>',deroulerJeu)
-
-print(etat)
 
 
 fenetre.mainloop()
