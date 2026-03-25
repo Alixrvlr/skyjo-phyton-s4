@@ -284,7 +284,7 @@ can.pack(fill="both",expand=YES)
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-bQuitter.pack(anchor="se", x=80, y=730)
+bQuitter.place(anchor="se", x=80, y=730)
 
 bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
 bRejouer.place(anchor="sw", x=1275, y=730)
