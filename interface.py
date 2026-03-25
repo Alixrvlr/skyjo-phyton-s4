@@ -135,6 +135,7 @@ J2=(980,0)
 J3=(980,360)
 J4=(0,360)'''
 images=[]
+imagesPopUp=[]
 
 def affichagecarteJnRecto(variableJeu):
     for j in range (4):
@@ -148,15 +149,20 @@ def affichagecarteJnRecto(variableJeu):
 def affichagepioche(cartePioche):
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     pioche=PhotoImage(file="img/verso.png")
-    defausse=PhotoImage(file="img/-1.png")
+    defausse=PhotoImage(file=listeImgCarteVerso[cartePioche+2])
     can.create_image(598+75/2,315+105/2,image=pioche)
     can.create_image(693+75/2,315+105/2,image=defausse)
     images.append(pioche)
     images.append(defausse)
 
+def affichagepiochePopUp(cartePioche,canvas):
+    listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
+    pioche=PhotoImage(file=listeImgCarteVerso[cartePioche+2])
+    canvas.create_image(140+75/2,315+195/2,image=pioche)
+    canvas.image =pioche        #images.append(pioche)
 
 
-def affichageCarteVerso (carte,x,y,a,b):
+def affichageCarteVerso (carte,x,y):
     global images
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     carte = PhotoImage(file=listeImgCarteVerso[carte+2])
@@ -271,25 +277,40 @@ def rejouer ():
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
-def popupChoix() :
+def popupChoix(variableJeu) :
+    def valideJouerCartePioche():
+        variableJeu["jouerCartePioche"]=True
+        miniFenetre.destroy()
+    
+    def invalideJouerCartePioche():
+        variableJeu["jouerCartePioche"]=False
+        miniFenetre.destroy()
+    
+
     messagePioche = "Vous avez pioché un"
     messageChoix = "Voulez-vous jouer cette carte ?"
     miniFenetre = Toplevel()
     miniFenetre.iconbitmap("eseoLogo.ico")
     miniFenetre.config(background='white')
     miniFenetre.title('Choix')
-    miniFenetre.geometry("280x360+550+200") # dimensions et position de la fenêtre
+    miniFenetre.geometry("300x380+550+200") # dimensions et position de la fenêtre
     message1 = Label(miniFenetre, text=messagePioche, fg="blue", bg="white", font='Selestin 15')
     message2 = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
 
     # emplacement de la carte
     # largeur = 125
     # hauteur = 175
-    carte = Canvas(miniFenetre, bg ='black',width=140, height=195)
+    carte = Canvas(miniFenetre, width=150, height=210)
+    #affichagepiochePopUp(variableJeu['pioche'][0],carte)
+    listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
+    pioche=PhotoImage(file=listeImgCarteVerso[variableJeu['pioche'][0]+2])
+    pioche = pioche.zoom(2, 2)          # On zoom l'image pour qu'elle remplisse tout le canvas
+    carte.create_image(150/2,210/2,image=pioche)
+    imagesPopUp.append(pioche)
 
     # boutons
-    oui = Button(miniFenetre, text ='Oui')
-    non = Button(miniFenetre, text ='Non')
+    oui = Button(miniFenetre, text ='Oui', command= valideJouerCartePioche)
+    non = Button(miniFenetre, text ='Non', command= invalideJouerCartePioche)
 
     # placer sur l'écran
     message1.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
@@ -297,6 +318,10 @@ def popupChoix() :
     message2.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
     oui.grid(row=6, column=0, sticky="w", padx = 5, pady = 5)
     non.grid(row=6, column=0, sticky="e", padx = 5, pady = 5)
+
+    variableJeu["etat"]='choix_carte'
+
+    return variableJeu
 
 
 ''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
@@ -351,11 +376,15 @@ def go(event,variableJeu):
     
     variableJeu =deroulerJeu(variableJeu)
     print (f"etat dans interface {variableJeu["etat"]}")
+
+    if variableJeu["etat"]=='attente_pop-up' and variableJeu["typeJeu"]=="pioche":
+        variableJeu=popupChoix(variableJeu)
+
     if variableJeu["etat"]=='changement_carte':
         print(x,y)
         print(len(images))
         xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-1)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%4][1])
-        affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin,variableJeu["decalage"][(variableJeu["joueur"]-1)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%4][1])
+        affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin)
         affichagepioche(variableJeu["defausse"][0])
         variableJeu["etat"] ='choix_pioche'
         
@@ -364,12 +393,14 @@ def go(event,variableJeu):
     #print (etat)
 
 
-variableJeu={
+'''variableJeu={
     "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
     "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
     }
 affichagecarteJnRecto(variableJeu)
-affichagepioche()
+affichagepioche()'''
+
+variableJeu=actionStart()
 
 #can.pack(fill="both",expand=YES)
 

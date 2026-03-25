@@ -52,7 +52,12 @@ def deroulerJeu(variableJeu):
         print(f"Joueuer{variableJeu["joueur"]+1}")
         positionClic = recupPosition(variableJeu["position"][0],variableJeu["position"][1])
         
-        if positionClic == 'pioche' or positionClic == 'defausse':
+        if positionClic == 'pioche':
+            variableJeu["typeJeu"] = positionClic
+            variableJeu["etat"] = 'attente_pop-up'
+            print(f"position clic : {variableJeu["typeJeu"]}")
+        
+        if positionClic == 'defausse':
             variableJeu["typeJeu"] = positionClic
             variableJeu["etat"] = 'choix_carte'
             print(f"position clic : {variableJeu["typeJeu"]}")
@@ -76,9 +81,9 @@ def deroulerJeu(variableJeu):
             cartePioche=variableJeu["pioche"].pop(0)
             print("Carte pioché",cartePioche)
             #jouerCarte=int(input("jouer la carte 1-oui, 2-non"))  #jouerCarte = True       # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
-            jouerCarte=1
+            jouerCartePioche=variableJeu["jouerCartePioche"]
         
-            if jouerCarte == 1:     #if jouerCarte :
+            if jouerCartePioche == 1:     #if jouerCarte :
                 #position = 2                           #recuperer l'endroit du clic
                 emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])                  #position = int(input("choix position"))
                 print(f"position choix {emplacementCarte}")
@@ -237,3 +242,8 @@ def deroulerJeu(variableJeu):
 
     joueurDebut=sommeJn.index(max(sommeJn))+1
     joueur=joueurDebut'''
+
+
+def valideJouerCartePioche(variableJeu):
+    variableJeu["jouerCartePioche"]=True
+    return variableJeu
