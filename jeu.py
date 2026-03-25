@@ -35,9 +35,9 @@ def deroulerJeu(variableJeu):
 
     
 
-    if variableJeu["etat"]== 'start' :
+    '''if variableJeu["etat"]== 'start' :
         variableJeu=actionStart(variableJeu)
-        #etat = 'choix_pioche'
+        #etat = 'choix_pioche'''
 
         
     
@@ -48,7 +48,7 @@ def deroulerJeu(variableJeu):
     #print(listeEtatCarteJn[joueur])
     #print ("defausse",defausse[0])
 
-    elif variableJeu["etat"] =='choix_pioche':
+    if variableJeu["etat"] =='choix_pioche':
         print(f"Joueuer{variableJeu["joueur"]}")
         positionClic = recupPosition(variableJeu["position"][0],variableJeu["position"][1])
         
@@ -75,8 +75,8 @@ def deroulerJeu(variableJeu):
         if variableJeu["typeJeu"]=="piocher" :
             cartePioche=variableJeu["pioche"].pop(0)
             print("Carte pioché",cartePioche)
-            jouerCarte=int(input("jouer la carte 1-oui, 2-non"))  #jouerCarte = True       # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
-
+            #jouerCarte=int(input("jouer la carte 1-oui, 2-non"))  #jouerCarte = True       # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
+            jouerCarte=1
         
             if jouerCarte == 1:     #if jouerCarte :
                 #position = 2                           #recuperer l'endroit du clic
@@ -237,11 +237,3 @@ def deroulerJeu(variableJeu):
 
     joueurDebut=sommeJn.index(max(sommeJn))+1
     joueur=joueurDebut'''
-
-
-
-
-
-
-
-
