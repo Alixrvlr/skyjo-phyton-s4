@@ -29,12 +29,12 @@ def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
     listeEtatCarteJn[ligne][colonne] = True
     return listeJn, listeEtatCarteJn, carteEnleve
 
-def recupPositionCarte(coordoClic,dicoCoordonneesJn):
+'''def recupPositionCarte(coordoClic,dicoCoordonneesJn):
     position=0
     for cle, valeur in dicoCoordonneesJn.items():
         if coordoClic == valeur :
             position = cle
-    return position
+    return position'''
 
 def totalPointJn(listeJn):
     s = 0
