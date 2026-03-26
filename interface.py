@@ -136,6 +136,7 @@ J3=(980,360)
 J4=(0,360)'''
 images=[]
 imagesPopUp=[]
+fleche=[]
 
 def affichagecarteJnRecto(variableJeu):
     for j in range (4):
@@ -196,8 +197,10 @@ affichagecarteJnRecto(J4[0],J4[1])'''
 
 
 def instructionJeuJn(variableJeu) :
-
+    global fleche
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
+
+    
 
     numeroJn = variableJeu["joueur"] + 1
     nomJoueur = Label(fenetre, text = "C'est au joueur " + str(numeroJn) + " de jouer", font = "Selestin 18", fg = 'white', bg = 'black')
@@ -216,13 +219,18 @@ def instructionJeuJn(variableJeu) :
 
     if numeroJn == 1 :
         flecheGauche.place(anchor="w", x = 350, y = 175)
+        fleche.append(flecheGauche)
     elif numeroJn == 2 :
         flecheDroite.place(anchor="e", x = 1000, y = 175)
+        fleche.append(flecheDroite)
     elif numeroJn == 3 :
         flecheDroite.place(anchor="e", x = 1000, y = 530)
+        fleche.append(flecheDroite)
     else :
         flecheGauche.place(anchor="w", x = 350, y = 530)
+        fleche.append(flecheGauche)
 
+    
 
 
 
@@ -277,6 +285,7 @@ def instructionPiocheDebutJn(variableJeu) :
     if numeroJn == 1 :
         flecheGauche.place(anchor="w", x = 350, y = 175)
     elif numeroJn == 2 :
+        flecheGauche.destroy()
         flecheDroite.place(anchor="e", x = 1000, y = 175)
     elif numeroJn == 3 :
         flecheDroite.place(anchor="e", x = 1000, y = 530)
@@ -336,7 +345,7 @@ def actionStart ():
 
 
     # Pour teste :
-    listeJn[0]=[[4,6,7],[4,9,3],[4,7,1]]
+    #listeJn[0]=[[4,6,7],[4,9,3],[4,7,1]]
     
     gagner = False
     
@@ -375,14 +384,16 @@ def retournerCarteDebut (x,y,variableJeu):
 
     if variableJeu["nbCarteRetourner"]%2==0:
         variableJeu["joueur"]+=1
+        if variableJeu["joueur"]<4:
+            instructionPiocheDebutJn(variableJeu)
 
     if variableJeu["nbCarteRetourner"]==2*variableJeu["nbJoueur"]:
         joueurDebut=variableJeu["sommeCarteRetourne"].index(max(variableJeu["sommeCarteRetourne"]))
         variableJeu["joueur"]=joueurDebut
         variableJeu["etat"]='choix_pioche'
 
-
-
+    if variableJeu["nbCarteRetourner"] == 2*variableJeu["nbJoueur"]:
+        instructionJeuJn(variableJeu)
 
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
@@ -510,11 +521,11 @@ def go(event,variableJeu):
     variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
     
     if variableJeu["etat"]=='start':
-        instructionPiocheDebutJn(variableJeu)
+        #instructionPiocheDebutJn(variableJeu)
         variableJeu=retournerCarteDebut (x,y,variableJeu)
         
     else:
-        instructionJeuJn(variableJeu)
+        #instructionJeuJn(variableJeu)
         variableJeu =deroulerJeu(variableJeu)
         print (f"etat dans interface {variableJeu["etat"]}")
 
@@ -532,6 +543,7 @@ def go(event,variableJeu):
         if variableJeu["etat"]== 'sup_colonne':
 
             affichageColonneSup(variableJeu)
+            affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
 
             
@@ -548,7 +560,7 @@ affichagecarteJnRecto(variableJeu)
 affichagepioche()'''
 
 variableJeu=actionStart()
-
+instructionPiocheDebutJn(variableJeu)
 
 #can.pack(fill="both",expand=YES)
 
