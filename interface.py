@@ -195,7 +195,8 @@ def instructionJeuJn(variableJeu) :
     instructions1 = Label(fenetre, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
     instructions2 = Label(fenetre, text = "Piocher une carte \nPrendre une carte de la défausse", font = "Selestin 15", fg = 'white', bg = 'black')
     instructions3 = Label(fenetre, text = "Quand vous avez fini, veuillez cliquer n'importe où sur la zone noire", font = "Selestin 15", fg = 'white', bg = 'black')
-
+    flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+    flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
     # placer les phrases sur l'écran
     # texte.delete("1.0", "end")
 
@@ -203,6 +204,15 @@ def instructionJeuJn(variableJeu) :
     instructions1.place(anchor="center", x = 680, y = 150)
     instructions2.place(anchor="center", x = 680, y = 220)
     instructions3.place(anchor="center", x = 680, y = 600)
+
+    if numeroJn == 1 :
+        flecheGauche.place(anchor="w", x = 350, y = 175)
+    elif numeroJn == 2 :
+        flecheDroite.place(anchor="e", x = 1000, y = 175)
+    elif numeroJn == 3 :
+        flecheDroite.place(anchor="e", x = 1000, y = 530)
+    else :
+        flecheGauche.place(anchor="w", x = 350, y = 530)
 
 
 
@@ -246,12 +256,23 @@ def instructionPiocheDebutJn(variableJeu) :
     nomJoueur = Label(fenetre, text = "Joueur " + str(numeroJn), font = "Selestin 18", fg = 'white', bg = 'black')
     instruction1 = Label(fenetre, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
     instruction2 = Label(fenetre, text = "Quand vous avez fini, veuillez cliquer n'importe où sur la zone noire", font = "Selestin 15", fg = 'white', bg = 'black')
+    flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+    flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
 
     # placer les phrases sur l'écran
 
     nomJoueur.place(anchor="center", x = 680, y = 130)
     instruction1.place(anchor="center", x = 680, y = 180)
     instruction2.place(anchor="center", x = 680, y = 600)
+
+    if numeroJn == 1 :
+        flecheGauche.place(anchor="w", x = 350, y = 175)
+    elif numeroJn == 2 :
+        flecheDroite.place(anchor="e", x = 1000, y = 175)
+    elif numeroJn == 3 :
+        flecheDroite.place(anchor="e", x = 1000, y = 530)
+    else :
+        flecheGauche.place(anchor="w", x = 350, y = 530)
 
 
 
