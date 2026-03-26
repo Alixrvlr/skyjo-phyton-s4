@@ -272,7 +272,8 @@ def instructionPiocheDebutJn(variableJeu) :
     elif numeroJn == 3 :
         flecheDroite.place(anchor="e", x = 1000, y = 530)
     else :
-        flecheGauche.place(anchor="w", x = 350, y = 530)
+        flecheGauche.place(anchor="w", x = 350, y = 530) 
+
 
 
 
@@ -375,7 +376,8 @@ def retournerCarteDebut (x,y,variableJeu):
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 #Fonction pour remettre le jeu a zero
 def rejouer ():
-    etat ='start'
+    variableJeu["etat"]=='start'
+    actionStart ()   # relancer une nouvelle partie
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
