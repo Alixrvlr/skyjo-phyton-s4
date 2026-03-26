@@ -1,9 +1,10 @@
 import random
 
-def verifColonne(listeJn):
+def verifColonne(listeJn,listeEtatCarte):
     for i in range(len(listeJn[0])):
         if listeJn[0][i]==listeJn[1][i] and listeJn[1][i]==listeJn[2][i] :
-            return True,i
+            if listeEtatCarte[0][i] == True and listeEtatCarte[1][i] == True and listeEtatCarte[2][i] == True:
+                return True,i
     return False,None
 
 def melangeCartes(listeCarteTrie):
@@ -156,3 +157,14 @@ def recupCoordonnéeCarte (x,y,decalageX,decalageY):
         return None
 
         
+def recupCoordoXColonneSup(colonne,decalageX):
+    if colonne == 0:
+        return 30+decalageX
+    elif colonne ==1:
+        return 110+decalageX
+    elif colonne ==2:
+        return 190+decalageX
+    elif colonne ==3:
+        return 270+decalageX
+    else:
+        return None

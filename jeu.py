@@ -125,7 +125,20 @@ def deroulerJeu(variableJeu):
             variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
             print("changement carte ok")
             variableJeu["etat"]= 'changement_carte'   
-            
+
+
+        # Verifier colonne
+        if verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]])[0] == True:
+             
+            colonneSup= verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]])[1]
+            carteColonneSup= variableJeu["listeCarte"][variableJeu["joueur"]][0][colonne]
+            variableJeu["listeCarte"][variableJeu["joueur"]]= supColonne(variableJeu["listeCarte"][variableJeu["joueur"]], colonne)
+            print (f"liste carte joueur {variableJeu["listeCarte"][variableJeu["joueur"]]}")
+            variableJeu["liste_clonne_sup"]=[variableJeu["joueur"],colonneSup]
+            for i in range (3):
+                variableJeu["defausse"].insert(0,carteColonneSup)
+            variableJeu["etat"]='sup_colonne'
+
         variableJeu["joueur"] =(variableJeu["joueur"]+1)%4
 
 
@@ -145,14 +158,10 @@ def deroulerJeu(variableJeu):
 
     
 
-    '''
-    # Verifier colonne
-    if verifColonne(listeJn[joueur])[0] == True:
-        listeJn[joueur]= supColonne(listeJn[joueur],verifColonne[1])
+    
     
 
-    print(listeJn[joueur])
-    print(listeEtatCarteJn[joueur])'''
+    
     
     print(variableJeu["etat"])
     print("")
@@ -245,6 +254,6 @@ def deroulerJeu(variableJeu):
     joueur=joueurDebut'''
 
 
-def valideJouerCartePioche(variableJeu):
+'''def valideJouerCartePioche(variableJeu):
     variableJeu["jouerCartePioche"]=True
-    return variableJeu
+    return variableJeu'''

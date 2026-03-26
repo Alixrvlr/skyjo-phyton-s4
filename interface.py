@@ -169,7 +169,16 @@ def affichageCarteVerso (carte,x,y):
     can.create_image(x+75/2, y+105/2, image=carte)      #can.create_image(x+a+75/2, y+b+105/2, image=carte)
     images.append(carte)
     
-    
+def affichageCarreNoire(x,y):
+    can.create_rectangle(x,y,x+75,y+105, width=1,fill="#000000")
+
+def affichageColonneSup(variableJeu) :
+    joueur = variableJeu["liste_clonne_sup"][0]
+    colonne= variableJeu["liste_clonne_sup"][1]
+    xCoin= recupCoordoXColonneSup(colonne, variableJeu["decalage"][variableJeu["joueur"]-1][0])
+
+    for i in range (3):
+        affichageCarreNoire(xCoin, 10+i*110)
 
 '''affichagecarteJnRecto(J1[0],J1[1])
 affichagecarteJnRecto(J2[0],J2[1])
@@ -234,6 +243,9 @@ def actionStart ():
     defausse =[]
     defausse.append(pioche.pop(0))
 
+
+    # Pour teste :
+    listeJn[0]=[[4,6,7],[4,9,3],[4,7,1]]
     
     gagner = False
     
@@ -285,7 +297,7 @@ def retournerCarteDebut (x,y,variableJeu):
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
 #Fonction pour remettre le jeu a zero
 def rejouer ():
-    etat ='start'
+    actionStart()
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
@@ -403,6 +415,12 @@ def go(event,variableJeu):
             affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin)
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"] ='choix_pioche'
+        
+        if variableJeu["etat"]== 'sup_colonne':
+
+            affichageColonneSup(variableJeu)
+            variableJeu["etat"]='choix_pioche'
+
             
     
 
