@@ -155,7 +155,13 @@ def recupCoordonnéeCarte (x,y,decalageX,decalageY):
             return 270+decalageX, 230+decalageY
     else :
         return None
-
+    
+def retourneCarte(listeEtatCarteJn):
+    for i in range (len(listeEtatCarteJn)):
+        for j in range(len(listeEtatCarteJn)):
+            if listeEtatCarteJn[i][j]==False:
+                return False
+    return True
         
 def recupCoordoXColonneSup(colonne,decalageX):
     if colonne == 0:

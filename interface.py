@@ -47,7 +47,7 @@ expand=True : utilise tout l’espace disponible
 # height/2 = 355
 
 
-# test taille joueur
+
 can = Canvas(fenetre, bg ='black')
 can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=745, x=0, y=0)
     
@@ -128,7 +128,7 @@ can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
 can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche '''
 
 
-''' Faces des cartes ---------------------------------------------------------------------------------------'''
+''' Cartes -------------------------------------------------------------------------------------------------'''
 
 '''J1=(0,0)
 J2=(980,0)
@@ -191,13 +191,104 @@ affichagecarteJnRecto(J4[0],J4[1])'''
 
 
 
+''' Affichage joueur et instructions -----------------------------------------------------------------------------------------'''
+
+
+
+def instructionJeuJn(variableJeu) :
+
+    # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
+
+    numeroJn = variableJeu["joueur"] + 1
+    nomJoueur = Label(fenetre, text = "C'est au joueur " + str(numeroJn) + " de jouer", font = "Selestin 18", fg = 'white', bg = 'black')
+    instructions1 = Label(fenetre, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
+    instructions2 = Label(fenetre, text = "Piocher une carte \nPrendre une carte de la défausse", font = "Selestin 15", fg = 'white', bg = 'black')
+    instructions3 = Label(fenetre, text = "Quand vous avez fini, veuillez cliquer n'importe où sur la zone noire", font = "Selestin 15", fg = 'white', bg = 'black')
+    flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+    flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+    # placer les phrases sur l'écran
+    # texte.delete("1.0", "end")
+
+    nomJoueur.place(anchor="center", x = 680, y = 60)
+    instructions1.place(anchor="center", x = 680, y = 150)
+    instructions2.place(anchor="center", x = 680, y = 220)
+    instructions3.place(anchor="center", x = 680, y = 600)
+
+    if numeroJn == 1 :
+        flecheGauche.place(anchor="w", x = 350, y = 175)
+    elif numeroJn == 2 :
+        flecheDroite.place(anchor="e", x = 1000, y = 175)
+    elif numeroJn == 3 :
+        flecheDroite.place(anchor="e", x = 1000, y = 530)
+    else :
+        flecheGauche.place(anchor="w", x = 350, y = 530)
+
+
+
+
+def instructionPlacerCarteJn(variableJeu) :
+
+    # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
+
+    numeroJn = variableJeu["joueur"] + 1
+    nomJoueur = Label(fenetre, text = "C'est au joueur " + str(numeroJn) + " de jouer", font = "Selestin 18", fg = 'white', bg = 'black')
+    instructions1 = Label(fenetre, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+    # placer les phrases sur l'écran
+
+    nomJoueur.place(anchor="center", x = 680, y = 60)
+    instructions1.place(anchor="center", x = 680, y = 150)
+
+
+
+def instructionChoisirEmplacementCarteJn(variableJeu) :
+
+    # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
+
+    numeroJn = variableJeu["joueur"] + 1
+    nomJoueur = Label(fenetre, text = "C'est au joueur " + str(numeroJn) + " de jouer", font = "Selestin 18", fg = 'white', bg = 'black')
+    instructions1 = Label(fenetre, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
+
+    # placer les phrases sur l'écran
+
+    nomJoueur.place(anchor="center", x = 680, y = 60)
+    instructions1.place(anchor="center", x = 680, y = 150)
+
+
+
+
+def instructionPiocheDebutJn(variableJeu) :
+    
+    # affiche quel joueur piocher 2 cartes (seulement en début de partie)
+
+    numeroJn = variableJeu["joueur"] + 1
+    nomJoueur = Label(fenetre, text = "Joueur " + str(numeroJn), font = "Selestin 18", fg = 'white', bg = 'black')
+    instruction1 = Label(fenetre, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+    instruction2 = Label(fenetre, text = "Quand vous avez fini, veuillez cliquer n'importe où sur la zone noire", font = "Selestin 15", fg = 'white', bg = 'black')
+    flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+    flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+
+    # placer les phrases sur l'écran
+
+    nomJoueur.place(anchor="center", x = 680, y = 130)
+    instruction1.place(anchor="center", x = 680, y = 180)
+    instruction2.place(anchor="center", x = 680, y = 600)
+
+    if numeroJn == 1 :
+        flecheGauche.place(anchor="w", x = 350, y = 175)
+    elif numeroJn == 2 :
+        flecheDroite.place(anchor="e", x = 1000, y = 175)
+    elif numeroJn == 3 :
+        flecheDroite.place(anchor="e", x = 1000, y = 530)
+    else :
+        flecheGauche.place(anchor="w", x = 350, y = 530) 
 
 
 
 
 
 
-
+''' Déroulé du jeu -------------------------------------------------------------------------------------------------'''
 
 def actionStart ():
     
@@ -301,13 +392,16 @@ def rejouer ():
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
+
 def popupChoix(variableJeu) :
     def valideJouerCartePioche():
         variableJeu["jouerCartePioche"]=True
+        instructionPlacerCarteJn(variableJeu)
         miniFenetre.destroy()
     
     def invalideJouerCartePioche():
         variableJeu["jouerCartePioche"]=False
+        instructionChoisirEmplacementCarteJn(variableJeu)
         miniFenetre.destroy()
     
 
@@ -317,9 +411,10 @@ def popupChoix(variableJeu) :
     miniFenetre.iconbitmap("eseoLogo.ico")
     miniFenetre.config(background='white')
     miniFenetre.title('Choix')
-    miniFenetre.geometry("300x380+550+200") # dimensions et position de la fenêtre
-    message1 = Label(miniFenetre, text=messagePioche, fg="blue", bg="white", font='Selestin 15')
-    message2 = Label(miniFenetre, text=messageChoix, fg="blue", bg="white", font='Selestin 15')
+    miniFenetre.geometry("300x380+525+180") # dimensions et position de la fenêtre
+    message1 = Label(miniFenetre, text=messagePioche, fg="black", bg="white", font='Selestin 15')
+    message2 = Label(miniFenetre, text=messageChoix, fg="black", bg="white", font='Selestin 15')
+
 
     # emplacement de la carte
     # largeur = 125
@@ -332,9 +427,11 @@ def popupChoix(variableJeu) :
     carte.create_image(150/2,210/2,image=pioche)
     imagesPopUp.append(pioche)
 
+
     # boutons
     oui = Button(miniFenetre, text ='Oui', command= valideJouerCartePioche)
     non = Button(miniFenetre, text ='Non', command= invalideJouerCartePioche)
+
 
     # placer sur l'écran
     message1.grid(row=1, column=0, sticky="n", padx = 1, pady = 10)
@@ -343,13 +440,20 @@ def popupChoix(variableJeu) :
     oui.grid(row=6, column=0, sticky="w", padx = 5, pady = 5)
     non.grid(row=6, column=0, sticky="e", padx = 5, pady = 5)
 
+
     variableJeu["etat"]='choix_carte'
 
     return variableJeu
 
 
+
+
+
 ''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
+
+
 def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+    
     fenetreFin = Toplevel()
     fenetreFin.iconbitmap("eseoLogo.ico")
     fenetreFin.config(background='white')
@@ -360,15 +464,20 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
     messageBravo = "Bravo ! " 
     messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
     message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
+    
     if troisieme != 0 : # il y a un troisième joueur
         message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
+    
     if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
+    
     message1 = Label(fenetreFin, text=messageBravo, fg="blue", bg="white", font='Selestin 15')
     message2 = Label(fenetreFin, text=messageVainqueur, fg="blue", bg="white", font='Selestin 15')
     message3 = Label(fenetreFin, text=message2e, fg="blue", bg="white", font='Selestin 13')
+    
     if troisieme != 0 : 
         message4 = Label(fenetreFin, text=message3e, fg="blue", bg="white", font='Selestin 13')
+    
     if quatrieme != 0 :
         message5 = Label(fenetreFin, text=message4e, fg="blue", bg="white", font='Selestin 13')
 
@@ -376,14 +485,16 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
     message1.grid(row=1, column=0, sticky="n", padx = 10, pady = 10)
     message2.grid(row=2, column=0, sticky="n", padx = 10, pady = 10)
     message3.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
+    
     if troisieme != 0 : 
         message4.grid(row=5, column=0, sticky="n", padx = 10, pady = 10)
+    
     if quatrieme != 0 :
         message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
 
-'''test popup'''
-#popupChoix()
-#popupScore("Joueur 1", 5, "Joueur 3", 13, "Joueur 2", 23, "Joueur 4", 55)
+
+
+
 
 
 def go(event,variableJeu):
@@ -399,9 +510,11 @@ def go(event,variableJeu):
     variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
     
     if variableJeu["etat"]=='start':
+        instructionPiocheDebutJn(variableJeu)
         variableJeu=retournerCarteDebut (x,y,variableJeu)
         
     else:
+        instructionJeuJn(variableJeu)
         variableJeu =deroulerJeu(variableJeu)
         print (f"etat dans interface {variableJeu["etat"]}")
 
@@ -447,6 +560,8 @@ bQuitter.place(anchor="se", x=405, y=690)
 
 bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
 bRejouer.place(anchor="sw", x=948, y=690)
+
+
 
 
 
