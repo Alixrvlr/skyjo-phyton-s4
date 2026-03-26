@@ -77,13 +77,14 @@ def deroulerJeu(variableJeu):
         print(f"Joueuer{variableJeu["joueur"]}")
         print ("Choisir la carte du jeu")
         print(f"type de jeu {variableJeu["typeJeu"]}")
-        if variableJeu["typeJeu"]=="piocher" :
+        print(f"type de jeu {variableJeu["listeCarte"][variableJeu["joueur"]]}")
+        if variableJeu["typeJeu"]=="pioche" :
             cartePioche=variableJeu["pioche"].pop(0)
             print("Carte pioché",cartePioche)
             #jouerCarte=int(input("jouer la carte 1-oui, 2-non"))  #jouerCarte = True       # fonction qui affiche un pop up pour montrer la carte et 2 boutons sil veut garder cette carte et qui renvoi oui ou non
             jouerCartePioche=variableJeu["jouerCartePioche"]
         
-            if jouerCartePioche == 1:     #if jouerCarte :
+            if jouerCartePioche == True:     #if jouerCarte :
                 #position = 2                           #recuperer l'endroit du clic
                 emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])                  #position = int(input("choix position"))
                 print(f"position choix {emplacementCarte}")
