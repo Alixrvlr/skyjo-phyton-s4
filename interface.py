@@ -209,6 +209,7 @@ def instructionJeuJn(variableJeu) :
     instructions3 = Label(fenetre, text = "Quand vous avez fini, veuillez cliquer n'importe où sur la zone noire", font = "Selestin 15", fg = 'white', bg = 'black')
     flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
     flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+
     # placer les phrases sur l'écran
     # texte.delete("1.0", "end")
 

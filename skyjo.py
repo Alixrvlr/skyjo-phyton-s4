@@ -85,6 +85,9 @@ def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou 
         if y>=315 and y<=420:
             return "defausse" #defausse
         
+    else:
+        return None
+        
 def recupPositionCarte (x,y,decalageX,decalageY):
     if x-decalageX>=30 and x-decalageX<= 105:
         if y-decalageY>=10 and y-decalageY<=115:
