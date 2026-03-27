@@ -1,6 +1,7 @@
 from tkinter import *
 from jeu import *
 from skyjo import *
+import winsound 
 
 
 # Fichier Interface Graphique du jeu - projet S4 informatique
@@ -503,6 +504,8 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
     
     if quatrieme != 0 :
         message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
+    winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
+
 
 
 
