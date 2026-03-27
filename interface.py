@@ -459,6 +459,7 @@ def actionStart ():
     variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
     variableJeu["sommeCarteRetourne"]=[0,0,0,0]             # pour savoir quel joueur commence
     variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
+    variableJeu["jeuTermine"]=False
     #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                        # Tuple avec les coordonnées du clic
@@ -645,6 +646,8 @@ def go(event,variableJeu):
     if variableJeu["etat"]=='start':
         #instructionRetournerCarteDebutJn(variableJeu)
         variableJeu=retournerCarteDebut (x,y,variableJeu)
+
+    
         
     else:
         instructionJeuJn(variableJeu)
@@ -669,14 +672,17 @@ def go(event,variableJeu):
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
 
-        if verifFinJeu(variableJeu["joueur"]-1,variableJeu["listeEtatCarte"][variableJeu["joueur"]-1]) :
+        if verifFinJeu(variableJeu["joueur"]-1,variableJeu["listeEtatCarte"][variableJeu["joueur"]-1]) and not variableJeu["jeuTermine"]:
             variableJeu["dernierJoueur"] = variableJeu["joueur"]-1
+            variableJeu["jeuTermine"]=TRUE
 
         if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
             classement,score =chercheClassement(variableJeu)
-            
+
+            popupScore(str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])
+
             # afficher pop up
-            vainqueur = classement[0] # nom vainqueur
+            '''vainqueur = classement[0] # nom vainqueur
             deuxieme = classement[1]
             troisieme = classement[2]
             quatrieme = classement[3]
@@ -686,8 +692,10 @@ def go(event,variableJeu):
             scoreT = score[2] # socre du 3e
             scoreQ = score[3] # socre du 4e
 
-            popupScore(vainqueur, scoreV, deuxieme, scoreD, troisieme, scoreT, quatrieme, scoreQ)
+            popupScore(vainqueur, scoreV, deuxieme, scoreD, troisieme, scoreT, quatrieme, scoreQ)'''
             
+
+        
 
     #print (etat)
 
