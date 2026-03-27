@@ -214,7 +214,7 @@ instruction_PlacerCarte = Label(fenetre, text = "Placer la carte sur votre jeu",
 # instructionChoisirEmplacementCarteJn
 instruction_ChoixCarteRetourner = Label(fenetre, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
 
-# instructionPiocheDebutJn
+# instructionRetournerCarteDebutJn
 instructionRetourner2Carte = Label(fenetre, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
 
 
@@ -347,7 +347,7 @@ def instructionChoisirEmplacementCarteJn(variableJeu) :
 
 
 
-def instructionPiocheDebutJn(variableJeu) :
+def instructionRetournerCarteDebutJn(variableJeu) :
     
     # affiche quel joueur doit piocher 2 cartes (seulement en début de partie)
 
@@ -484,7 +484,7 @@ def retournerCarteDebut (x,y,variableJeu):
     if variableJeu["nbCarteRetourner"]%2==0:
         variableJeu["joueur"]+=1
         if variableJeu["joueur"]<4:
-            instructionPiocheDebutJn(variableJeu)
+            instructionRetournerCarteDebutJn(variableJeu)
 
     if variableJeu["nbCarteRetourner"]==2*variableJeu["nbJoueur"]:
         joueurDebut=variableJeu["sommeCarteRetourne"].index(max(variableJeu["sommeCarteRetourne"]))
@@ -587,9 +587,9 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
 
     fenetreFin = Toplevel()
     fenetreFin.iconbitmap("eseoLogo.ico")
-    fenetreFin.config(background='white')
+    fenetreFin.config(background="#5ab4c9")
     fenetreFin.title('Fin de la partie')
-    fenetreFin.geometry("525x250+420+270") # dimensions et position de la fenêtre
+    fenetreFin.geometry("525x250+420+250") # dimensions et position de la fenêtre
 
     # messages    
     messageBravo = "Bravo ! " 
@@ -602,15 +602,15 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
     if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
     
-    message1 = Label(fenetreFin, text=messageBravo, fg="blue", bg="white", font='Selestin 15')
-    message2 = Label(fenetreFin, text=messageVainqueur, fg="blue", bg="white", font='Selestin 15')
-    message3 = Label(fenetreFin, text=message2e, fg="blue", bg="white", font='Selestin 13')
+    message1 = Label(fenetreFin, text=messageBravo, fg="black", bg="#5ab4c9", font='Selestin 15')
+    message2 = Label(fenetreFin, text=messageVainqueur, fg="black", bg="#5ab4c9", font='Selestin 15')
+    message3 = Label(fenetreFin, text=message2e, fg="black", bg="#5ab4c9", font='Selestin 13')
     
     if troisieme != 0 : 
-        message4 = Label(fenetreFin, text=message3e, fg="blue", bg="white", font='Selestin 13')
+        message4 = Label(fenetreFin, text=message3e, fg="black", bg="#5ab4c9", font='Selestin 13')
     
     if quatrieme != 0 :
-        message5 = Label(fenetreFin, text=message4e, fg="blue", bg="white", font='Selestin 13')
+        message5 = Label(fenetreFin, text=message4e, fg="black", bg="#5ab4c9", font='Selestin 13')
 
     # placer sur l'écran
     message1.grid(row=1, column=0, sticky="n", padx = 10, pady = 10)
@@ -625,7 +625,7 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
     winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
 
 
-
+#popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
 
 
 
@@ -643,7 +643,7 @@ def go(event,variableJeu):
     variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
     
     if variableJeu["etat"]=='start':
-        #instructionPiocheDebutJn(variableJeu)
+        #instructionRetournerCarteDebutJn(variableJeu)
         variableJeu=retournerCarteDebut (x,y,variableJeu)
         
     else:
@@ -687,7 +687,7 @@ affichagecarteJnRecto(variableJeu)
 affichagepioche()'''
 
 variableJeu=actionStart()
-instructionPiocheDebutJn(variableJeu)
+instructionRetournerCarteDebutJn(variableJeu)
 
 
 
