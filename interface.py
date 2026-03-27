@@ -1,6 +1,7 @@
 from tkinter import *
 from jeu import *
 from skyjo import *
+import winsound 
 
 
 # Fichier Interface Graphique du jeu - projet S4 informatique
@@ -457,6 +458,7 @@ def actionStart ():
     variableJeu["nbCarteRetourner"]=0                       # Pour les 2 carte par joueur à retourner au debut
     variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
     variableJeu["sommeCarteRetourne"]=[0,0,0,0]             # pour savoir quel joueur commence
+    variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
     #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                        # Tuple avec les coordonnées du clic
@@ -500,8 +502,11 @@ def retournerCarteDebut (x,y,variableJeu):
 #Fonction pour remettre le jeu a zero
 def rejouer ():
     pass
-
-
+'''fonction son-----------------------------------------------------------------------------------------------------'''
+def son():
+    winsound.PlaySound("son_background.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+def stop_son():
+    winsound.PlaySound(None, winsound.SND_PURGE)
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 
 def popupChoix(variableJeu) :
@@ -604,6 +609,8 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
     
     if quatrieme != 0 :
         message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
+    winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
+
 
 
 
@@ -649,8 +656,12 @@ def go(event,variableJeu):
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
 
-            
-    
+        if verifFinJeu(variableJeu["joueur"]-1,variableJeu["listeEtatCarte"][variableJeu["joueur"]-1]) :
+            variableJeu["dernierJoueur"] = variableJeu["joueur"]-1
+
+        if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
+            classement,score =chercheClassement(variableJeu)
+            # afficher pop up
 
     #print (etat)
 
@@ -676,9 +687,11 @@ bQuitter.place(anchor="se", x=405, y=690)
 bRejouer = Button(fenetre, text ='Rejouer', command = rejouer) # !!! ne fonctionne pas
 bRejouer.place(anchor="sw", x=948, y=690)
 
+bSon = Button(fenetre, text="Son", bg="#43c2df", fg="white", font=("Courier New", 12), command=lambda: son())
+bSon.place(anchor="sw", x=600, y=690)
 
-
-
+bCouperSon = Button(fenetre, text="Couper son", bg="#43c2df", fg="white", font=("Courier New", 12), command=lambda: stop_son())
+bCouperSon.place(anchor="sw", x=700, y=690)
 ''' '''
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))

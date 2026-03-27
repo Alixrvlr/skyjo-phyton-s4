@@ -85,6 +85,9 @@ def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou 
         if y>=315 and y<=420:
             return "defausse" #defausse
         
+    else:
+        return None
+        
 def recupPositionCarte (x,y,decalageX,decalageY):
     if x-decalageX>=30 and x-decalageX<= 105:
         if y-decalageY>=10 and y-decalageY<=115:
@@ -174,3 +177,27 @@ def recupCoordoXColonneSup(colonne,decalageX):
         return 270+decalageX
     else:
         return None
+    
+
+def verifFinJeu(joueur,listeEtatCarte):
+    for i in range (len(listeEtatCarte)):
+        for j in range (len(listeEtatCarte[0])):
+            if listeEtatCarte[i][j]==False:
+                return False
+    return True
+
+def chercheClassement (varibleJeu):
+    totalscore=[]
+    for jeu in varibleJeu["listeCarte"]:
+        totalJ=0
+        for i in range (len(jeu)):
+            for j in range (len(jeu[0])):
+                totalJ+=jeu[i][j]
+        totalscore.append(totalJ)
+    indiceJClassement=[]
+    for k in range (varibleJeu["nbJoueur"]):
+        joueur=totalscore.index(min(totalscore))
+        totalscore[joueur]=145      # max du nombre de carte que l'on peut avoir+1 : carte 12 partout soit 12x12=144
+        indiceJClassement.append(joueur)
+    return indiceJClassement,totalscore
+
