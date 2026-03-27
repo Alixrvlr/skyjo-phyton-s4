@@ -500,13 +500,26 @@ def retournerCarteDebut (x,y,variableJeu):
 ''' Fonction Rejouer ----------------------------------------------------------------------------------------'''
 
 #Fonction pour remettre le jeu a zero
+
 def rejouer ():
     pass
+
+
+
+
+
 '''fonction son-----------------------------------------------------------------------------------------------------'''
+
 def son():
     winsound.PlaySound("son_background.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+
+
 def stop_son():
     winsound.PlaySound(None, winsound.SND_PURGE)
+
+
+
+
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 
 def popupChoix(variableJeu) :
@@ -679,19 +692,21 @@ instructionPiocheDebutJn(variableJeu)
 
 
 
-''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
+''' Boutons ----------------------------------------------------------------------------------------'''
 
-bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
-bQuitter.place(anchor="se", x=405, y=690)
+bQuitter = Button(fenetre, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetre.destroy)
+bQuitter.place(anchor="se", x=430, y=690)
 
-bRejouer = Button(fenetre, text ='Rejouer', command = rejouer) # !!! ne fonctionne pas
-bRejouer.place(anchor="sw", x=948, y=690)
+bRejouer = Button(fenetre, text ='Rejouer', bg="#43c2df", fg="black", font=("Courier New", 11), command = rejouer) # !!! ne fonctionne pas
+bRejouer.place(anchor="sw", x=928, y=690)
 
-bSon = Button(fenetre, text="Son", bg="#43c2df", fg="white", font=("Courier New", 12), command=lambda: son())
+bSon = Button(fenetre, text="Son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: son())
 bSon.place(anchor="sw", x=600, y=690)
 
-bCouperSon = Button(fenetre, text="Couper son", bg="#43c2df", fg="white", font=("Courier New", 12), command=lambda: stop_son())
+bCouperSon = Button(fenetre, text="Couper son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: stop_son())
 bCouperSon.place(anchor="sw", x=700, y=690)
+
+
 ''' '''
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))
