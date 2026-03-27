@@ -362,6 +362,7 @@ def actionStart ():
     variableJeu["nbCarteRetourner"]=0                       # Pour les 2 carte par joueur à retourner au debut
     variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
     variableJeu["sommeCarteRetourne"]=[0,0,0,0]             # pour savoir quel joueur commence
+    variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
     #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                        # Tuple avec les coordonnées du clic
@@ -553,8 +554,12 @@ def go(event,variableJeu):
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
 
-            
-    
+        if verifFinJeu(variableJeu["joueur"]-1,variableJeu["listeEtatCarte"][variableJeu["joueur"]-1]) :
+            variableJeu["dernierJoueur"] = variableJeu["joueur"]-1
+
+        if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
+            classement,score =chercheClassement(variableJeu)
+            # afficher pop up
 
     #print (etat)
 
