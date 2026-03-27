@@ -674,7 +674,20 @@ def go(event,variableJeu):
 
         if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
             classement,score =chercheClassement(variableJeu)
+            
             # afficher pop up
+            vainqueur = classement[0] # nom vainqueur
+            deuxieme = classement[1]
+            troisieme = classement[2]
+            quatrieme = classement[3]
+
+            scoreV = score[0] # score du vainqueur
+            scoreD = score[1] # score du 2e
+            scoreT = score[2] # socre du 3e
+            scoreQ = score[3] # socre du 4e
+
+            popupScore(vainqueur, scoreV, deuxieme, scoreD, troisieme, scoreT, quatrieme, scoreQ)
+            
 
     #print (etat)
 
