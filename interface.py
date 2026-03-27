@@ -402,8 +402,11 @@ def retournerCarteDebut (x,y,variableJeu):
 #Fonction pour remettre le jeu a zero
 def rejouer ():
     actionStart()
-
-
+'''fonction son-----------------------------------------------------------------------------------------------------'''
+def son():
+    winsound.PlaySound("son_background.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+def stop_son():
+    winsound.PlaySound(None, winsound.SND_PURGE)
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
 
 def popupChoix(variableJeu) :
@@ -577,9 +580,11 @@ bQuitter.place(anchor="se", x=405, y=690)
 bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
 bRejouer.place(anchor="sw", x=948, y=690)
 
+bSon = Button(fenetre, text="Son", bg="#43c2df", fg="white", font=("Courier New", 12), command=lambda: son())
+bSon.place(anchor="sw", x=600, y=690)
 
-
-
+bCouperSon = Button(fenetre, text="Couper son", bg="#43c2df", fg="white", font=("Courier New", 12), command=lambda: stop_son())
+bCouperSon.place(anchor="sw", x=700, y=690)
 
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))
