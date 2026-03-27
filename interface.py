@@ -196,39 +196,65 @@ affichagecarteJnRecto(J4[0],J4[1])'''
 
 
 
+# définir les Labels
+
+# communs
+nomJoueur = Label(fenetre, font = "Selestin 18", fg = 'white', bg = 'black')
+flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionJeuJn
+instruction_option = Label(fenetre, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
+instruction_piocherCarte = Label(fenetre, text = "Piocher une carte \nPrendre une carte de la défausse \nRetourner une carte de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionPlacerCarteJn
+instruction_PlacerCarte = Label(fenetre, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionChoisirEmplacementCarteJn
+instruction_ChoixCarteRetourner = Label(fenetre, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionPiocheDebutJn
+instructionRetourner2Carte = Label(fenetre, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+
 def instructionJeuJn(variableJeu) :
     global fleche
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
-    
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur = Label(fenetre, text = "C'est au joueur " + str(numeroJn) + " de jouer", font = "Selestin 18", fg = 'white', bg = 'black')
-    instructions1 = Label(fenetre, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
-    instructions2 = Label(fenetre, text = "Piocher une carte \nPrendre une carte de la défausse", font = "Selestin 15", fg = 'white', bg = 'black')
-    instructions3 = Label(fenetre, text = "Quand vous avez fini, veuillez cliquer n'importe où sur la zone noire", font = "Selestin 15", fg = 'white', bg = 'black')
-    flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
-    flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
-    # placer les phrases sur l'écran
-    # texte.delete("1.0", "end")
+    #nomJoueur = Label(fenetre, text = "C'est au tour du joueur " + str(numeroJn), font = "Selestin 18", fg = 'white', bg = 'black')
+    nomJoueur.config(text = "INSTRUC C'est au tour du joueur " + str(numeroJn))
+    
+
+    instructionRetourner2Carte.place_forget()
+    instruction_PlacerCarte.place_forget()
+    instruction_ChoixCarteRetourner.place_forget()
 
     nomJoueur.place(anchor="center", x = 680, y = 60)
-    instructions1.place(anchor="center", x = 680, y = 150)
-    instructions2.place(anchor="center", x = 680, y = 220)
-    instructions3.place(anchor="center", x = 680, y = 600)
+    instruction_option.place(anchor="center", x = 680, y = 150)
+    instruction_piocherCarte.place(anchor="center", x = 680, y = 220)
 
     if numeroJn == 1 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
         flecheGauche.place(anchor="w", x = 350, y = 175)
-        fleche.append(flecheGauche)
+
     elif numeroJn == 2 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        #flecheGauche.destroy()
         flecheDroite.place(anchor="e", x = 1000, y = 175)
-        fleche.append(flecheDroite)
+
     elif numeroJn == 3 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
         flecheDroite.place(anchor="e", x = 1000, y = 530)
-        fleche.append(flecheDroite)
+
     else :
-        flecheGauche.place(anchor="w", x = 350, y = 530)
-        fleche.append(flecheGauche)
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        flecheGauche.place(anchor="w", x = 350, y = 530) 
 
     
 
@@ -239,13 +265,41 @@ def instructionPlacerCarteJn(variableJeu) :
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur = Label(fenetre, text = "C'est au joueur " + str(numeroJn) + " de jouer", font = "Selestin 18", fg = 'white', bg = 'black')
-    instructions1 = Label(fenetre, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+    nomJoueur.config(text = "PLACER CAR C'est au tour du joueur " + str(numeroJn))
 
-    # placer les phrases sur l'écran
+    # effacer les autres textes
+
+    instructionRetourner2Carte.place_forget()
+    instruction_option.place_forget()
+    instruction_piocherCarte.place_forget()
+    instruction_ChoixCarteRetourner.place_forget()
+
+
+    # placer les phrases/flèches sur l'écran
 
     nomJoueur.place(anchor="center", x = 680, y = 60)
-    instructions1.place(anchor="center", x = 680, y = 150)
+    instruction_PlacerCarte.place(anchor="center", x = 680, y = 150)
+
+    if numeroJn == 1 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        flecheGauche.place(anchor="w", x = 350, y = 175)
+
+    elif numeroJn == 2 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        #flecheGauche.destroy()
+        flecheDroite.place(anchor="e", x = 1000, y = 175)
+
+    elif numeroJn == 3 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        flecheDroite.place(anchor="e", x = 1000, y = 530)
+
+    else :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        flecheGauche.place(anchor="w", x = 350, y = 530) 
 
 
 
@@ -254,42 +308,85 @@ def instructionChoisirEmplacementCarteJn(variableJeu) :
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur = Label(fenetre, text = "C'est au joueur " + str(numeroJn) + " de jouer", font = "Selestin 18", fg = 'white', bg = 'black')
-    instructions1 = Label(fenetre, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
+    nomJoueur.config(text = "CHOISIR EMPL C'est au tour du joueur " + str(numeroJn))
+
+    # effacer textes
+
+    instruction_option.place_forget()
+    instruction_piocherCarte.place_forget()
+    instruction_PlacerCarte.place_forget()
+    instructionRetourner2Carte.place_forget()
 
     # placer les phrases sur l'écran
 
     nomJoueur.place(anchor="center", x = 680, y = 60)
-    instructions1.place(anchor="center", x = 680, y = 150)
+    instruction_ChoixCarteRetourner.place(anchor="center", x = 680, y = 150)
+
+    if numeroJn == 1 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        flecheGauche.place(anchor="w", x = 350, y = 175)
+
+    elif numeroJn == 2 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        #flecheGauche.destroy()
+        flecheDroite.place(anchor="e", x = 1000, y = 175)
+
+    elif numeroJn == 3 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        flecheDroite.place(anchor="e", x = 1000, y = 530)
+
+    else :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        flecheGauche.place(anchor="w", x = 350, y = 530) 
 
 
 
 
 def instructionPiocheDebutJn(variableJeu) :
     
-    # affiche quel joueur piocher 2 cartes (seulement en début de partie)
+    # affiche quel joueur doit piocher 2 cartes (seulement en début de partie)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur = Label(fenetre, text = "Joueur " + str(numeroJn), font = "Selestin 18", fg = 'white', bg = 'black')
-    instruction1 = Label(fenetre, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
-    instruction2 = Label(fenetre, text = "Quand vous avez fini, veuillez cliquer n'importe où sur la zone noire", font = "Selestin 15", fg = 'white', bg = 'black')
-    flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
-    flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
+    
+
+    # effacer les autres textes
+
+    instruction_option.place_forget()
+    instruction_piocherCarte.place_forget()
+    instruction_PlacerCarte.place_forget()
+    instruction_ChoixCarteRetourner.place_forget()
+
 
     # placer les phrases sur l'écran
 
-    nomJoueur.place(anchor="center", x = 680, y = 130)
-    instruction1.place(anchor="center", x = 680, y = 180)
-    instruction2.place(anchor="center", x = 680, y = 600)
+    nomJoueur.place(anchor="center", x = 680, y = 60)
+    instructionRetourner2Carte.place(anchor="center", x = 680, y = 180)
+
 
     if numeroJn == 1 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
         flecheGauche.place(anchor="w", x = 350, y = 175)
+
     elif numeroJn == 2 :
-        flecheGauche.destroy()
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
+        #flecheGauche.destroy()
         flecheDroite.place(anchor="e", x = 1000, y = 175)
+
     elif numeroJn == 3 :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
         flecheDroite.place(anchor="e", x = 1000, y = 530)
+
     else :
+        flecheDroite.place_forget()  # caché 
+        flecheGauche.place_forget()
         flecheGauche.place(anchor="w", x = 350, y = 530) 
 
 
@@ -396,10 +493,13 @@ def retournerCarteDebut (x,y,variableJeu):
         instructionJeuJn(variableJeu)
 
 
-''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
+
+
+''' Fonction Rejouer ----------------------------------------------------------------------------------------'''
+
 #Fonction pour remettre le jeu a zero
 def rejouer ():
-    actionStart()
+    pass
 
 
 ''' Fenêtre Pop-Up pour montrer la carte piochée -------------------------------------------------------------------'''
@@ -465,6 +565,8 @@ def popupChoix(variableJeu) :
 
 def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
     
+    # nom 1er, scoreVainqueur, nom 2e, score 2e...
+
     fenetreFin = Toplevel()
     fenetreFin.iconbitmap("eseoLogo.ico")
     fenetreFin.config(background='white')
@@ -525,7 +627,7 @@ def go(event,variableJeu):
         variableJeu=retournerCarteDebut (x,y,variableJeu)
         
     else:
-        #instructionJeuJn(variableJeu)
+        instructionJeuJn(variableJeu)
         variableJeu =deroulerJeu(variableJeu)
         print (f"etat dans interface {variableJeu["etat"]}")
 
@@ -537,6 +639,7 @@ def go(event,variableJeu):
             print(len(images))
             xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-1)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%4][1])
             affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin)
+            instructionChoisirEmplacementCarteJn(variableJeu)
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"] ='choix_pioche'
         
@@ -562,7 +665,7 @@ affichagepioche()'''
 variableJeu=actionStart()
 instructionPiocheDebutJn(variableJeu)
 
-#can.pack(fill="both",expand=YES)
+
 
 
 ''' Boutons Quitter/Rejouer ----------------------------------------------------------------------------------------'''
@@ -570,18 +673,18 @@ instructionPiocheDebutJn(variableJeu)
 bQuitter = Button(fenetre, text ='Quitter', command = fenetre.destroy)
 bQuitter.place(anchor="se", x=405, y=690)
 
-bRejouer= Button(fenetre, text ='Rejouer', command= rejouer)
+bRejouer = Button(fenetre, text ='Rejouer', command = rejouer) # !!! ne fonctionne pas
 bRejouer.place(anchor="sw", x=948, y=690)
 
 
 
 
-
+''' '''
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
 
 
-
+''' Ouverture de la fenêtre ------------------------------------------------------------------------------------------'''
 
 fenetre.mainloop()
