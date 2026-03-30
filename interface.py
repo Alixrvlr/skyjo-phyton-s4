@@ -443,7 +443,7 @@ def actionStart ():
 
 
     # Pour teste :
-    #listeJn[0]=[[4,6,7],[4,9,3],[4,7,1]]
+    listeJn[0]=[[4,6,7],[4,9,3],[4,7,1]]
     
     gagner = False
     
