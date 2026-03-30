@@ -4,6 +4,9 @@ def deroulerJeu(variableJeu):
 
     if variableJeu["etat"] =='choix_pioche':
         positionClic = recupPosition(variableJeu["position"][0],variableJeu["position"][1])
+        emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
+
+        ligne,colonne = convetirPosition(emplacementCarte)
         if positionClic != None:
             if positionClic == 'pioche':
                 variableJeu["typeJeu"] = positionClic
@@ -12,12 +15,11 @@ def deroulerJeu(variableJeu):
             if positionClic == 'defausse':
                 variableJeu["typeJeu"] = positionClic
                 variableJeu["etat"] = 'choix_carte'
-
-            elif positionClic == ("jeu"+str(variableJeu["joueur"]+1)) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1]) != None  :
+            
+            elif positionClic == ("jeu"+str(variableJeu["joueur"]+1)) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1]) != None  and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!= "0" :
                 #variableJeu["typeJeu"] = 'retourneCarte'
                 #variableJeu["etat"] = 'choix_carte'
-                emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
-                ligne,colonne = convetirPosition(emplacementCarte)
+                
                 variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True 
                 variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
                 variableJeu["etat"]= 'changement_carte'
@@ -29,7 +31,9 @@ def deroulerJeu(variableJeu):
         positionClic = recupPosition(variableJeu["position"][0],variableJeu["position"][1])
 
         if positionClic == ("jeu"+str(variableJeu["joueur"]+1)) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1]) != None  :
-            if variableJeu["typeJeu"]=="pioche" :
+            emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
+            ligne,colonne = convetirPosition(emplacementCarte)
+            if variableJeu["typeJeu"]=="pioche" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
                 cartePioche=variableJeu["pioche"].pop(0)
                 jouerCartePioche=variableJeu["jouerCartePioche"]
             
@@ -44,7 +48,7 @@ def deroulerJeu(variableJeu):
                     variableJeu["typeJeu"] = "retourneCarte"
 
 
-            if variableJeu["typeJeu"]=="defausse" :
+            if variableJeu["typeJeu"]=="defausse" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
                 carteDefausse = variableJeu["defausse"].pop(0)
                 emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
                 variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteEnleve=echangeCarte(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteDefausse,emplacementCarte)
@@ -56,7 +60,7 @@ def deroulerJeu(variableJeu):
 
 
 
-            if variableJeu["typeJeu"]=="retourneCarte" :
+            if variableJeu["typeJeu"]=="retourneCarte" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
                 emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
                 ligne,colonne = convetirPosition(emplacementCarte)
                 variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True 
@@ -65,17 +69,20 @@ def deroulerJeu(variableJeu):
 
 
             # Verifier colonne
-            if verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]])[0] == True:
-                
-                colonneSup= verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]])[1]
-                carteColonneSup= variableJeu["listeCarte"][variableJeu["joueur"]][0][colonne]
-                variableJeu["listeCarte"][variableJeu["joueur"]]= supColonne(variableJeu["listeCarte"][variableJeu["joueur"]], colonne)
-                variableJeu["liste_clonne_sup"]=[variableJeu["joueur"],colonneSup]
-                for i in range (3):
-                    variableJeu["defausse"].insert(0,carteColonneSup)
-                variableJeu["etat"]='sup_colonne'
+    
 
             variableJeu["joueur"] =(variableJeu["joueur"]+1)%4
+
+
+    if verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1])[0] == True:
+        
+        colonneSup= verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1])[1]
+        carteColonneSup= variableJeu["listeCarte"][variableJeu["joueur"]-1][0][colonne]
+        variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1]= supColonne(variableJeu["listeCarte"][variableJeu["joueur"]-1], variableJeu["listeEtatCarte"][variableJeu["joueur"]-1], colonne)
+        variableJeu["liste_clonne_sup"]=[variableJeu["joueur"]-1,colonneSup]
+        for i in range (3):
+            variableJeu["defausse"].insert(0,carteColonneSup)
+        variableJeu["etat"]='sup_colonne'
 
 
         

@@ -57,11 +57,12 @@ def convertirJeuCartes3Tableau (listeJoueur):
         listeTrie.append(L)
     return listeTrie
 
-def supColonne (listeJn,colonne):
+def supColonne (listeJn,listeEtatCatreJn,colonne):
     for i in range (3):
         listeJn[i][colonne]= 0
+        listeEtatCatreJn[i][colonne]="0"
 
-    return listeJn
+    return listeJn,listeEtatCatreJn
 
 
 def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou defausse) qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
@@ -195,9 +196,15 @@ def chercheClassement (varibleJeu):
                 totalJ+=jeu[i][j]
         totalscore.append(totalJ)
     indiceJClassement=[]
+    totalscoreChangement=list(totalscore)
     for k in range (varibleJeu["nbJoueur"]):
-        joueur=totalscore.index(min(totalscore))
-        totalscore[joueur]=145      # max du nombre de carte que l'on peut avoir+1 : carte 12 partout soit 12x12=144
+        joueur=totalscoreChangement.index(min(totalscoreChangement))
+        totalscoreChangement[joueur]=145      # max du nombre de carte que l'on peut avoir+1 : carte 12 partout soit 12x12=144
         indiceJClassement.append(joueur)
     return indiceJClassement,totalscore
 
+variableJeu={
+    "nbJoueur" : 4,
+    "listeCarte": [[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,5,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,6,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,4,1]]]
+}
+print (chercheClassement(variableJeu))
