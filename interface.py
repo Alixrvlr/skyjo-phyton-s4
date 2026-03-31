@@ -628,6 +628,49 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
 
 #popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
 
+def popupMenu(variableJeu):
+    global nomJoueurs
+    nomJoueurs=[]
+    def validerNom():
+        #nomJoueurs=[]
+        for entry in entriesJoueurs :
+            nomJoueurs.append(entry.get())
+        variableJeu["listeNomJoueur"]=nomJoueur
+        
+
+    fenetreMenu = Toplevel()
+    fenetreMenu.iconbitmap("eseoLogo.ico")
+    fenetreMenu.config(background="#5ab4c9")
+    fenetreMenu.title('Menu')
+    fenetreMenu.geometry("800x600+250+50") # dimensions et position de la fenêtre
+    fenetreMenu.grid_columnconfigure
+
+    message1 = Label(fenetreMenu, text="Menu", fg="black", bg="#5ab4c9", font='Selestin 15')
+    message1.grid(row=0, column=0, sticky="n", padx = 10, pady = 10)
+
+    entriesJoueurs = []
+    for i in range (4):      #variableJeu["nbJoueur"]
+
+        frameJoueur = Frame(fenetreMenu, background='#3396ff')
+        Prenom = Label(frameJoueur, text="Joueur "+str(i+1),  background='#3396ff', fg="#ffffff")
+        champPrenom = Entry(frameJoueur, bg="#ffffff", fg="green", font="Courier", bd=5, justify=CENTER)
+        Prenom.grid(row=0, column=0, padx=40)
+        champPrenom.grid(row=0, column=1)
+        frameJoueur.grid(row=1+i, column=0, sticky="n", padx = 10, pady = 10)
+        entriesJoueurs.append(champPrenom)
+    
+    frameBouton= Frame(fenetreMenu,background="#adff33")
+    frameBouton.grid(row=7, column=0, sticky="n", padx = 10, pady = 10)
+    bA = Button(frameBouton, text ='Ajouter', command = validerNom)
+    bA.grid(row=0,column=0)         #.pack(side =LEFT, padx =3, pady =3)
+
+    return variableJeu
+
+    
+
+#variableJeu=popupMenu(variableJeu)
+#print(variableJeu["listeNomJoueur"])
+
 
 
 
