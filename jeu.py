@@ -6,7 +6,7 @@ def deroulerJeu(variableJeu):
         positionClic = recupPosition(variableJeu["position"][0],variableJeu["position"][1])
         emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
 
-        ligne,colonne = convetirPosition(emplacementCarte)
+        
         if positionClic != None:
             if positionClic == 'pioche':
                 variableJeu["typeJeu"] = positionClic
@@ -16,14 +16,15 @@ def deroulerJeu(variableJeu):
                 variableJeu["typeJeu"] = positionClic
                 variableJeu["etat"] = 'choix_carte'
             
-            elif positionClic == ("jeu"+str(variableJeu["joueur"]+1)) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1]) != None  and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!= "0" :
+            elif positionClic == ("jeu"+str(variableJeu["joueur"]+1)) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1]) != None :
                 #variableJeu["typeJeu"] = 'retourneCarte'
                 #variableJeu["etat"] = 'choix_carte'
-                
-                variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True 
-                variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
-                variableJeu["etat"]= 'changement_carte'
-                variableJeu["joueur"] =(variableJeu["joueur"]+1)%4
+                ligne,colonne = convetirPosition(emplacementCarte)
+                if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!= "0" :
+                    variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True 
+                    variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
+                    variableJeu["etat"]= 'changement_carte'
+                    variableJeu["joueur"] =(variableJeu["joueur"]+1)%4
  
   
       
