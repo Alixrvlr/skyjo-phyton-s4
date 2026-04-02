@@ -627,16 +627,20 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
 
 #popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
 
-def popupMenu(variableJeu):
-    global nomJoueurs
+def popupMenu(callback):#variableJeu
+    #global nomJoueurs
     nomJoueurs=[]
+    variableJeu["listeNomJoueur"]=nomJoueurs
     def validerNom():
         #nomJoueurs=[]
+        nomJoueurs.clear()
         for entry in entriesJoueurs :
             nomJoueurs.append(entry.get())
-        variableJeu["listeNomJoueur"]=nomJoueur
+        variableJeu["listeNomJoueur"]=nomJoueurs
+        callback(nomJoueurs)
         
-
+        
+    # Création de la fenêtre
     fenetreMenu = Toplevel()
     fenetreMenu.iconbitmap("eseoLogo.ico")
     fenetreMenu.config(background="#5ab4c9")
@@ -644,9 +648,11 @@ def popupMenu(variableJeu):
     fenetreMenu.geometry("800x600+250+50") # dimensions et position de la fenêtre
     fenetreMenu.grid_columnconfigure
 
+    # Titre de la fenêtre
     message1 = Label(fenetreMenu, text="Menu", fg="black", bg="#5ab4c9", font='Selestin 15')
     message1.grid(row=0, column=0, sticky="n", padx = 10, pady = 10)
 
+    # Création des zones d'entrée
     entriesJoueurs = []
     for i in range (4):      #variableJeu["nbJoueur"]
 
@@ -658,14 +664,33 @@ def popupMenu(variableJeu):
         frameJoueur.grid(row=1+i, column=0, sticky="n", padx = 10, pady = 10)
         entriesJoueurs.append(champPrenom)
     
+    # Création du bouton
     frameBouton= Frame(fenetreMenu,background="#adff33")
     frameBouton.grid(row=7, column=0, sticky="n", padx = 10, pady = 10)
     bA = Button(frameBouton, text ='Ajouter', command = validerNom)
     bA.grid(row=0,column=0)         #.pack(side =LEFT, padx =3, pady =3)
 
+    bRejouer = Button(frameBouton, text ='Rejouer', bg="#43c2df", fg="black", font=("Courier New", 11), command = rejouer) # !!! ne fonctionne pas
+    bRejouer.grid(row=1,column=0,sticky="n", padx = 10, pady = 10) 
+
+    btImageSon=PhotoImage(file="img/couper_son.png")
+    #bSon = Button(frameBouton, text="Son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: son())
+    bSon = Button(frameBouton, image=btImageSon, command=son)
+    bSon.grid(row=2,column=0,sticky="n", padx = 10, pady = 10) 
+    bSon.image = btImageSon
+
+    bCouperSon = Button(frameBouton, text="Couper son", bg="#43c2df", fg="black", font=("Courier New", 11), command=stop_son)
+    bCouperSon.grid(row=2,column=1,sticky="n", padx = 10, pady = 10) 
+    
+
     return variableJeu
 
     
+
+def traitement_liste(liste):
+    print("Liste reçue :", liste)
+
+popupMenu(traitement_liste)
 
 #variableJeu=popupMenu(variableJeu)
 #print(variableJeu["listeNomJoueur"])
@@ -682,7 +707,7 @@ def go(event,variableJeu):
     global etat'''
     x=event.x #donnera la valeur de x
     y=event.y # donnera la valeur de y
-
+    print("fyeg",variableJeu["listeNomJoueur"])
     variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
     
     if variableJeu["etat"]=='start':
@@ -760,14 +785,7 @@ instructionRetournerCarteDebutJn(variableJeu)
 bQuitter = Button(fenetre, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetre.destroy)
 bQuitter.place(anchor="se", x=430, y=690)
 
-bRejouer = Button(fenetre, text ='Rejouer', bg="#43c2df", fg="black", font=("Courier New", 11), command = rejouer) # !!! ne fonctionne pas
-bRejouer.place(anchor="sw", x=928, y=690)
 
-bSon = Button(fenetre, text="Son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: son())
-bSon.place(anchor="sw", x=600, y=690)
-
-bCouperSon = Button(fenetre, text="Couper son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: stop_son())
-bCouperSon.place(anchor="sw", x=700, y=690)
 
 
 ''' '''
