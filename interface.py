@@ -224,8 +224,7 @@ def instructionJeuJn(variableJeu) :
 
 
     numeroJn = variableJeu["joueur"] + 1
-    #nomJoueur = Label(fenetre, text = "C'est au tour du joueur " + str(numeroJn), font = "Selestin 18", fg = 'white', bg = 'black')
-    nomJoueur.config(text = "INSTRUC C'est au tour du joueur " + str(numeroJn))
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
     
 
     instructionRetourner2Carte.place_forget()
@@ -309,7 +308,7 @@ def instructionChoisirEmplacementCarteJn(variableJeu) :
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur.config(text = "CHOISIR EMPL C'est au tour du joueur " + str(numeroJn))
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
 
     # effacer textes
 
@@ -705,7 +704,7 @@ def go(event,variableJeu):
             print(len(images))
             xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-1)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%4][1])
             affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin)
-            instructionChoisirEmplacementCarteJn(variableJeu)
+            instructionJeuJn(variableJeu)
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"] ='choix_pioche'
         
