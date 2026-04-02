@@ -676,11 +676,11 @@ def popupMenu(callback):#variableJeu
 
     btImageSon=PhotoImage(file="img/couper_son.png")
     #bSon = Button(frameBouton, text="Son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: son())
-    bSon = Button(frameBouton, image=btImageSon, command=lambda: son())
+    bSon = Button(frameBouton, image=btImageSon, command=son)
     bSon.grid(row=2,column=0,sticky="n", padx = 10, pady = 10) 
     bSon.image = btImageSon
 
-    bCouperSon = Button(frameBouton, text="Couper son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: stop_son())
+    bCouperSon = Button(frameBouton, text="Couper son", bg="#43c2df", fg="black", font=("Courier New", 11), command=stop_son)
     bCouperSon.grid(row=2,column=1,sticky="n", padx = 10, pady = 10) 
     
 
