@@ -180,7 +180,7 @@ def affichageColonneSup(variableJeu) :
     xCoin= recupCoordoXColonneSup(colonne, variableJeu["decalage"][variableJeu["joueur"]-1][0])
 
     for i in range (3):
-        affichageCarreNoire(xCoin, 10+i*110)
+        affichageCarreNoire(xCoin, 10+i*110+variableJeu["decalage"][variableJeu["joueur"]-1][1])
 
 '''affichagecarteJnRecto(J1[0],J1[1])
 affichagecarteJnRecto(J2[0],J2[1])
@@ -442,8 +442,8 @@ def actionStart ():
 
 
     # Pour teste :
-    #listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
-    
+    listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    listeJn[2]=[[5,6,7,7],[5,5,9,3],[5,7,7,1]]
     
     
 
@@ -721,7 +721,6 @@ def go(event,variableJeu):
         print (f"etat dans interface {variableJeu["etat"]}")
 
         
-
         if variableJeu["etat"]=='choix_carte':
             instructionPlacerCarteJn(variableJeu)
 

@@ -28,7 +28,7 @@ def deroulerJeu(variableJeu):
             elif positionClic == ("jeu"+str(variableJeu["joueur"]+1)) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1]) != None :
                 emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #on recupère la position de la carte choisi (1 à 12 ou None)
                 ligne,colonne = convetirPosition(emplacementCarte)
-                if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!= "0" : # On verifie qu'il y ai bien une carte (pas une colonne supprimé (dans listeEtatCarte on a un "0" si la colonne est supprimé))
+                if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0": # On verifie qu'il y ai bien une carte (pas une colonne supprimé (dans listeEtatCarte on a un "0" si la colonne est supprimé))
                     variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True  # On indique que la carte est retourné
                     variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne] # On enregistre la nouvelle carte pour son affichage
                     variableJeu["etat"]= 'changement_carte'
@@ -43,38 +43,43 @@ def deroulerJeu(variableJeu):
             emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
             ligne,colonne = convetirPosition(emplacementCarte)  # On converti la position de la carte (entre 1 et 12) avec une ligne et une colonne pour pouvoir modifier les listes
 
-            if variableJeu["typeJeu"]=="pioche" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":  # on verifie que la collone n'est pas supprimé
-                cartePioche=variableJeu["pioche"].pop(0)    # on recupère la première carte de la pioche
-    
-                if variableJeu["jouerCartePioche"] :    # True si le joueur veut jouer la carte de la pioche False sinon
-                    emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])                  #position = int(input("choix position"))
-                    variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteEnleve=echangeCarte(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],cartePioche,emplacementCarte)
-                    variableJeu["defausse"].insert(0,carteEnleve)   # On rajoute la carte remplacé dans la défausse
-                    variableJeu["nouvCarte"] = cartePioche      # Carte à afficher
-                    variableJeu["etat"]= 'changement_carte'
-                else :
-                    variableJeu["defausse"].insert(0,cartePioche)   # on met dans la défausse la carte de la pioche car le joueur ne veut pas la joueur
-                    variableJeu["typeJeu"] = "retourneCarte"
+            if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
+
+                if variableJeu["typeJeu"]=="pioche" :  # on verifie que la collone n'est pas supprimé
+                    if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
+
+                        cartePioche=variableJeu["pioche"].pop(0)    # on recupère la première carte de la pioche
+            
+                        if variableJeu["jouerCartePioche"] :    # True si le joueur veut jouer la carte de la pioche False sinon
+                            emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])                  #position = int(input("choix position"))
+                            variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteEnleve=echangeCarte(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],cartePioche,emplacementCarte)
+                            variableJeu["defausse"].insert(0,carteEnleve)   # On rajoute la carte remplacé dans la défausse
+                            variableJeu["nouvCarte"] = cartePioche      # Carte à afficher
+                            variableJeu["etat"]= 'changement_carte'
+                        else :
+                            variableJeu["defausse"].insert(0,cartePioche)   # on met dans la défausse la carte de la pioche car le joueur ne veut pas la joueur
+                            variableJeu["typeJeu"] = "retourneCarte"
 
 
-            if variableJeu["typeJeu"]=="defausse" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
-                carteDefausse = variableJeu["defausse"].pop(0) # On recupère la carte de la défausse pour la jouer
-                emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
-                variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteEnleve=echangeCarte(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteDefausse,emplacementCarte)
-                variableJeu["nouvCarte"] = carteDefausse
-                variableJeu["defausse"].insert(0,carteEnleve)   # on met la carte remplacer dans la défausse
-                variableJeu["etat"]= 'changement_carte'
+                if variableJeu["typeJeu"]=="defausse" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
+                    if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
+                        carteDefausse = variableJeu["defausse"].pop(0) # On recupère la carte de la défausse pour la jouer
+                        emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
+                        variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteEnleve=echangeCarte(variableJeu["listeCarte"][variableJeu["joueur"]],variableJeu["listeEtatCarte"][variableJeu["joueur"]],carteDefausse,emplacementCarte)
+                        variableJeu["nouvCarte"] = carteDefausse
+                        variableJeu["defausse"].insert(0,carteEnleve)   # on met la carte remplacer dans la défausse
+                        variableJeu["etat"]= 'changement_carte'
 
-            # on retourne juste une carte du jeu quand le joueur ne veut pas jouer la carte de la pioche
-            if variableJeu["typeJeu"]=="retourneCarte" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
-                emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
-                ligne,colonne = convetirPosition(emplacementCarte)
-                variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True 
-                variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
-                variableJeu["etat"]= 'changement_carte'   
-    
+                # on retourne juste une carte du jeu quand le joueur ne veut pas jouer la carte de la pioche
+                if variableJeu["typeJeu"]=="retourneCarte" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
+                    emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #position = int(input("choix position"))
+                    ligne,colonne = convetirPosition(emplacementCarte)
+                    variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True 
+                    variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
+                    variableJeu["etat"]= 'changement_carte'   
+        
 
-            variableJeu["joueur"] =(variableJeu["joueur"]+1)%variableJeu["nbJoueur"]  # on change de joueur
+                variableJeu["joueur"] =(variableJeu["joueur"]+1)%variableJeu["nbJoueur"]  # on change de joueur
 
 
     if verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1])[0] :     # si il y a une colonne avec les mêmes cartes
