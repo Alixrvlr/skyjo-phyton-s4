@@ -30,12 +30,6 @@ def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
     listeEtatCarteJn[ligne][colonne] = True
     return listeJn, listeEtatCarteJn, carteEnleve
 
-'''def recupPositionCarte(coordoClic,dicoCoordonneesJn):
-    position=0
-    for cle, valeur in dicoCoordonneesJn.items():
-        if coordoClic == valeur :
-            position = cle
-    return position'''
 
 def totalPointJn(listeJn):
     s = 0
@@ -202,9 +196,3 @@ def chercheClassement (varibleJeu):
         totalscoreChangement[joueur]=145      # max du nombre de carte que l'on peut avoir+1 : carte 12 partout soit 12x12=144
         indiceJClassement.append(joueur)
     return indiceJClassement,totalscore
-
-variableJeu={
-    "nbJoueur" : 4,
-    "listeCarte": [[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,5,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,6,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,4,1]]]
-}
-print (chercheClassement(variableJeu))
