@@ -443,7 +443,7 @@ def actionStart ():
 
 
     # Pour teste :
-    listeJn[0]=[[4,6,7],[4,9,3],[4,7,1]]
+    listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
     gagner = False
     
@@ -674,7 +674,7 @@ def popupMenu(callback):#variableJeu
     bRejouer = Button(frameBouton, text ='Rejouer', bg="#43c2df", fg="black", font=("Courier New", 11), command = rejouer) # !!! ne fonctionne pas
     bRejouer.grid(row=1,column=0,sticky="n", padx = 10, pady = 10) 
 
-    btImageSon=PhotoImage(file="img/couper_son.png")
+    btImageSon=PhotoImage(file="img/son.png")
     #bSon = Button(frameBouton, text="Son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: son())
     bSon = Button(frameBouton, image=btImageSon, command=son)
     bSon.grid(row=2,column=0,sticky="n", padx = 10, pady = 10) 
@@ -708,7 +708,7 @@ def go(event,variableJeu):
     global etat'''
     x=event.x #donnera la valeur de x
     y=event.y # donnera la valeur de y
-    print("fyeg",variableJeu["listeNomJoueur"])
+    #print("fyeg",variableJeu["listeNomJoueur"])
     variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
     
     if variableJeu["etat"]=='start':
