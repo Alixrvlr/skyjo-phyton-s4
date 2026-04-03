@@ -724,19 +724,10 @@ def go(event,variableJeu):
             popupScore(str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])
 
             # afficher pop up
-            '''vainqueur = classement[0] # nom vainqueur
-            deuxieme = classement[1]
-            troisieme = classement[2]
-            quatrieme = classement[3]
-
-            scoreV = score[0] # score du vainqueur
-            scoreD = score[1] # score du 2e
-            scoreT = score[2] # socre du 3e
-            scoreQ = score[3] # socre du 4e
-
-            popupScore(vainqueur, scoreV, deuxieme, scoreD, troisieme, scoreT, quatrieme, scoreQ)'''
             
-
+        '''if variableJeu["typeJeu"]=="defausse" :
+            instructionPlacerCarteJn(variableJeu)  
+            variableJeu["etat"]='changement_carte'  '''
         
 
     #print (etat)
