@@ -442,9 +442,9 @@ def actionStart ():
 
 
     # Pour teste :
-    listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    #listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
-    gagner = False
+    
     
 
     variableJeu["etat"]= "start"                     # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
@@ -462,7 +462,7 @@ def actionStart ():
     #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                        # Tuple avec les coordonnées du clic
-    print(variableJeu["listeCarte"])
+
     affichagecarteJnRecto(variableJeu)
     affichagepioche(variableJeu["defausse"][0])
     return variableJeu
@@ -470,9 +470,7 @@ def actionStart ():
 
 
 def retournerCarteDebut (x,y,variableJeu):
-    
-    
-    
+
     ligne,colonne=convetirPosition(recupPositionCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%4][0],variableJeu["decalage"][(variableJeu["joueur"])%4][1]))
     variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]=True
     variableJeu["sommeCarteRetourne"][variableJeu["joueur"]]+=variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
@@ -627,10 +625,10 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
 
 #popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
 
-def popupMenu(callback):#variableJeu
+def popupMenu(callback,variableJeu):
     #global nomJoueurs
     nomJoueurs=[]
-    variableJeu["listeNomJoueur"]=nomJoueurs
+    #variableJeu["listeNomJoueur"]=nomJoueurs
     def validerNom():
         #nomJoueurs=[]
         nomJoueurs.clear()
@@ -690,7 +688,7 @@ def popupMenu(callback):#variableJeu
 def traitement_liste(liste):
     print("Liste reçue :", liste)
 
-popupMenu(traitement_liste)
+#popupMenu(traitement_liste)
 
 #variableJeu=popupMenu(variableJeu)
 #print(variableJeu["listeNomJoueur"])
@@ -699,12 +697,7 @@ popupMenu(traitement_liste)
 
 
 def go(event,variableJeu):
-    '''global decalage
-    global nouvCarte
-    #global x
-    #global y
-    global joueur
-    global etat'''
+
     x=event.x #donnera la valeur de x
     y=event.y # donnera la valeur de y
     #print("fyeg",variableJeu["listeNomJoueur"])
@@ -718,8 +711,19 @@ def go(event,variableJeu):
         
     else:
         instructionJeuJn(variableJeu)
+
+        if len(variableJeu["pioche"])<=0:
+            nouvPioche =[variableJeu["defausse"].pop(1) for i in range (len(variableJeu["defausse"])-1)]
+            nouvPioche=melangeCartes(nouvPioche)
+            variableJeu["pioche"]=nouvPioche
+
         variableJeu =deroulerJeu(variableJeu)
         print (f"etat dans interface {variableJeu["etat"]}")
+
+        
+
+        if variableJeu["etat"]=='choix_carte':
+            instructionPlacerCarteJn(variableJeu)
 
         if variableJeu["etat"]=='attente_pop-up' and variableJeu["typeJeu"]=="pioche":
             variableJeu=popupChoix(variableJeu)
