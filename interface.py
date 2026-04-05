@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from jeu import *
 from skyjo import *
 import winsound 
@@ -8,28 +9,18 @@ import winsound
 
 ''' Création de la fenêtre ----------------------------------------------------------------------------------------'''
 
-fenetre = Tk()
-fenetre.title("Skyjo")
-fenetre.iconbitmap("eseoLogo.ico")
+fenetrePrincipale = Tk()
+fenetrePrincipale.title("Skyjo")
+fenetrePrincipale.iconbitmap("eseoLogo.ico")
 
-largeur = fenetre.winfo_screenwidth()
-hauteur = fenetre.winfo_screenheight()
+largeur = fenetrePrincipale.winfo_screenwidth()
+hauteur = fenetrePrincipale.winfo_screenheight()
 
 # la fenêtre prend tout l'écran
-fenetre.geometry(f"{largeur}x{hauteur}+0+0")
+fenetrePrincipale.geometry(f"{largeur}x{hauteur}+0+0")
 
 
-"""
-largeur = fenetre.winfo_screenwidth()
-hauteur = fenetre.winfo_screenheight()
-fenetre.geometry(f"{largeur}x{hauteur}")
 
-# Canvas principal
-canvas = tk.Canvas(fenetre, bg="white")
-canvas.pack(fill="both", expand=True)
-fill="both" : prend largeur + hauteur
-expand=True : utilise tout l’espace disponible
-"""
 
 ''' Création du plateau du jeu ---------------------------------------------------------------------------------------'''
 
@@ -49,8 +40,17 @@ expand=True : utilise tout l’espace disponible
 
 
 
-can = Canvas(fenetre, bg ='black')
-can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=745, x=0, y=0)
+# frame pour l'interface du jeu
+
+frameJeu = Frame(fenetrePrincipale, background='#000000')
+can = Canvas(frameJeu, bg ='black')
+can.place(anchor="nw", width=fenetrePrincipale.winfo_screenwidth(), height=745, x=0, y=0)
+
+# frame pour l'interface du menu
+
+frameMenu = Frame(fenetrePrincipale, background="#1BB5E4")
+
+
     
 '''
 # cartes J1 (haut gauche)
@@ -196,28 +196,6 @@ affichagecarteJnRecto(J4[0],J4[1])'''
 ''' Affichage joueur et instructions -----------------------------------------------------------------------------------------'''
 
 
-
-# définir les Labels
-
-# communs
-nomJoueur = Label(fenetre, font = "Selestin 18", fg = 'white', bg = 'black')
-flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
-flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionJeuJn
-instruction_option = Label(fenetre, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
-instruction_piocherCarte = Label(fenetre, text = "Piocher une carte \nPrendre une carte de la défausse \nRetourner une carte de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionPlacerCarteJn
-instruction_PlacerCarte = Label(fenetre, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionChoisirEmplacementCarteJn
-instruction_ChoixCarteRetourner = Label(fenetre, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionRetournerCarteDebutJn
-instructionRetourner2Carte = Label(fenetre, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
-
-
 def instructionJeuJn(variableJeu) :
     global fleche
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
@@ -256,7 +234,6 @@ def instructionJeuJn(variableJeu) :
         flecheGauche.place_forget()
         flecheGauche.place(anchor="w", x = 350, y = 530) 
 
-    
 
 
 
@@ -265,7 +242,7 @@ def instructionPlacerCarteJn(variableJeu) :
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur.config(text = "PLACER CAR C'est au tour du joueur " + str(numeroJn))
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
 
     # effacer les autres textes
 
@@ -627,6 +604,71 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
 
 #popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
 
+
+
+''' Fenêtre Menu -----------------------------------------------------------------------------------------------------------'''
+
+
+def vider() :
+    # vider les Entry des noms des joueurs
+    cadreNomJ1.delete(0, END)
+    cadreNomJ2.delete(0, END)
+    cadreNomJ3.delete(0, END)
+    cadreNomJ4.delete(0, END)
+
+
+def retournerAuMenu() :
+    frameJeu.pack_forget()
+    vider()
+    frameMenu.pack(fill="both", expand=True)
+
+
+
+def valider() :
+    frameMenu.pack_forget() # permet de cacher la Frame du menu
+    frameJeu.pack(fill="both", expand=True) # permet d'afficher la Frame du jeu
+
+
+
+
+def fenetreMenu(variableJeu) :
+
+    #Création des éléments à afficher 
+
+    options = ["2" , "3" , "4"]
+    choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
+
+    blanc.grid(row=0, column=3, sticky=E, padx = 10, pady = 10)
+    # Utilisation de la méthode grid () pour positionner les éléments
+    titre.grid(row=1, column=5, columnspan=3)
+
+
+    labListe.grid(row=2, column=3, sticky=E, padx = 10, pady = 10)
+
+    nomJ1.grid(row=3, column=3, sticky=N, padx = 5, pady = 10)
+    nomJ2.grid(row=4, column=3, sticky=N, padx = 5, pady = 10)
+    nomJ3.grid(row=5, column=3, sticky=N, padx = 5, pady = 10)
+    nomJ4.grid(row=6, column=3, sticky=N, padx = 5, pady = 10)
+
+    choixNbJoueurs.grid(row = 2, column=4, padx = 10, pady = 10)
+
+    cadreNomJ1.grid(row=3, column=4, sticky=N, padx = 5, pady = 10)
+    cadreNomJ2.grid(row=4, column=4, sticky=N, padx = 5, pady = 10)
+    cadreNomJ3.grid(row=5, column=4, sticky=N, padx = 5, pady = 10)
+    cadreNomJ4.grid(row=6, column=4, sticky=N, padx = 5, pady = 10)
+
+
+    
+
+    bValider.grid(row=10,column=3, padx = 10, pady = 10)
+    bVider.grid(row=10,column=5, padx = 10, pady = 10)
+    bQuitter.grid(row=10, column=7, padx = 10, pady = 10)
+    #frameJeu.forget()
+    #frameMenu.pack()
+
+
+
+
 def popupMenu(callback):#variableJeu
     #global nomJoueurs
     nomJoueurs=[]
@@ -690,7 +732,7 @@ def popupMenu(callback):#variableJeu
 def traitement_liste(liste):
     print("Liste reçue :", liste)
 
-popupMenu(traitement_liste)
+#popupMenu(traitement_liste)
 
 #variableJeu=popupMenu(variableJeu)
 #print(variableJeu["listeNomJoueur"])
@@ -751,7 +793,8 @@ def go(event,variableJeu):
             # afficher pop up
             
         '''if variableJeu["typeJeu"]=="defausse" :
-            instructionPlacerCarteJn(variableJeu)  
+            instructionPlacerCarteJn(variableJeu) 
+            affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='changement_carte'  '''
         
 
@@ -765,21 +808,92 @@ def go(event,variableJeu):
 affichagecarteJnRecto(variableJeu)
 affichagepioche()'''
 
-variableJeu=actionStart()
-instructionRetournerCarteDebutJn(variableJeu)
+
 
 
 
 
 ''' Boutons ----------------------------------------------------------------------------------------'''
 
-bQuitter = Button(fenetre, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetre.destroy)
-bQuitter.place(anchor="se", x=430, y=690)
+bQuitter = Button(frameJeu, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetrePrincipale.destroy)
+bQuitter.place(anchor="se", x=530, y=690)
+
+bMenu = Button(frameJeu, text ='Menu', bg="#43c2df", fg="black",font=("Courier New", 11), command = retournerAuMenu)
+bMenu.place(anchor="sw", x=750, y=690)
+
+
+bValider = Button(frameMenu, text = "Valider", width=10, height=1, command=valider)
+bVider = Button(frameMenu, text = "Vider", width=10, height=1, command=vider)
+bQuitter = Button(frameMenu, text = "Quitter", width=10, height=1, command=fenetrePrincipale.destroy)
+
+
+
+''' Paramètres fonctions instructions joueurs --------------------------------------------------------------------------------------------------------------------------'''
+
+
+# définir les Labels
+
+# communs
+nomJoueur = Label(frameJeu, font = "Selestin 18", fg = 'white', bg = 'black')
+flecheDroite = Label(frameJeu, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+flecheGauche = Label(frameJeu, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionJeuJn
+instruction_option = Label(frameJeu, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
+instruction_piocherCarte = Label(frameJeu, text = "Piocher une carte \nPrendre une carte de la défausse \nRetourner une carte de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionPlacerCarteJn
+instruction_PlacerCarte = Label(frameJeu, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionChoisirEmplacementCarteJn
+instruction_ChoixCarteRetourner = Label(frameJeu, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionRetournerCarteDebutJn
+instructionRetourner2Carte = Label(frameJeu, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
 
 
 
 
-''' '''
+
+
+
+''' Paramètres fenêtre menu ---------------------------------------------------------------------------------------------'''
+
+titre = Label(frameMenu, text="Menu Principal", font="Selestin 20 bold", background="#1BB5E4", fg='black')
+
+blanc = Label(frameMenu, text="", font="Selestin 20 bold", background="#1BB5E4")
+
+# phrase pour dire d'écrire son nom 
+
+nomJ1 = Label(frameMenu, text="Joueur 1, votre nom : ", font="Selestin 15", background="#1BB5E4", height=2, fg='black')
+nomJ2 = Label(frameMenu, text="Joueur 2, votre nom : ", font="Selestin 15", background="#1BB5E4", height=2, fg='black')
+nomJ3 = Label(frameMenu, text="Joueur 3, votre nom : ", font="Selestin 15", background="#1BB5E4", height=2, fg='black')
+nomJ4 = Label(frameMenu, text="Joueur 4, votre nom : ", font="Selestin 15", background="#1BB5E4", height=2, fg='black')
+
+
+# cadres pour écrire les noms 
+
+cadreNomJ1 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')
+cadreNomJ2 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')
+cadreNomJ3 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')
+cadreNomJ4 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')  
+
+labListe = Label(frameMenu, text="Combien de joueurs êtes-vous ?", font="Selestin 15", background="#1BB5E4", height=2, fg='black')
+
+
+
+
+''' Lancement des fonctions ------------------------------------------------------------------------------------------------------------------------'''
+
+variableJeu=actionStart()
+instructionRetournerCarteDebutJn(variableJeu)
+
+
+fenetreMenu(variableJeu)
+frameMenu.pack(fill='both', expand=True)
+
+
+
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
@@ -787,4 +901,6 @@ can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
 ''' Ouverture de la fenêtre ------------------------------------------------------------------------------------------'''
 
-fenetre.mainloop()
+
+
+fenetrePrincipale.mainloop()
