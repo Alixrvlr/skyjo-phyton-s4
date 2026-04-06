@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from jeu import *
 from skyjo import *
 import winsound 
@@ -8,28 +9,18 @@ import winsound
 
 ''' Création de la fenêtre ----------------------------------------------------------------------------------------'''
 
-fenetre = Tk()
-fenetre.title("Skyjo")
-fenetre.iconbitmap("eseoLogo.ico")
+fenetrePrincipale = Tk()
+fenetrePrincipale.title("Skyjo")
+fenetrePrincipale.iconbitmap("eseoLogo.ico")
 
-largeur = fenetre.winfo_screenwidth()
-hauteur = fenetre.winfo_screenheight()
+largeur = fenetrePrincipale.winfo_screenwidth()
+hauteur = fenetrePrincipale.winfo_screenheight()
 
 # la fenêtre prend tout l'écran
-fenetre.geometry(f"{largeur}x{hauteur}+0+0")
+fenetrePrincipale.geometry(f"{largeur}x{hauteur}+0+0")
 
 
-"""
-largeur = fenetre.winfo_screenwidth()
-hauteur = fenetre.winfo_screenheight()
-fenetre.geometry(f"{largeur}x{hauteur}")
 
-# Canvas principal
-canvas = tk.Canvas(fenetre, bg="white")
-canvas.pack(fill="both", expand=True)
-fill="both" : prend largeur + hauteur
-expand=True : utilise tout l’espace disponible
-"""
 
 ''' Création du plateau du jeu ---------------------------------------------------------------------------------------'''
 
@@ -175,7 +166,6 @@ def instructionJeuJn(variableJeu) :
         flecheGauche.place_forget()
         flecheGauche.place(anchor="w", x = 350, y = 530) 
 
-    
 
 
 
@@ -184,7 +174,7 @@ def instructionPlacerCarteJn(variableJeu) :
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur.config(text = "PLACER CAR C'est au tour du joueur " + str(numeroJn))
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
 
     # effacer les autres textes
 
@@ -692,4 +682,6 @@ can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
 ''' Ouverture de la fenêtre ------------------------------------------------------------------------------------------'''
 
-fenetre.mainloop()
+
+
+fenetrePrincipale.mainloop()
