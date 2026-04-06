@@ -40,10 +40,7 @@ fenetrePrincipale.geometry(f"{largeur}x{hauteur}+0+0")
 
 
 
-# frame pour l'interface du jeu
-
-frameJeu = Frame(fenetrePrincipale, background='#000000')
-can = Canvas(frameJeu, bg ='black')
+can = Canvas(fenetrePrincipale, bg ='black')
 can.place(anchor="nw", width=fenetrePrincipale.winfo_screenwidth(), height=745, x=0, y=0)
 
 # frame pour l'interface du menu
@@ -56,89 +53,10 @@ frameScore = Frame(fenetrePrincipale, background="#1BB5E4")
 
 
     
-'''
-# cartes J1 (haut gauche)
-can.create_rectangle(30, 10, 105, 115,width=1,fill="#808080") 
-can.create_rectangle(30, 120, 105, 225,width=1,fill="#808080") 
-can.create_rectangle(30, 230, 105, 335,width=1,fill="#808080") 
-
-can.create_rectangle(110, 10, 185, 115,width=1,fill="#808080") 
-can.create_rectangle(110, 120, 185, 225,width=1,fill="#808080") 
-can.create_rectangle(110, 230, 185, 335,width=1,fill="#808080") 
-
-can.create_rectangle(190, 10, 265, 115,width=1,fill="#808080") 
-can.create_rectangle(190, 120, 265, 225,width=1,fill="#808080") 
-can.create_rectangle(190, 230, 265, 335,width=1,fill="#808080") 
-
-can.create_rectangle(270, 10, 345, 115,width=1,fill="#808080") 
-can.create_rectangle(270, 120, 345, 225,width=1,fill="#808080") 
-can.create_rectangle(270, 230, 345, 335,width=1,fill="#808080") 
-
-
-# cartes J2 (haut droite)
-can.create_rectangle(1010, 10, 1085, 115,width=1,fill="#808080") 
-can.create_rectangle(1010, 120, 1085, 225,width=1,fill="#808080") 
-can.create_rectangle(1010, 230, 1085, 335,width=1,fill="#808080") 
-
-can.create_rectangle(1090, 10, 1165, 115,width=1,fill="#808080") 
-can.create_rectangle(1090, 120, 1165, 225,width=1,fill="#808080") 
-can.create_rectangle(1090, 230, 1165, 335,width=1,fill="#808080") 
-
-can.create_rectangle(1170, 10, 1245, 115,width=1,fill="#808080") 
-can.create_rectangle(1170, 120, 1245, 225,width=1,fill="#808080") 
-can.create_rectangle(1170, 230, 1245, 335,width=1,fill="#808080") 
-
-can.create_rectangle(1250, 10, 1325, 115,width=1,fill="#808080") 
-can.create_rectangle(1250, 120, 1325, 225,width=1,fill="#808080") 
-can.create_rectangle(1250, 230, 1325, 335,width=1,fill="#808080") 
-
-
-# cartes J3 (bas droite)
-can.create_rectangle(1010, 370, 1085, 475,width=1,fill="#808080") 
-can.create_rectangle(1010, 480, 1085, 585,width=1,fill="#808080") 
-can.create_rectangle(1010, 590, 1085, 695,width=1,fill="#808080") 
-
-can.create_rectangle(1090, 370, 1165, 475,width=1,fill="#808080") 
-can.create_rectangle(1090, 480, 1165, 585,width=1,fill="#808080") 
-can.create_rectangle(1090, 590, 1165, 695,width=1,fill="#808080") 
-
-can.create_rectangle(1170, 370, 1245, 475,width=1,fill="#808080") 
-can.create_rectangle(1170, 480, 1245, 585,width=1,fill="#808080") 
-can.create_rectangle(1170, 590, 1245, 695,width=1,fill="#808080") 
-
-can.create_rectangle(1250, 370, 1325, 475,width=1,fill="#808080") 
-can.create_rectangle(1250, 480, 1325, 585,width=1,fill="#808080") 
-can.create_rectangle(1250, 590, 1325, 695,width=1,fill="#808080") 
-
-
-# cartes J4 (bas gauche)
-can.create_rectangle(30, 370, 105, 475,width=1,fill="#808080") 
-can.create_rectangle(30, 480, 105, 585,width=1,fill="#808080") 
-can.create_rectangle(30, 590, 105, 695,width=1,fill="#808080") 
-
-can.create_rectangle(110, 370, 185, 475,width=1,fill="#808080") 
-can.create_rectangle(110, 480, 185, 585,width=1,fill="#808080") 
-can.create_rectangle(110, 590, 185, 695,width=1,fill="#808080") 
-
-can.create_rectangle(190, 370, 265, 475,width=1,fill="#808080") 
-can.create_rectangle(190, 480, 265, 585,width=1,fill="#808080") 
-can.create_rectangle(190, 590, 265, 695,width=1,fill="#808080") 
-
-can.create_rectangle(270, 370, 345, 475,width=1,fill="#808080") 
-can.create_rectangle(270, 480, 345, 585,width=1,fill="#808080") 
-can.create_rectangle(270, 590, 345, 695,width=1,fill="#808080") 
-
-# Cartes de pioche et défausse 
-can.create_rectangle(693, 315, 768, 420,width=1,fill="#808080")     #Défausse
-can.create_rectangle(598, 315, 673, 420,width=1,fill="#808080")     #Pioche '''
 
 
 ''' Cartes -------------------------------------------------------------------------------------------------'''
 
-'''J1=(0,0)
-J2=(980,0)
-J3=(980,360)
-J4=(0,360)'''
 images=[]
 imagesPopUp=[]
 fleche=[]
@@ -198,6 +116,26 @@ affichagecarteJnRecto(J4[0],J4[1])'''
 
 
 ''' Affichage joueur et instructions -----------------------------------------------------------------------------------------'''
+
+# définir les Labels
+
+# communs
+nomJoueur = Label(fenetrePrincipale, font = "Selestin 18", fg = 'white', bg = 'black')
+flecheDroite = Label(fenetrePrincipale, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+flecheGauche = Label(fenetrePrincipale, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionJeuJn
+instruction_option = Label(fenetrePrincipale, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
+instruction_piocherCarte = Label(fenetrePrincipale, text = "Piocher une carte \nPrendre une carte de la défausse \nRetourner une carte de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionPlacerCarteJn
+instruction_PlacerCarte = Label(fenetrePrincipale, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionChoisirEmplacementCarteJn
+instruction_ChoixCarteRetourner = Label(fenetrePrincipale, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
+
+# instructionRetournerCarteDebutJn
+instructionRetourner2Carte = Label(fenetrePrincipale, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
 
 
 def instructionJeuJn(variableJeu) :
@@ -375,7 +313,7 @@ def instructionRetournerCarteDebutJn(variableJeu) :
 
 
 
-''' Déroulé du jeu -------------------------------------------------------------------------------------------------'''
+''' Action mise en route du jeu -------------------------------------------------------------------------------------------------'''
 
 def actionStart ():
     
@@ -428,21 +366,21 @@ def actionStart ():
     
     
 
-    variableJeu["etat"]= "start"                     # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    variableJeu["joueur"]= 0                                # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
-    variableJeu["listeCarte"]= listeJn                      # Liste des jeux de chaque joueur (le chiffre des cartes)
-    variableJeu["listeEtatCarte"]= listeEtatCarteJn         # Liste des états des cartes de chaque jeu
-    variableJeu["nbJoueur"]= nbJoueur                       # Nombre de joueur qui jouent
-    variableJeu["defausse"]= defausse                       # Liste avec les cartes qui constituent la défausse
-    variableJeu["pioche"]= pioche                           # Liste avec les cartes qui constituent la pioche
-    variableJeu["nbCarteRetourner"]=0                       # Pour les 2 carte par joueur à retourner au debut
-    variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
-    variableJeu["sommeCarteRetourne"]=[0,0,0,0]             # pour savoir quel joueur commence
-    variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
+    variableJeu["etat"]= "start"                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    variableJeu["joueur"]= 0                                    # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
+    variableJeu["listeCarte"]= listeJn                          # Liste des jeux de chaque joueur (le chiffre des cartes)
+    variableJeu["listeEtatCarte"]= listeEtatCarteJn             # Liste des états des cartes de chaque jeu
+    variableJeu["nbJoueur"]= nbJoueur                           # Nombre de joueur qui jouent
+    variableJeu["defausse"]= defausse                           # Liste avec les cartes qui constituent la défausse
+    variableJeu["pioche"]= pioche                               # Liste avec les cartes qui constituent la pioche
+    variableJeu["nbCarteRetourner"]=0                           # Pour les 2 carte par joueur à retourner au debut
+    variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]  # décalage des coordonnées des positions des jeux en fonction du joueur
+    variableJeu["sommeCarteRetourne"]=[0,0,0,0]                 # pour savoir quel joueur commence
+    variableJeu["dernierJoueur"]=None                           # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
     variableJeu["jeuTermine"]=False
-    #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
-    #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
-    #"position": None                        # Tuple avec les coordonnées du clic
+    #"typeJeu": None,                                           # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
+    #"nouvCarte": None,                                         # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
+    #"position": None                                           # Tuple avec les coordonnées du clic
 
     affichagecarteJnRecto(variableJeu)
     affichagepioche(variableJeu["defausse"][0])
@@ -481,13 +419,14 @@ def retournerCarteDebut (x,y,variableJeu):
 #Fonction pour remettre le jeu a zero
 
 def rejouer ():
-    pass
+    global boutonRejouer
+    boutonRejouer = True
+    
+    
 
 
 
-
-
-'''fonction son-----------------------------------------------------------------------------------------------------'''
+''' Fonction son -----------------------------------------------------------------------------------------------------'''
 
 def son():
     winsound.PlaySound("son_background.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
@@ -669,7 +608,8 @@ def fenetreMenu(variableJeu) :
 
 
 
-def popupMenu(callback):#variableJeu
+
+def popupMenu(callback,variableJeu):
     #global nomJoueurs
     nomJoueurs=[]
     #variableJeu["listeNomJoueur"]=nomJoueurs
@@ -732,39 +672,35 @@ def popupMenu(callback):#variableJeu
 def traitement_liste(liste):
     print("Liste reçue :", liste)
 
-#popupMenu(traitement_liste)
-
-#variableJeu=popupMenu(variableJeu)
-#print(variableJeu["listeNomJoueur"])
 
 
 
+''' Fonction jeu ----------------------------------------------------------------------------------------'''
 
 def go(event,variableJeu):
 
-    x=event.x #donnera la valeur de x
-    y=event.y # donnera la valeur de y
-    #print("fyeg",variableJeu["listeNomJoueur"])
-    variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
+    x=event.x           #donnera la valeur de x
+    y=event.y           # donnera la valeur de y
+    variableJeu["position"]= (x,y)          # Tuple avec les coordonnées du clic
     
-    if variableJeu["etat"]=='start':
-        #instructionRetournerCarteDebutJn(variableJeu)
-        variableJeu=retournerCarteDebut (x,y,variableJeu)
+    if boutonRejouer:
+        variableJeu=actionStart()
+        instructionRetournerCarteDebutJn(variableJeu)
 
-    
-        
+    if variableJeu["etat"]=='start':
+        variableJeu=retournerCarteDebut (x,y,variableJeu)
+ 
     else:
         instructionJeuJn(variableJeu)
 
-        if len(variableJeu["pioche"])<=0:
+        if len(variableJeu["pioche"])<=0:       # On refait la pioche avec les cartes de la défausse quand elle est vide
             nouvPioche =[variableJeu["defausse"].pop(1) for i in range (len(variableJeu["defausse"])-1)]
             nouvPioche=melangeCartes(nouvPioche)
             variableJeu["pioche"]=nouvPioche
 
         variableJeu =deroulerJeu(variableJeu)
-        print (f"etat dans interface {variableJeu["etat"]}")
+        #print (f"etat dans interface {variableJeu["etat"]}")
 
-        
         if variableJeu["etat"]=='choix_carte':
             instructionPlacerCarteJn(variableJeu)
 
@@ -781,7 +717,6 @@ def go(event,variableJeu):
             variableJeu["etat"] ='choix_pioche'
         
         if variableJeu["etat"]== 'sup_colonne':
-
             affichageColonneSup(variableJeu)
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
@@ -798,23 +733,11 @@ def go(event,variableJeu):
 
 
             
-        '''if variableJeu["typeJeu"]=="defausse" :
-            instructionPlacerCarteJn(variableJeu) 
-            affichagepioche(variableJeu["defausse"][0])
-            variableJeu["etat"]='changement_carte'  '''
-        
 
-    #print (etat)
-
-
-'''variableJeu={
-    "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
-    }
-affichagecarteJnRecto(variableJeu)
-affichagepioche()'''
-
-
+''' Initialisation des variables -------------------------------------------------------------------'''
+variableJeu=actionStart()
+instructionRetournerCarteDebutJn(variableJeu)
+boutonRejouer =False
 
 
 
@@ -903,9 +826,14 @@ instructionRetournerCarteDebutJn(variableJeu)
 
 fenetreMenu(variableJeu)
 frameMenu.pack(fill='both', expand=True)
+bQuitter = Button(fenetrePrincipale, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetrePrincipale.destroy)
+bQuitter.place(anchor="se", x=430, y=690)
+
+bQuitter = Button(fenetrePrincipale, text ='Rejouer', bg="#43c2df", fg="black",font=("Courier New", 11), command = rejouer)
+bQuitter.place(anchor="se", x=630, y=690)
 
 
-
+''' '''
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
