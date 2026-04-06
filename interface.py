@@ -50,6 +50,10 @@ can.place(anchor="nw", width=fenetrePrincipale.winfo_screenwidth(), height=745, 
 
 frameMenu = Frame(fenetrePrincipale, background="#1BB5E4")
 
+# frame pour l'affichage des scores
+
+frameScore = Frame(fenetrePrincipale, background="#1BB5E4")
+
 
     
 '''
@@ -555,16 +559,8 @@ def popupChoix(variableJeu) :
 
 ''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
 
-
-def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
     
-    # nom 1er, scoreVainqueur, nom 2e, score 2e...
-
-    fenetreFin = Toplevel()
-    fenetreFin.iconbitmap("eseoLogo.ico")
-    fenetreFin.config(background="#5ab4c9")
-    fenetreFin.title('Fin de la partie')
-    fenetreFin.geometry("525x250+420+250") # dimensions et position de la fenêtre
 
     # messages    
     messageBravo = "Bravo ! " 
@@ -577,30 +573,33 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
     if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
     
-    message1 = Label(fenetreFin, text=messageBravo, fg="black", bg="#5ab4c9", font='Selestin 15')
-    message2 = Label(fenetreFin, text=messageVainqueur, fg="black", bg="#5ab4c9", font='Selestin 15')
-    message3 = Label(fenetreFin, text=message2e, fg="black", bg="#5ab4c9", font='Selestin 13')
+    message1 = Label(frameScore, text=messageBravo, fg="black", bg="white", font='Selestin 15')
+    message2 = Label(frameScore, text=messageVainqueur, fg="black", bg="white", font='Selestin 15')
+    message3 = Label(frameScore, text=message2e, fg="black", bg="white", font='Selestin 13')
     
     if troisieme != 0 : 
-        message4 = Label(fenetreFin, text=message3e, fg="black", bg="#5ab4c9", font='Selestin 13')
+        message4 = Label(frameScore, text=message3e, fg="black", bg="white", font='Selestin 13')
     
     if quatrieme != 0 :
-        message5 = Label(fenetreFin, text=message4e, fg="black", bg="#5ab4c9", font='Selestin 13')
+        message5 = Label(frameScore, text=message4e, fg="black", bg="white", font='Selestin 13')
 
     # placer sur l'écran
-    message1.grid(row=1, column=0, sticky="n", padx = 10, pady = 10)
-    message2.grid(row=2, column=0, sticky="n", padx = 10, pady = 10)
-    message3.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
+    message1.grid(row=1, column=2, sticky="n", padx = 10, pady = 10)
+    message2.grid(row=2, column=2, sticky="n", padx = 10, pady = 10)
+    message3.grid(row=4, column=2, sticky="n", padx = 10, pady = 10)
     
     if troisieme != 0 : 
-        message4.grid(row=5, column=0, sticky="n", padx = 10, pady = 10)
+        message4.grid(row=5, column=2, sticky="n", padx = 10, pady = 10)
     
     if quatrieme != 0 :
-        message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
+        message5.grid(row=6, column=2, sticky="n", padx = 10, pady = 10)
+
     winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
 
 
-#popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
+
+
+
 
 
 
@@ -620,7 +619,10 @@ def retournerAuMenu() :
     vider()
     frameMenu.pack(fill="both", expand=True)
 
-
+def test() :
+    frameJeu.pack_forget()
+    vider()
+    frameScore.pack(fill="both", expand=True)
 
 def valider() :
     frameMenu.pack_forget() # permet de cacher la Frame du menu
@@ -790,10 +792,11 @@ def go(event,variableJeu):
 
         if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
             classement,score =chercheClassement(variableJeu)
+            frameJeu.pack_forget()
+            fenetreScore(str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])
+            frameScore.pack(fill="both", expand=True)
 
-            popupScore(str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])
 
-            # afficher pop up
             
         '''if variableJeu["typeJeu"]=="defausse" :
             instructionPlacerCarteJn(variableJeu) 
@@ -824,6 +827,12 @@ bQuitter.place(anchor="se", x=530, y=690)
 bMenu = Button(frameJeu, text ='Menu', bg="#43c2df", fg="black",font=("Courier New", 11), command = retournerAuMenu)
 bMenu.place(anchor="sw", x=750, y=690)
 
+#bMenuScore = Button(frameScore, text ='Menu', bg="#43c2df", fg="black",font=("Courier New", 11), command = retournerAuMenu)
+
+btest = Button(frameJeu, text ='Test', bg="#43c2df", fg="black",font=("Courier New", 11), command = test)
+btest.place(anchor="sw", x=650, y=690)
+fenetreScore('vainqueur', 22, 'deuxieme', 24, 'troisieme', 33, 'quatrieme', 55)
+    
 
 bValider = Button(frameMenu, text = "Valider", width=10, height=1, command=valider)
 bVider = Button(frameMenu, text = "Vider", width=10, height=1, command=vider)
