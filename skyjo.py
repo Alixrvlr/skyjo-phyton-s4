@@ -1,5 +1,8 @@
 import random
 
+# Alix REVEILLERE, Ysaline MARTIN et Lise MIECKO
+
+
 def verifColonne(listeJn,listeEtatCarte):
     for i in range(len(listeJn[0])):
         if listeJn[0][i]==listeJn[1][i] and listeJn[1][i]==listeJn[2][i] :
