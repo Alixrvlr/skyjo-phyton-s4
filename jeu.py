@@ -1,5 +1,8 @@
 from skyjo import *
 
+# Alix REVEILLERE, Ysaline MARTIN et Lise MIECKO
+
+
 # Fonction principal du déroulement du jeu
 # X possibilitées pour etat qui permettent de savoir à quelle position du jeu nous sommes pour chaque joueru
 #   - choix_pioche :            le joueur doit choisir de piocher, de prendre la carte dans la défausse ou de retourner une carte

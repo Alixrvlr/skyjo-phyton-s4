@@ -6,6 +6,7 @@ import winsound
 
 
 # Fichier Interface Graphique du jeu - projet S4 informatique
+# Alix REVEILLERE, Ysaline MARTIN et Lise MIECKO
 
 ''' Création de la fenêtre ----------------------------------------------------------------------------------------'''
 
@@ -40,7 +41,10 @@ fenetrePrincipale.geometry(f"{largeur}x{hauteur}+0+0")
 
 
 
-can = Canvas(fenetrePrincipale, bg ='black')
+# frame pour l'interface du jeu
+
+frameJeu = Frame(fenetrePrincipale, background='#000000')
+can = Canvas(frameJeu, bg ='black')
 can.place(anchor="nw", width=fenetrePrincipale.winfo_screenwidth(), height=745, x=0, y=0)
 
 # frame pour l'interface du menu
@@ -55,7 +59,9 @@ frameScore = Frame(fenetrePrincipale, background="#1BB5E4")
     
 
 
+
 ''' Cartes -------------------------------------------------------------------------------------------------'''
+
 
 images=[]
 imagesPopUp=[]
@@ -102,40 +108,15 @@ def affichageColonneSup(variableJeu) :
     xCoin= recupCoordoXColonneSup(colonne, variableJeu["decalage"][variableJeu["joueur"]-1][0])
 
     for i in range (3):
-        affichageCarreNoire(xCoin, 10+i*110+variableJeu["decalage"][variableJeu["joueur"]-1][1])
-
-'''affichagecarteJnRecto(J1[0],J1[1])
-affichagecarteJnRecto(J2[0],J2[1])
-affichagecarteJnRecto(J3[0],J3[1])
-affichagecarteJnRecto(J4[0],J4[1])'''
+        affichageCarreNoire(xCoin, 10+i*110)
 
 
-#affichageCarteVerso(2,30,10,J1[0],J1[1])
+
 
 
 
 
 ''' Affichage joueur et instructions -----------------------------------------------------------------------------------------'''
-
-# définir les Labels
-
-# communs
-nomJoueur = Label(fenetrePrincipale, font = "Selestin 18", fg = 'white', bg = 'black')
-flecheDroite = Label(fenetrePrincipale, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
-flecheGauche = Label(fenetrePrincipale, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionJeuJn
-instruction_option = Label(fenetrePrincipale, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
-instruction_piocherCarte = Label(fenetrePrincipale, text = "Piocher une carte \nPrendre une carte de la défausse \nRetourner une carte de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionPlacerCarteJn
-instruction_PlacerCarte = Label(fenetrePrincipale, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionChoisirEmplacementCarteJn
-instruction_ChoixCarteRetourner = Label(fenetrePrincipale, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
-
-# instructionRetournerCarteDebutJn
-instructionRetourner2Carte = Label(fenetrePrincipale, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
 
 
 def instructionJeuJn(variableJeu) :
@@ -313,7 +294,7 @@ def instructionRetournerCarteDebutJn(variableJeu) :
 
 
 
-''' Action mise en route du jeu -------------------------------------------------------------------------------------------------'''
+''' Déroulé du jeu -------------------------------------------------------------------------------------------------'''
 
 def actionStart ():
     
@@ -362,26 +343,26 @@ def actionStart ():
 
     # Pour teste :
     listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
-    listeJn[2]=[[5,6,7,7],[5,5,9,3],[5,7,7,1]]
     
+    gagner = False
     
 
-    variableJeu["etat"]= "start"                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    variableJeu["joueur"]= 0                                    # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
-    variableJeu["listeCarte"]= listeJn                          # Liste des jeux de chaque joueur (le chiffre des cartes)
-    variableJeu["listeEtatCarte"]= listeEtatCarteJn             # Liste des états des cartes de chaque jeu
-    variableJeu["nbJoueur"]= nbJoueur                           # Nombre de joueur qui jouent
-    variableJeu["defausse"]= defausse                           # Liste avec les cartes qui constituent la défausse
-    variableJeu["pioche"]= pioche                               # Liste avec les cartes qui constituent la pioche
-    variableJeu["nbCarteRetourner"]=0                           # Pour les 2 carte par joueur à retourner au debut
-    variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]  # décalage des coordonnées des positions des jeux en fonction du joueur
-    variableJeu["sommeCarteRetourne"]=[0,0,0,0]                 # pour savoir quel joueur commence
-    variableJeu["dernierJoueur"]=None                           # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
+    variableJeu["etat"]= "start"                     # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    variableJeu["joueur"]= 0                                # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
+    variableJeu["listeCarte"]= listeJn                      # Liste des jeux de chaque joueur (le chiffre des cartes)
+    variableJeu["listeEtatCarte"]= listeEtatCarteJn         # Liste des états des cartes de chaque jeu
+    variableJeu["nbJoueur"]= nbJoueur                       # Nombre de joueur qui jouent
+    variableJeu["defausse"]= defausse                       # Liste avec les cartes qui constituent la défausse
+    variableJeu["pioche"]= pioche                           # Liste avec les cartes qui constituent la pioche
+    variableJeu["nbCarteRetourner"]=0                       # Pour les 2 carte par joueur à retourner au debut
+    variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
+    variableJeu["sommeCarteRetourne"]=[0,0,0,0]             # pour savoir quel joueur commence
+    variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
     variableJeu["jeuTermine"]=False
-    #"typeJeu": None,                                           # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
-    #"nouvCarte": None,                                         # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
-    #"position": None                                           # Tuple avec les coordonnées du clic
-
+    #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
+    #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
+    #"position": None                        # Tuple avec les coordonnées du clic
+    print(variableJeu["listeCarte"])
     affichagecarteJnRecto(variableJeu)
     affichagepioche(variableJeu["defausse"][0])
     return variableJeu
@@ -389,7 +370,9 @@ def actionStart ():
 
 
 def retournerCarteDebut (x,y,variableJeu):
-
+    
+    
+    
     ligne,colonne=convetirPosition(recupPositionCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%4][0],variableJeu["decalage"][(variableJeu["joueur"])%4][1]))
     variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]=True
     variableJeu["sommeCarteRetourne"][variableJeu["joueur"]]+=variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
@@ -419,14 +402,13 @@ def retournerCarteDebut (x,y,variableJeu):
 #Fonction pour remettre le jeu a zero
 
 def rejouer ():
-    global boutonRejouer
-    boutonRejouer = True
-    
-    
+    pass
 
 
 
-''' Fonction son -----------------------------------------------------------------------------------------------------'''
+
+
+'''fonction son-----------------------------------------------------------------------------------------------------'''
 
 def son():
     winsound.PlaySound("son_background.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
@@ -536,9 +518,51 @@ def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTrois
     winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
 
 
+def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+    
+    # nom 1er, scoreVainqueur, nom 2e, score 2e...
+
+    fenetreFin = Toplevel()
+    fenetreFin.iconbitmap("eseoLogo.ico")
+    fenetreFin.config(background="#5ab4c9")
+    fenetreFin.title('Fin de la partie')
+    fenetreFin.geometry("525x250+420+250") # dimensions et position de la fenêtre
+
+    # messages    
+    messageBravo = "Bravo ! " 
+    messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
+    message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
+    
+    if troisieme != 0 : # il y a un troisième joueur
+        message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
+    
+    if quatrieme != 0 : # il y a un quatrième joueur
+        message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
+    
+    message1 = Label(fenetreFin, text=messageBravo, fg="black", bg="#5ab4c9", font='Selestin 15')
+    message2 = Label(fenetreFin, text=messageVainqueur, fg="black", bg="#5ab4c9", font='Selestin 15')
+    message3 = Label(fenetreFin, text=message2e, fg="black", bg="#5ab4c9", font='Selestin 13')
+    
+    if troisieme != 0 : 
+        message4 = Label(fenetreFin, text=message3e, fg="black", bg="#5ab4c9", font='Selestin 13')
+    
+    if quatrieme != 0 :
+        message5 = Label(fenetreFin, text=message4e, fg="black", bg="#5ab4c9", font='Selestin 13')
+
+    # placer sur l'écran
+    message1.grid(row=1, column=0, sticky="n", padx = 10, pady = 10)
+    message2.grid(row=2, column=0, sticky="n", padx = 10, pady = 10)
+    message3.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
+    
+    if troisieme != 0 : 
+        message4.grid(row=5, column=0, sticky="n", padx = 10, pady = 10)
+    
+    if quatrieme != 0 :
+        message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
+    winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
 
 
-
+#popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
 
 
 
@@ -563,6 +587,7 @@ def test() :
     vider()
     frameScore.pack(fill="both", expand=True)
 
+
 def valider() :
     frameMenu.pack_forget() # permet de cacher la Frame du menu
     frameJeu.pack(fill="both", expand=True) # permet d'afficher la Frame du jeu
@@ -577,42 +602,41 @@ def fenetreMenu(variableJeu) :
     options = ["2" , "3" , "4"]
     choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
 
-    blanc.grid(row=0, column=3, sticky=E, padx = 10, pady = 10)
+    blanc.grid(row=0, column=0, sticky=E, padx = 10, pady = 10)
     # Utilisation de la méthode grid () pour positionner les éléments
-    titre.grid(row=1, column=5, columnspan=3)
+    titre.grid(row=1, column=3, columnspan=3)
 
 
-    labListe.grid(row=2, column=3, sticky=E, padx = 10, pady = 10)
+    labListe.grid(row=2, column=0, sticky=E, padx = 10, pady = 10)
 
-    nomJ1.grid(row=3, column=3, sticky=N, padx = 5, pady = 10)
-    nomJ2.grid(row=4, column=3, sticky=N, padx = 5, pady = 10)
-    nomJ3.grid(row=5, column=3, sticky=N, padx = 5, pady = 10)
-    nomJ4.grid(row=6, column=3, sticky=N, padx = 5, pady = 10)
+    nomJ1.grid(row=3, column=0, sticky=E, padx = 5, pady = 10)
+    nomJ2.grid(row=4, column=0, sticky=E, padx = 5, pady = 10)
+    nomJ3.grid(row=5, column=0, sticky=E, padx = 5, pady = 10)
+    nomJ4.grid(row=6, column=0, sticky=E, padx = 5, pady = 10)
 
-    choixNbJoueurs.grid(row = 2, column=4, padx = 10, pady = 10)
+    choixNbJoueurs.grid(row = 2, column=1, padx = 10, pady = 10)
 
-    cadreNomJ1.grid(row=3, column=4, sticky=N, padx = 5, pady = 10)
-    cadreNomJ2.grid(row=4, column=4, sticky=N, padx = 5, pady = 10)
-    cadreNomJ3.grid(row=5, column=4, sticky=N, padx = 5, pady = 10)
-    cadreNomJ4.grid(row=6, column=4, sticky=N, padx = 5, pady = 10)
+    cadreNomJ1.grid(row=3, column=1, sticky=E, padx = 5, pady = 10)
+    cadreNomJ2.grid(row=4, column=1, sticky=E, padx = 5, pady = 10)
+    cadreNomJ3.grid(row=5, column=1, sticky=E, padx = 5, pady = 10)
+    cadreNomJ4.grid(row=6, column=1, sticky=E, padx = 5, pady = 10)
 
 
-    
 
-    bValider.grid(row=10,column=3, padx = 10, pady = 10)
-    bVider.grid(row=10,column=5, padx = 10, pady = 10)
-    bQuitter.grid(row=10, column=7, padx = 10, pady = 10)
+
+    bValider.grid(row=10,column=0)
+    bVider.grid(row=10,column=1)
+    bQuitter.grid(row=10, column=2)
     #frameJeu.forget()
     #frameMenu.pack()
 
 
 
 
-
-def popupMenu(callback,variableJeu):
+def popupMenu(callback):#variableJeu
     #global nomJoueurs
     nomJoueurs=[]
-    #variableJeu["listeNomJoueur"]=nomJoueurs
+    variableJeu["listeNomJoueur"]=nomJoueurs
     def validerNom():
         #nomJoueurs=[]
         nomJoueurs.clear()
@@ -672,37 +696,36 @@ def popupMenu(callback,variableJeu):
 def traitement_liste(liste):
     print("Liste reçue :", liste)
 
+#popupMenu(traitement_liste)
+
+#variableJeu=popupMenu(variableJeu)
+#print(variableJeu["listeNomJoueur"])
 
 
 
-''' Fonction jeu ----------------------------------------------------------------------------------------'''
 
 def go(event,variableJeu):
-
-    x=event.x           #donnera la valeur de x
-    y=event.y           # donnera la valeur de y
-    variableJeu["position"]= (x,y)          # Tuple avec les coordonnées du clic
+    '''global decalage
+    global nouvCarte
+    #global x
+    #global y
+    global joueur
+    global etat'''
+    x=event.x #donnera la valeur de x
+    y=event.y # donnera la valeur de y
+    #print("fyeg",variableJeu["listeNomJoueur"])
+    variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
     
-    if boutonRejouer:
-        variableJeu=actionStart()
-        instructionRetournerCarteDebutJn(variableJeu)
-
     if variableJeu["etat"]=='start':
+        #instructionRetournerCarteDebutJn(variableJeu)
         variableJeu=retournerCarteDebut (x,y,variableJeu)
- 
+
+    
+        
     else:
         instructionJeuJn(variableJeu)
-
-        if len(variableJeu["pioche"])<=0:       # On refait la pioche avec les cartes de la défausse quand elle est vide
-            nouvPioche =[variableJeu["defausse"].pop(1) for i in range (len(variableJeu["defausse"])-1)]
-            nouvPioche=melangeCartes(nouvPioche)
-            variableJeu["pioche"]=nouvPioche
-
         variableJeu =deroulerJeu(variableJeu)
-        #print (f"etat dans interface {variableJeu["etat"]}")
-
-        if variableJeu["etat"]=='choix_carte':
-            instructionPlacerCarteJn(variableJeu)
+        print (f"etat dans interface {variableJeu["etat"]}")
 
         if variableJeu["etat"]=='attente_pop-up' and variableJeu["typeJeu"]=="pioche":
             variableJeu=popupChoix(variableJeu)
@@ -717,6 +740,7 @@ def go(event,variableJeu):
             variableJeu["etat"] ='choix_pioche'
         
         if variableJeu["etat"]== 'sup_colonne':
+
             affichageColonneSup(variableJeu)
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
@@ -729,15 +753,25 @@ def go(event,variableJeu):
             classement,score =chercheClassement(variableJeu)
             frameJeu.pack_forget()
             fenetreScore(str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])
-            frameScore.pack(fill="both", expand=True)
-
-
+            frameScore.pack(fill="both", expand=True)            # afficher pop up
             
+        '''if variableJeu["typeJeu"]=="defausse" :
+            instructionPlacerCarteJn(variableJeu) 
+            affichagepioche(variableJeu["defausse"][0])
+            variableJeu["etat"]='changement_carte'  '''
+        
 
-''' Initialisation des variables -------------------------------------------------------------------'''
-variableJeu=actionStart()
-instructionRetournerCarteDebutJn(variableJeu)
-boutonRejouer =False
+    #print (etat)
+
+
+'''variableJeu={
+    "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
+    }
+affichagecarteJnRecto(variableJeu)
+affichagepioche()'''
+
+
 
 
 
@@ -750,12 +784,10 @@ bQuitter.place(anchor="se", x=530, y=690)
 bMenu = Button(frameJeu, text ='Menu', bg="#43c2df", fg="black",font=("Courier New", 11), command = retournerAuMenu)
 bMenu.place(anchor="sw", x=750, y=690)
 
-#bMenuScore = Button(frameScore, text ='Menu', bg="#43c2df", fg="black",font=("Courier New", 11), command = retournerAuMenu)
-
 btest = Button(frameJeu, text ='Test', bg="#43c2df", fg="black",font=("Courier New", 11), command = test)
 btest.place(anchor="sw", x=650, y=690)
 fenetreScore('vainqueur', 22, 'deuxieme', 24, 'troisieme', 33, 'quatrieme', 55)
-    
+
 
 bValider = Button(frameMenu, text = "Valider", width=10, height=1, command=valider)
 bVider = Button(frameMenu, text = "Vider", width=10, height=1, command=vider)
@@ -794,9 +826,10 @@ instructionRetourner2Carte = Label(frameJeu, text = "Veuillez retourner 2 cartes
 
 ''' Paramètres fenêtre menu ---------------------------------------------------------------------------------------------'''
 
-titre = Label(frameMenu, text="Menu Principal", font="Selestin 20 bold", background="#1BB5E4", fg='black')
+titre = Label(frameMenu, text="Menu Principal", font="Selestin 20", background="#1BB5E4", fg='black')
 
 blanc = Label(frameMenu, text="", font="Selestin 20 bold", background="#1BB5E4")
+
 
 # phrase pour dire d'écrire son nom 
 
@@ -808,10 +841,10 @@ nomJ4 = Label(frameMenu, text="Joueur 4, votre nom : ", font="Selestin 15", back
 
 # cadres pour écrire les noms 
 
-cadreNomJ1 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')
-cadreNomJ2 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')
-cadreNomJ3 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')
-cadreNomJ4 = Entry(frameMenu,  font="Selestin 15", justify = CENTER, fg='black')  
+cadreNomJ1 = Entry(frameMenu,  font="Selestin 15", justify = LEFT, fg='black')
+cadreNomJ2 = Entry(frameMenu,  font="Selestin 15", justify = LEFT, fg='black')
+cadreNomJ3 = Entry(frameMenu,  font="Selestin 15", justify = LEFT, fg='black')
+cadreNomJ4 = Entry(frameMenu,  font="Selestin 15", justify = LEFT, fg='black')  
 
 labListe = Label(frameMenu, text="Combien de joueurs êtes-vous ?", font="Selestin 15", background="#1BB5E4", height=2, fg='black')
 
@@ -826,14 +859,11 @@ instructionRetournerCarteDebutJn(variableJeu)
 
 fenetreMenu(variableJeu)
 frameMenu.pack(fill='both', expand=True)
-bQuitter = Button(fenetrePrincipale, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetrePrincipale.destroy)
-bQuitter.place(anchor="se", x=430, y=690)
-
-bQuitter = Button(fenetrePrincipale, text ='Rejouer', bg="#43c2df", fg="black",font=("Courier New", 11), command = rejouer)
-bQuitter.place(anchor="se", x=630, y=690)
 
 
-''' '''
+
+
+
 
 can.bind('<Button-1>', lambda event: go(event, variableJeu))
 
