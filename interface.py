@@ -40,8 +40,8 @@ fenetrePrincipale.geometry(f"{largeur}x{hauteur}+0+0")
 
 
 
-can = Canvas(fenetre, bg ='black')
-can.place(anchor="nw", width=fenetre.winfo_screenwidth(), height=745, x=0, y=0)
+can = Canvas(fenetrePrincipale, bg ='black')
+can.place(anchor="nw", width=fenetrePrincipale.winfo_screenwidth(), height=745, x=0, y=0)
     
 
 
@@ -110,22 +110,22 @@ affichagecarteJnRecto(J4[0],J4[1])'''
 # définir les Labels
 
 # communs
-nomJoueur = Label(fenetre, font = "Selestin 18", fg = 'white', bg = 'black')
-flecheDroite = Label(fenetre, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
-flecheGauche = Label(fenetre, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
+nomJoueur = Label(fenetrePrincipale, font = "Selestin 18", fg = 'white', bg = 'black')
+flecheDroite = Label(fenetrePrincipale, text = "==>", font = "Selestin 15", fg = 'white', bg = 'black')
+flecheGauche = Label(fenetrePrincipale, text = "<==", font = "Selestin 15", fg = 'white', bg = 'black')
 
 # instructionJeuJn
-instruction_option = Label(fenetre, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
-instruction_piocherCarte = Label(fenetre, text = "Piocher une carte \nPrendre une carte de la défausse \nRetourner une carte de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+instruction_option = Label(fenetrePrincipale, text = "Vos options :", font = "Selestin 15", fg = 'white', bg = 'black')
+instruction_piocherCarte = Label(fenetrePrincipale, text = "Piocher une carte \nPrendre une carte de la défausse \nRetourner une carte de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
 
 # instructionPlacerCarteJn
-instruction_PlacerCarte = Label(fenetre, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+instruction_PlacerCarte = Label(fenetrePrincipale, text = "Placer la carte sur votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
 
 # instructionChoisirEmplacementCarteJn
-instruction_ChoixCarteRetourner = Label(fenetre, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
+instruction_ChoixCarteRetourner = Label(fenetrePrincipale, text = "Choisir quelle carte vous voulez retourner", font = "Selestin 15", fg = 'white', bg = 'black')
 
 # instructionRetournerCarteDebutJn
-instructionRetourner2Carte = Label(fenetre, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
+instructionRetourner2Carte = Label(fenetrePrincipale, text = "Veuillez retourner 2 cartes de votre jeu", font = "Selestin 15", fg = 'white', bg = 'black')
 
 
 def instructionJeuJn(variableJeu) :
@@ -667,10 +667,10 @@ boutonRejouer =False
 
 ''' Boutons ----------------------------------------------------------------------------------------'''
 
-bQuitter = Button(fenetre, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetre.destroy)
+bQuitter = Button(fenetrePrincipale, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetrePrincipale.destroy)
 bQuitter.place(anchor="se", x=430, y=690)
 
-bQuitter = Button(fenetre, text ='Rejouer', bg="#43c2df", fg="black",font=("Courier New", 11), command = rejouer)
+bQuitter = Button(fenetrePrincipale, text ='Rejouer', bg="#43c2df", fg="black",font=("Courier New", 11), command = rejouer)
 bQuitter.place(anchor="se", x=630, y=690)
 
 
