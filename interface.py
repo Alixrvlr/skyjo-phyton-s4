@@ -92,7 +92,7 @@ def affichagepiochePopUp(cartePioche,canvas):
     canvas.image =pioche        #images.append(pioche)
 
 
-def affichageCarteVerso (carte,x,y):
+def affichageCarteVerso (carte,x,y,decalagex,decalagey):
     global images
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     carte = PhotoImage(file=listeImgCarteVerso[carte+2])
@@ -108,7 +108,7 @@ def affichageColonneSup(variableJeu) :
     xCoin= recupCoordoXColonneSup(colonne, variableJeu["decalage"][variableJeu["joueur"]-1][0])
 
     for i in range (3):
-        affichageCarreNoire(xCoin, 10+i*110)
+        affichageCarreNoire(xCoin, 10+i*110+variableJeu["decalage"][variableJeu["joueur"]-1][1])
 
 
 
@@ -343,6 +343,9 @@ def actionStart ():
 
     # Pour test :
     listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    listeJn[1]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    listeJn[2]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    listeJn[3]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
     gagner = False
     
