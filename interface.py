@@ -653,11 +653,11 @@ def popupMenu(callback):#variableJeu
     bRejouer = Button(frameBouton, text ='Rejouer', bg="#43c2df", fg="black", font=("Courier New", 11), command = rejouer) # !!! ne fonctionne pas
     bRejouer.grid(row=1,column=0,sticky="n", padx = 10, pady = 10) 
 
-    btImageSon=PhotoImage(file="img/son.png")
+    ImageSon=PhotoImage(file="img/son.png").subsample(2)
     #bSon = Button(frameBouton, text="Son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: son())
-    bSon = Button(frameBouton, image=btImageSon, command=son)
+    bSon = Button(frameBouton, image=ImageSon, command=son)
     bSon.grid(row=2,column=0,sticky="n", padx = 10, pady = 10) 
-    bSon.image = btImageSon
+    bSon.image = ImageSon
 
     bCouperSon = Button(frameBouton, text="Couper son", bg="#43c2df", fg="black", font=("Courier New", 11), command=stop_son)
     bCouperSon.grid(row=2,column=1,sticky="n", padx = 10, pady = 10) 
@@ -758,9 +758,13 @@ bMenu = Button(frameJeu, text ='Menu', bg="white", fg="black", font=("Courier Ne
 bMenu.place(anchor="sw", x=750, y=690)
 
 # Menu 
+ImageSon=PhotoImage(file="img/son.png").subsample(15)
+bSon = Button(frameMenu, image=ImageSon,command=son)            #text = "Son", bg="white", fg="black", font=("Courier New", 11), command=son)
+bSon.image = ImageSon
 
-bSon = Button(frameMenu, text = "Son", bg="white", fg="black", font=("Courier New", 11), command=son)
-bStopSon = Button(frameMenu, text = "Arrêter son", bg="white", fg="black", font=("Courier New", 11), command=stop_son)
+ImageCouperSon=PhotoImage(file="img/couper_son.png").subsample(15)
+bStopSon = Button(frameMenu,  image=ImageCouperSon, command=stop_son)                                   #text = "Arrêter son", bg="white", fg="black", font=("Courier New", 11), command=stop_son)
+bSon.image = ImageSon
 
 bValider = Button(frameMenu, text = "Valider", bg="white", fg="black", font=("Courier New", 11), command=valider)
 bVider = Button(frameMenu, text = "Vider", bg="white", fg="black", font=("Courier New", 11), command=vider)
