@@ -92,7 +92,7 @@ def affichagepiochePopUp(cartePioche,canvas):
     canvas.image =pioche        #images.append(pioche)
 
 
-def affichageCarteVerso (carte,x,y,decalagex,decalagey):
+def affichageCarteVerso (carte,x,y):
     global images
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     carte = PhotoImage(file=listeImgCarteVerso[carte+2])
@@ -714,7 +714,7 @@ def go(event,variableJeu):
             variableJeu["etat"] ='choix_pioche'
         
         if variableJeu["etat"]== 'sup_colonne':
-
+            instructionJeuJn(variableJeu)
             affichageColonneSup(variableJeu)
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
