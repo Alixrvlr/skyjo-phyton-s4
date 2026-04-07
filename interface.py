@@ -341,7 +341,7 @@ def actionStart ():
     defausse.append(pioche.pop(0))
 
 
-    # Pour teste :
+    # Pour test :
     listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
     gagner = False
@@ -357,7 +357,7 @@ def actionStart ():
     variableJeu["nbCarteRetourner"]=0                       # Pour les 2 carte par joueur à retourner au debut
     variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
     variableJeu["sommeCarteRetourne"]=[0,0,0,0]             # pour savoir quel joueur commence
-    variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le teste
+    variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le test
     variableJeu["jeuTermine"]=False
     #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
@@ -457,7 +457,7 @@ def popupChoix(variableJeu) :
     imagesPopUp.append(pioche)
 
 
-    # boutons
+    # boutons 
     oui = Button(miniFenetre, text ='Oui', command= valideJouerCartePioche)
     non = Button(miniFenetre, text ='Non', command= invalideJouerCartePioche)
 
@@ -478,13 +478,19 @@ def popupChoix(variableJeu) :
 
 
 
-''' Fenêtre popup pour annoncer les scores ---------------------------------------------------------------------------------'''
+''' Fenêtre pour annoncer les scores ---------------------------------------------------------------------------------'''
+
+def allerAuMenu() :
+    frameScore.pack_forget()
+    frameJeu.pack_forget()
+    frameMenu.pack(fill="both", expand=True)
+
 
 def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
     
 
     # messages    
-    messageBravo = "Bravo ! " 
+    messageFin = "La partie est terminée ! " 
     messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
     message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
     
@@ -494,75 +500,46 @@ def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTrois
     if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
     
-    message1 = Label(frameScore, text=messageBravo, fg="black", bg="white", font='Selestin 15')
-    message2 = Label(frameScore, text=messageVainqueur, fg="black", bg="white", font='Selestin 15')
-    message3 = Label(frameScore, text=message2e, fg="black", bg="white", font='Selestin 13')
+    # espaces sur l'affichage
+    blanc1 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
+    blanc2 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
+    blanc3 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
+
+    message1 = Label(frameScore, text=messageFin, fg="black", bg="#1BB5E4", font='Selestin 20')
+    message2 = Label(frameScore, text=messageVainqueur, fg="black", bg="#1BB5E4", font='Selestin 20')
+    message3 = Label(frameScore, text=message2e, fg="black", bg="#1BB5E4", font='Selestin 17')
     
     if troisieme != 0 : 
-        message4 = Label(frameScore, text=message3e, fg="black", bg="white", font='Selestin 13')
+        message4 = Label(frameScore, text=message3e, fg="black", bg="#1BB5E4", font='Selestin 17')
     
     if quatrieme != 0 :
-        message5 = Label(frameScore, text=message4e, fg="black", bg="white", font='Selestin 13')
+        message5 = Label(frameScore, text=message4e, fg="black", bg="#1BB5E4", font='Selestin 17')
+
+    # bouton menu
+    boutonMenu = Button(frameScore, text ='Menu', bg="white", fg="black",font=("Courier New", 11), command = allerAuMenu)
+
 
     # placer sur l'écran
-    message1.grid(row=1, column=2, sticky="n", padx = 10, pady = 10)
-    message2.grid(row=2, column=2, sticky="n", padx = 10, pady = 10)
-    message3.grid(row=4, column=2, sticky="n", padx = 10, pady = 10)
+    blanc1.pack(anchor='center', padx = 10, pady = 25)
+    message1.pack(anchor='center', padx = 10, pady = 20)
+    blanc2.pack(anchor='center', padx = 10, pady = 15)
+    message2.pack(anchor='center', padx = 10, pady = 15)
+    message3.pack(anchor='center', padx = 10, pady = 15)
+
     
     if troisieme != 0 : 
-        message4.grid(row=5, column=2, sticky="n", padx = 10, pady = 10)
+        message4.pack(anchor='center', padx = 10, pady = 15)
     
     if quatrieme != 0 :
-        message5.grid(row=6, column=2, sticky="n", padx = 10, pady = 10)
+        message5.pack(anchor='center', padx = 10, pady = 15)
+
+    blanc3.pack(anchor='center', padx = 10, pady = 20)
+    boutonMenu.pack(anchor='center', padx = 10, pady = 20)
 
     winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
 
 
-def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
-    
-    # nom 1er, scoreVainqueur, nom 2e, score 2e...
 
-    fenetreFin = Toplevel()
-    fenetreFin.iconbitmap("eseoLogo.ico")
-    fenetreFin.config(background="#5ab4c9")
-    fenetreFin.title('Fin de la partie')
-    fenetreFin.geometry("525x250+420+250") # dimensions et position de la fenêtre
-
-    # messages    
-    messageBravo = "Bravo ! " 
-    messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
-    message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
-    
-    if troisieme != 0 : # il y a un troisième joueur
-        message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
-    
-    if quatrieme != 0 : # il y a un quatrième joueur
-        message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
-    
-    message1 = Label(fenetreFin, text=messageBravo, fg="black", bg="#5ab4c9", font='Selestin 15')
-    message2 = Label(fenetreFin, text=messageVainqueur, fg="black", bg="#5ab4c9", font='Selestin 15')
-    message3 = Label(fenetreFin, text=message2e, fg="black", bg="#5ab4c9", font='Selestin 13')
-    
-    if troisieme != 0 : 
-        message4 = Label(fenetreFin, text=message3e, fg="black", bg="#5ab4c9", font='Selestin 13')
-    
-    if quatrieme != 0 :
-        message5 = Label(fenetreFin, text=message4e, fg="black", bg="#5ab4c9", font='Selestin 13')
-
-    # placer sur l'écran
-    message1.grid(row=1, column=0, sticky="n", padx = 10, pady = 10)
-    message2.grid(row=2, column=0, sticky="n", padx = 10, pady = 10)
-    message3.grid(row=4, column=0, sticky="n", padx = 10, pady = 10)
-    
-    if troisieme != 0 : 
-        message4.grid(row=5, column=0, sticky="n", padx = 10, pady = 10)
-    
-    if quatrieme != 0 :
-        message5.grid(row=6, column=0, sticky="n", padx = 10, pady = 10)
-    winsound.PlaySound("son_victoire.wav", winsound.SND_ASYNC )
-
-
-#popupScore("Joueur 1", 12, "Joueur 4", 20, "Joueur 3", 33, "Joueur 2", 50)
 
 
 
@@ -570,6 +547,7 @@ def popupScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisie
 
 
 def vider() :
+
     # vider les Entry des noms des joueurs
     cadreNomJ1.delete(0, END)
     cadreNomJ2.delete(0, END)
@@ -577,18 +555,11 @@ def vider() :
     cadreNomJ4.delete(0, END)
 
 
-def retournerAuMenu() :
-    frameJeu.pack_forget()
-    vider()
-    frameMenu.pack(fill="both", expand=True)
 
-def test() :
-    frameJeu.pack_forget()
-    vider()
-    frameScore.pack(fill="both", expand=True)
 
 
 def valider() :
+
     frameMenu.pack_forget() # permet de cacher la Frame du menu
     frameJeu.pack(fill="both", expand=True) # permet d'afficher la Frame du jeu
 
@@ -623,12 +594,12 @@ def fenetreMenu(variableJeu) :
 
 
 
+    bValider.grid(row=10,column=1)
+    bVider.grid(row=10,column=2)
+    bStopSon.grid(row=10,column=4)
+    bSon.grid(row=10,column=6)
+    bQuitter.grid(row=10, column=9)
 
-    bValider.grid(row=10,column=0)
-    bVider.grid(row=10,column=1)
-    bQuitter.grid(row=10, column=2)
-    #frameJeu.forget()
-    #frameMenu.pack()
 
 
 
@@ -753,12 +724,9 @@ def go(event,variableJeu):
             classement,score =chercheClassement(variableJeu)
             frameJeu.pack_forget()
             fenetreScore(str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])
-            frameScore.pack(fill="both", expand=True)            # afficher pop up
+            frameScore.pack(fill="both", expand=True)            # afficher frame des scores
             
-        '''if variableJeu["typeJeu"]=="defausse" :
-            instructionPlacerCarteJn(variableJeu) 
-            affichagepioche(variableJeu["defausse"][0])
-            variableJeu["etat"]='changement_carte'  '''
+
         
 
     #print (etat)
@@ -778,20 +746,22 @@ affichagepioche()'''
 
 ''' Boutons ----------------------------------------------------------------------------------------'''
 
-bQuitter = Button(frameJeu, text ='Quitter', bg="#43c2df", fg="black",font=("Courier New", 11), command = fenetrePrincipale.destroy)
+# Jeu 
+
+bQuitter = Button(frameJeu, text ='Quitter', bg="white", fg="black", font=("Courier New", 11), command = fenetrePrincipale.destroy)
 bQuitter.place(anchor="se", x=530, y=690)
 
-bMenu = Button(frameJeu, text ='Menu', bg="#43c2df", fg="black",font=("Courier New", 11), command = retournerAuMenu)
+bMenu = Button(frameJeu, text ='Menu', bg="white", fg="black", font=("Courier New", 11), command = allerAuMenu)
 bMenu.place(anchor="sw", x=750, y=690)
 
-btest = Button(frameJeu, text ='Test', bg="#43c2df", fg="black",font=("Courier New", 11), command = test)
-btest.place(anchor="sw", x=650, y=690)
-fenetreScore('vainqueur', 22, 'deuxieme', 24, 'troisieme', 33, 'quatrieme', 55)
+# Menu 
 
+bSon = Button(frameMenu, text = "Son", bg="white", fg="black", font=("Courier New", 11), command=son)
+bStopSon = Button(frameMenu, text = "Arrêter son", bg="white", fg="black", font=("Courier New", 11), command=stop_son)
 
-bValider = Button(frameMenu, text = "Valider", width=10, height=1, command=valider)
-bVider = Button(frameMenu, text = "Vider", width=10, height=1, command=vider)
-bQuitter = Button(frameMenu, text = "Quitter", width=10, height=1, command=fenetrePrincipale.destroy)
+bValider = Button(frameMenu, text = "Valider", bg="white", fg="black", font=("Courier New", 11), command=valider)
+bVider = Button(frameMenu, text = "Vider", bg="white", fg="black", font=("Courier New", 11), command=vider)
+bQuitter = Button(frameMenu, text = "Quitter", bg="white", fg="black", font=("Courier New", 11), command=fenetrePrincipale.destroy)
 
 
 
