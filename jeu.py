@@ -48,7 +48,7 @@ def deroulerJeu(variableJeu):
 
             if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
 
-                if variableJeu["typeJeu"]=="pioche" :  # on verifie que la collone n'est pas supprimé
+                if variableJeu["typeJeu"]=="pioche" :  # on verifie que la colonne n'est pas supprimé
                     if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
 
                         cartePioche=variableJeu["pioche"].pop(0)    # on recupère la première carte de la pioche
