@@ -294,7 +294,7 @@ def instructionRetournerCarteDebutJn(variableJeu) :
 
 
 
-''' Déroulé du jeu -------------------------------------------------------------------------------------------------'''
+''' Action mise en route du jeu -------------------------------------------------------------------------------------------------'''
 
 def actionStart ():
     
@@ -347,25 +347,24 @@ def actionStart ():
     listeJn[2]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     listeJn[3]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
-    gagner = False
     
 
-    variableJeu["etat"]= "start"                     # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    variableJeu["joueur"]= 0                                # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
-    variableJeu["listeCarte"]= listeJn                      # Liste des jeux de chaque joueur (le chiffre des cartes)
-    variableJeu["listeEtatCarte"]= listeEtatCarteJn         # Liste des états des cartes de chaque jeu
-    variableJeu["nbJoueur"]= nbJoueur                       # Nombre de joueur qui jouent
-    variableJeu["defausse"]= defausse                       # Liste avec les cartes qui constituent la défausse
-    variableJeu["pioche"]= pioche                           # Liste avec les cartes qui constituent la pioche
-    variableJeu["nbCarteRetourner"]=0                       # Pour les 2 carte par joueur à retourner au debut
-    variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
-    variableJeu["sommeCarteRetourne"]=[0,0,0,0]             # pour savoir quel joueur commence
-    variableJeu["dernierJoueur"]=None                       # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le test
+    variableJeu["etat"]= "start"                                    # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
+    variableJeu["joueur"]= 0                                        # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
+    variableJeu["listeCarte"]= listeJn                              # Liste des jeux de chaque joueur (le chiffre des cartes)
+    variableJeu["listeEtatCarte"]= listeEtatCarteJn                 # Liste des états des cartes de chaque jeu
+    variableJeu["nbJoueur"]= nbJoueur                               # Nombre de joueur qui jouent
+    variableJeu["defausse"]= defausse                               # Liste avec les cartes qui constituent la défausse
+    variableJeu["pioche"]= pioche                                   # Liste avec les cartes qui constituent la pioche
+    variableJeu["nbCarteRetourner"]=0                               # Pour les 2 carte par joueur à retourner au debut
+    variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]      # décalage des coordonnées des positions des jeux en fonction du joueur
+    variableJeu["sommeCarteRetourne"]=[0,0,0,0]                     # pour savoir quel joueur commence
+    variableJeu["dernierJoueur"]=None                               # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le test
     variableJeu["jeuTermine"]=False
-    #"typeJeu": None,                         # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
-    #"nouvCarte": None,                     # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
-    #"position": None                        # Tuple avec les coordonnées du clic
-    print(variableJeu["listeCarte"])
+    # Variable initialisé plus tard dans le jeu
+    #"typeJeu": None,                                               # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
+    #"nouvCarte": None,                                             # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
+    #"position": None                                               # Tuple avec les coordonnées du clic
     affichagecarteJnRecto(variableJeu)
     affichagepioche(variableJeu["defausse"][0])
     return variableJeu
@@ -374,28 +373,28 @@ def actionStart ():
 
 def retournerCarteDebut (x,y,variableJeu):
     
-    
-    
     ligne,colonne=convetirPosition(recupPositionCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%4][0],variableJeu["decalage"][(variableJeu["joueur"])%4][1]))
-    variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]=True
-    variableJeu["sommeCarteRetourne"][variableJeu["joueur"]]+=variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
 
-    xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%4][0],variableJeu["decalage"][(variableJeu["joueur"])%4][1])
-    affichageCarteVerso(variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne],xcoin,ycoin)
-    variableJeu["nbCarteRetourner"]+=1
+    if not variableJeu["listeEtatCarte"][(variableJeu["joueur"])%4][ligne][colonne]:
+        variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]=True
+        variableJeu["sommeCarteRetourne"][variableJeu["joueur"]]+=variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
 
-    if variableJeu["nbCarteRetourner"]%2==0:
-        variableJeu["joueur"]+=1
-        if variableJeu["joueur"]<4:
-            instructionRetournerCarteDebutJn(variableJeu)
+        xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%4][0],variableJeu["decalage"][(variableJeu["joueur"])%4][1])
+        affichageCarteVerso(variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne],xcoin,ycoin)
+        variableJeu["nbCarteRetourner"]+=1
 
-    if variableJeu["nbCarteRetourner"]==2*variableJeu["nbJoueur"]:
-        joueurDebut=variableJeu["sommeCarteRetourne"].index(max(variableJeu["sommeCarteRetourne"]))
-        variableJeu["joueur"]=joueurDebut
-        variableJeu["etat"]='choix_pioche'
+        if variableJeu["nbCarteRetourner"]%2==0:
+            variableJeu["joueur"]+=1
+            if variableJeu["joueur"]<4:
+                instructionRetournerCarteDebutJn(variableJeu)
 
-    if variableJeu["nbCarteRetourner"] == 2*variableJeu["nbJoueur"]:
-        instructionJeuJn(variableJeu)
+        if variableJeu["nbCarteRetourner"]==2*variableJeu["nbJoueur"]:
+            joueurDebut=variableJeu["sommeCarteRetourne"].index(max(variableJeu["sommeCarteRetourne"]))
+            variableJeu["joueur"]=joueurDebut
+            variableJeu["etat"]='choix_pioche'
+
+        if variableJeu["nbCarteRetourner"] == 2*variableJeu["nbJoueur"]:
+            instructionJeuJn(variableJeu)
 
 
 
@@ -405,13 +404,14 @@ def retournerCarteDebut (x,y,variableJeu):
 #Fonction pour remettre le jeu a zero
 
 def rejouer ():
-    pass
+    global boutonRejouer
+    boutonRejouer = True
 
 
 
 
 
-'''fonction son-----------------------------------------------------------------------------------------------------'''
+''' Fonction son -----------------------------------------------------------------------------------------------------'''
 
 def son():
     winsound.PlaySound("son_background.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
@@ -676,20 +676,19 @@ def traitement_liste(liste):
 #print(variableJeu["listeNomJoueur"])
 
 
+''' Fonction jeu ----------------------------------------------------------------------------------------'''
 
 
 def go(event,variableJeu):
-    '''global decalage
-    global nouvCarte
-    #global x
-    #global y
-    global joueur
-    global etat'''
-    x=event.x #donnera la valeur de x
-    y=event.y # donnera la valeur de y
-    #print("fyeg",variableJeu["listeNomJoueur"])
-    variableJeu["position"]= (x,y)                              # Tuple avec les coordonnées du clic
+    x=event.x               #donnera la valeur de x
+    y=event.y               # donnera la valeur de y
+    variableJeu["position"]= (x,y)       # Tuple avec les coordonnées du clic
     
+    if boutonRejouer:
+        variableJeu=actionStart()
+        instructionRetournerCarteDebutJn(variableJeu)
+
+
     if variableJeu["etat"]=='start':
         #instructionRetournerCarteDebutJn(variableJeu)
         variableJeu=retournerCarteDebut (x,y,variableJeu)
@@ -697,9 +696,19 @@ def go(event,variableJeu):
     
         
     else:
+        # On refait la pioche avec les cartes de la défausse quand elle est vide
+        if len(variableJeu["pioche"])<=0:       # On refait la pioche avec les cartes de la défausse quand elle est vide
+            nouvPioche =[variableJeu["defausse"].pop(1) for i in range (len(variableJeu["defausse"])-1)]
+            nouvPioche=melangeCartes(nouvPioche)
+            variableJeu["pioche"]=nouvPioche
+
         instructionJeuJn(variableJeu)
         variableJeu =deroulerJeu(variableJeu)
         print (f"etat dans interface {variableJeu["etat"]}")
+
+
+        if variableJeu["etat"]=='choix_carte':
+                instructionPlacerCarteJn(variableJeu)
 
         if variableJeu["etat"]=='attente_pop-up' and variableJeu["typeJeu"]=="pioche":
             variableJeu=popupChoix(variableJeu)
@@ -828,10 +837,11 @@ labListe = Label(frameMenu, text="Combien de joueurs êtes-vous ?", font="Selest
 
 
 
-''' Lancement des fonctions ------------------------------------------------------------------------------------------------------------------------'''
+''' Lancement des fonctions / Initialisation des variables ------------------------------------------------------------------------------------------------------------------------'''
 
 variableJeu=actionStart()
 instructionRetournerCarteDebutJn(variableJeu)
+boutonRejouer =False
 
 
 fenetreMenu(variableJeu)
