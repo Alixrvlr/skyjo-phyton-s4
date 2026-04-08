@@ -429,7 +429,7 @@ def regles():
     fenetreRegles=Toplevel()
     fenetreRegles.config(background='white')
     fenetreRegles.title('Règles Skyjo')
-    fenetreRegles.geometry("500x400") 
+    fenetreRegles.geometry("600x500+430+180")
     regles = (
         "RÈGLES DU SKYJO\n\n"
         "But du jeu :\n"
@@ -443,18 +443,18 @@ def regles():
         "- Il peut échanger cette carte avec une de ses cartes.\n"
         "- Ou la défausser et révéler une de ses cartes cachées.\n\n"
         "Fin de manche :\n"
-        "- Lorsqu’un joueur a toutes ses cartes révélées.\n"
+        "- Lorsqu'un joueur a toutes ses cartes révélées.\n"
         "- Les autres joueurs jouent un dernier tour.\n\n"
         "Points :\n"
         "- Les cartes valent leur valeur (-2 à 12).\n"
         "- Une colonne de 3 cartes identiques = 0 point (supprimée).\n\n"
         "Fin de partie :\n"
-        "- La partie se termine lorsqu’un joueur atteint 100 points.\n"
+        "- La partie se termine lorsqu'un joueur atteint 100 points.\n"
         "- Le joueur avec le moins de points gagne."
     )
     message = Label(fenetreRegles, text=regles, justify="left", wraplength=480)
     message.pack(pady=10, padx=10)
-    retour = Button(fenetreRegles, text ='Retour au menu', command= fenetreRegles.destroy())
+    retour = Button(fenetreRegles, text ='Retour au menu', command= fenetreRegles.destroy)
     retour.pack(pady=10)
 
 
@@ -660,6 +660,7 @@ def fenetreMenu(variableJeu) :
     bSon.grid(row=10,column=6)
     bRejouer.grid(row=10,column=8)
     bQuitter.grid(row=10, column=10)
+    bRegles.grid(row=10, column=9)
 
 
 
@@ -837,6 +838,8 @@ bValider = Button(frameMenu, text = "Valider", bg="white", fg="black", font=("Co
 bVider = Button(frameMenu, text = "Vider", bg="white", fg="black", font=("Courier New", 11), command=vider)
 bQuitter = Button(frameMenu, text = "Quitter", bg="white", fg="black", font=("Courier New", 11), command=fenetrePrincipale.destroy)
 bRejouer = Button(frameMenu, text = "Rejouer", bg="white", fg="black", font=("Courier New", 11), command=rejouer)
+bRegles=Button(frameMenu, text = "Règles", bg="white", fg="black", font=("Courier New", 11), command=regles)
+
 
 
 
