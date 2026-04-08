@@ -796,7 +796,7 @@ instructionRetourner2Carte = Label(frameJeu, text = "Veuillez retourner 2 cartes
 
 ''' Paramètres fenêtre menu ---------------------------------------------------------------------------------------------'''
 
-titre = Label(frameMenu, text="Menu Principal", font="Selestin 20", background="#1BB5E4", fg='black')
+titre = Label(frameMenu, text="Menu Principal", font="Selestin 23", background="#1BB5E4", fg='black')
 
 blanc = Label(frameMenu, text="", font="Selestin 20 bold", background="#1BB5E4")
 
