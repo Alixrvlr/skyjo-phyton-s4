@@ -526,6 +526,7 @@ def allerAuMenu() :
     frameMenu.pack(fill="both", expand=True)
 
 
+
 def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
     
 
@@ -540,10 +541,6 @@ def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTrois
     if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
     
-    # espaces sur l'affichage
-    blanc1 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
-    blanc2 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
-    blanc3 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
 
     message1 = Label(frameScore, text=messageFin, fg="black", bg="#1BB5E4", font='Selestin 20')
     message2 = Label(frameScore, text=messageVainqueur, fg="black", bg="#1BB5E4", font='Selestin 20')
@@ -595,16 +592,37 @@ def vider() :
     cadreNomJ4.delete(0, END)
 
 
+def popupErreur() :
+
+    # affiche message d'erreur quand ce n'est pas validé 
+
+    fenErreur = Toplevel()
+    fenErreur.iconbitmap("img/logo.ico")
+    fenErreur.config(background='#1d7677')
+    fenErreur.title('Erreur')
+    fenErreur.geometry("400x75+200+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
+    message = Label(fenErreur, text="Veuillez saisir toutes les données !!", fg="#6ef31d", bg="#1d7677", font='Calibri 15 bold')
+    message.pack()
 
 
 
-def valider() :
+def valider(variableJeu) :
 
+    nbJoueurs = variableJeu["nbJoueur"] 
+
+    listeNomJoueurs = []
+
+    listeNomJoueurs.append(cadreNomJ1.get())
+    listeNomJoueurs.append(cadreNomJ2.get())
+    listeNomJoueurs.append(cadreNomJ3.get())
+    listeNomJoueurs.append(cadreNomJ4.get())
+
+    variableJeu["nomJoueurs"] = listeNomJoueurs
     frameMenu.pack_forget() # permet de cacher la Frame du menu
     frameJeu.pack(fill="both", expand=True) # permet d'afficher la Frame du jeu
 
 
-
+    
 
 def fenetreMenu(variableJeu) :
 
@@ -612,34 +630,36 @@ def fenetreMenu(variableJeu) :
 
     options = ["2" , "3" , "4"]
     choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
+    variableJeu["nbJoueur"] = choixNbJoueurs.get()
 
-    blanc.grid(row=0, column=0, sticky=E, padx = 10, pady = 10)
-    # Utilisation de la méthode grid () pour positionner les éléments
+    blancA.grid(row=0, column=0, sticky=E, padx = 10, pady = 10)
     titre.grid(row=1, column=3, columnspan=3)
+    blancB.grid(row=2, column=7, sticky=E, padx = 10, pady = 5)
 
 
-    labListe.grid(row=2, column=0, sticky=E, padx = 10, pady = 10)
+    labListe.grid(row=3, column=0, sticky=E, padx = 10, pady = 10)
 
-    nomJ1.grid(row=3, column=0, sticky=E, padx = 5, pady = 10)
-    nomJ2.grid(row=4, column=0, sticky=E, padx = 5, pady = 10)
-    nomJ3.grid(row=5, column=0, sticky=E, padx = 5, pady = 10)
-    nomJ4.grid(row=6, column=0, sticky=E, padx = 5, pady = 10)
+    nomJ1.grid(row=4, column=0, sticky=E, padx = 5, pady = 10)
+    nomJ2.grid(row=5, column=0, sticky=E, padx = 5, pady = 10)
+    nomJ3.grid(row=6, column=0, sticky=E, padx = 5, pady = 10)
+    nomJ4.grid(row=7, column=0, sticky=E, padx = 5, pady = 10)
 
-    choixNbJoueurs.grid(row = 2, column=1, padx = 10, pady = 10)
+    choixNbJoueurs.grid(row=3, column=1, padx = 10, pady = 10)
 
-    cadreNomJ1.grid(row=3, column=1, sticky=E, padx = 5, pady = 10)
-    cadreNomJ2.grid(row=4, column=1, sticky=E, padx = 5, pady = 10)
-    cadreNomJ3.grid(row=5, column=1, sticky=E, padx = 5, pady = 10)
-    cadreNomJ4.grid(row=6, column=1, sticky=E, padx = 5, pady = 10)
+    cadreNomJ1.grid(row=4, column=1, sticky=E, padx = 5, pady = 10)
+    cadreNomJ2.grid(row=5, column=1, sticky=E, padx = 5, pady = 10)
+    cadreNomJ3.grid(row=6, column=1, sticky=E, padx = 5, pady = 10)
+    cadreNomJ4.grid(row=7, column=1, sticky=E, padx = 5, pady = 10)
 
-
+    blancC.grid(row=8, column=7, sticky=E, padx = 10, pady = 10)
+    blancD.grid(row=9, column=7, sticky=E, padx = 10, pady = 10)
 
     bValider.grid(row=10,column=1)
     bVider.grid(row=10,column=2)
     bStopSon.grid(row=10,column=4)
     bSon.grid(row=10,column=6)
-    bQuitter.grid(row=10, column=9)
-    bRegles.grid(row=10,column=9)
+    bRejouer.grid(row=10,column=8)
+    bQuitter.grid(row=10, column=10)
 
 
 
@@ -816,8 +836,7 @@ bSon.image = ImageSon
 bValider = Button(frameMenu, text = "Valider", bg="white", fg="black", font=("Courier New", 11), command=valider)
 bVider = Button(frameMenu, text = "Vider", bg="white", fg="black", font=("Courier New", 11), command=vider)
 bQuitter = Button(frameMenu, text = "Quitter", bg="white", fg="black", font=("Courier New", 11), command=fenetrePrincipale.destroy)
-
-bRegles=Button(frameMenu, text = "Règles", bg="white", fg="black", font=("Courier New", 11), command=regles)
+bRejouer = Button(frameMenu, text = "Rejouer", bg="white", fg="black", font=("Courier New", 11), command=rejouer)
 
 
 
@@ -846,16 +865,23 @@ instructionRetourner2Carte = Label(frameJeu, text = "Veuillez retourner 2 cartes
 
 
 
+''' Paramètres fenêtre scores -------------------------------------------------------------------------------------------------------'''
 
+# espaces sur l'affichage
+blanc1 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
+blanc2 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
+blanc3 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20')
 
 
 
 ''' Paramètres fenêtre menu ---------------------------------------------------------------------------------------------'''
 
-titre = Label(frameMenu, text="Menu Principal", font="Selestin 23", background="#1BB5E4", fg='black')
+titre = Label(frameMenu, text="Menu Principal", font="Selestin 25", background="#1BB5E4", fg='black')
 
-blanc = Label(frameMenu, text="", font="Selestin 20 bold", background="#1BB5E4")
-
+blancA = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
+blancB = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
+blancC = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
+blancD = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
 
 # phrase pour dire d'écrire son nom 
 
