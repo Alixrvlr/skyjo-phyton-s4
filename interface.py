@@ -429,7 +429,7 @@ def regles():
     fenetreRegles=Toplevel()
     fenetreRegles.config(background='white')
     fenetreRegles.title('Règles Skyjo')
-    fenetreRegles.geometry("600x500+430+180")
+    fenetreRegles.geometry("600x550+430+180")
     regles = (
         "RÈGLES DU SKYJO\n\n"
         "But du jeu :\n"
@@ -452,7 +452,7 @@ def regles():
         "- La partie se termine lorsqu'un joueur atteint 100 points.\n"
         "- Le joueur avec le moins de points gagne."
     )
-    message = Label(fenetreRegles, text=regles, justify="left", wraplength=480)
+    message = Label(fenetreRegles, text=regles, justify="left", wraplength=480,font=("Arial", 12))
     message.pack(pady=10, padx=10)
     retour = Button(fenetreRegles, text ='Retour au menu', command= fenetreRegles.destroy)
     retour.pack(pady=10)
