@@ -19,13 +19,13 @@ def melangeCartes(listeCarteTrie):
     return listePioche
 
 
-def convetirPosition(position):
+def convetirPosition(position,variableJeu):
     ligne = (position-1)//4
     colonne = (position-1)%4
     return ligne, colonne
 
-def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position):
-    ligne ,colonne =convetirPosition(position)
+def echangeCarte(listeJn,listeEtatCarteJn,carteJouer,position,variableJeu):
+    ligne ,colonne =convetirPosition(position,variableJeu)
     print(ligne,colonne)
     print(listeJn)
     carteEnleve = listeJn[ligne][colonne]
@@ -62,18 +62,24 @@ def supColonne (listeJn,listeEtatCatreJn,colonne):
     return listeJn,listeEtatCatreJn
 
 
-def recupPosition (x,y):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou defausse) qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
+def recupPosition (x,y,variableJeu):        # Renvoie un chiffre entre 1 et 4 (ou pioche ou defausse) qui correspond au jeu dans lesquel on a cliqué (J1,J2,J3,J4)
     if x>=30 and x<= 345:
         if y>=10 and y<=335:
             return "jeu1"        # Jeu J1
         elif y>=370 and y<= 695:
-            return "jeu4"        # Jeu J4
+            if variableJeu["nbJoueur"]==4:
+                return "jeu4"        # Jeu J4
+            else:
+                return None
     
     elif x>=1010 and x<=1325:
         if y>=10 and y<=335:
             return "jeu2"        # Jeu J2
         elif y>=370 and y<= 695:
-            return "jeu3"        # Jeu J3
+            if variableJeu["nbJoueur"]>= 3:
+                return "jeu3"        # Jeu J3
+            else :
+                return None
         
     elif x>=598 and x<=673:
         if y>=315 and y<=420:
