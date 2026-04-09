@@ -68,7 +68,7 @@ imagesPopUp=[]
 fleche=[]
 
 def affichagecarteJnRecto(variableJeu):
-    for j in range (4):
+    for j in range (variableJeu["nbJoueur"]):
         versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
         x=[30,30,30,110,110,110,190,190,190,270,270,270]
         y=[10,120,230,10,120,230,10,120,230,10,120,230]
@@ -301,7 +301,7 @@ def actionStart ():
     variableJeu = {}
 
     # A faire qu'au premier tour
-    nbJoueur = 4
+    #nbJoueur = 4
     cartes =([-2]*5 +[0]*15 +[-1]*10 +[1]*10 +[2]*10 +[3]*10 +[4]*10 +[5]*10 +[6]*10 +[7]*10 +[8]*10 +[9]*10 +[10]*10 +[11]*10 +[12]*10)
 
     listeJ1 =[]
@@ -353,7 +353,7 @@ def actionStart ():
     variableJeu["joueur"]= 0                                        # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
     variableJeu["listeCarte"]= listeJn                              # Liste des jeux de chaque joueur (le chiffre des cartes)
     variableJeu["listeEtatCarte"]= listeEtatCarteJn                 # Liste des états des cartes de chaque jeu
-    variableJeu["nbJoueur"]= nbJoueur                               # Nombre de joueur qui jouent
+    #variableJeu["nbJoueur"]= nbJoueur                               # Nombre de joueur qui jouent
     variableJeu["defausse"]= defausse                               # Liste avec les cartes qui constituent la défausse
     variableJeu["pioche"]= pioche                                   # Liste avec les cartes qui constituent la pioche
     variableJeu["nbCarteRetourner"]=0                               # Pour les 2 carte par joueur à retourner au debut
@@ -365,27 +365,27 @@ def actionStart ():
     #"typeJeu": None,                                               # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                                             # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                                               # Tuple avec les coordonnées du clic
-    affichagecarteJnRecto(variableJeu)
-    affichagepioche(variableJeu["defausse"][0])
+    #affichagecarteJnRecto(variableJeu)
+    #affichagepioche(variableJeu["defausse"][0])
     return variableJeu
 
 
 
 def retournerCarteDebut (x,y,variableJeu):
     
-    ligne,colonne=convetirPosition(recupPositionCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%4][0],variableJeu["decalage"][(variableJeu["joueur"])%4][1]))
+    ligne,colonne=convetirPosition(recupPositionCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%variableJeu["nbJoueur"]][0],variableJeu["decalage"][(variableJeu["joueur"])%variableJeu["nbJoueur"]][1]),variableJeu)
 
-    if not variableJeu["listeEtatCarte"][(variableJeu["joueur"])%4][ligne][colonne]:
+    if not variableJeu["listeEtatCarte"][(variableJeu["joueur"])%variableJeu["nbJoueur"]][ligne][colonne]:
         variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]=True
         variableJeu["sommeCarteRetourne"][variableJeu["joueur"]]+=variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
 
-        xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%4][0],variableJeu["decalage"][(variableJeu["joueur"])%4][1])
+        xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"])%variableJeu["nbJoueur"]][0],variableJeu["decalage"][(variableJeu["joueur"])%variableJeu["nbJoueur"]][1])
         affichageCarteVerso(variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne],xcoin,ycoin)
         variableJeu["nbCarteRetourner"]+=1
 
         if variableJeu["nbCarteRetourner"]%2==0:
             variableJeu["joueur"]+=1
-            if variableJeu["joueur"]<4:
+            if variableJeu["joueur"]<variableJeu["nbJoueur"]:
                 instructionRetournerCarteDebutJn(variableJeu)
 
         if variableJeu["nbCarteRetourner"]==2*variableJeu["nbJoueur"]:
@@ -637,6 +637,8 @@ def valider(variableJeu) :
     listeNomJoueurs.append(cadreNomJ4.get())'''
 
     variableJeu["nomJoueurs"] = listeNomJoueurs
+    affichagecarteJnRecto(variableJeu)
+    affichagepioche(variableJeu["defausse"][0])
 
     
 
@@ -795,7 +797,7 @@ def go(event,variableJeu):
         if variableJeu["etat"]=='changement_carte':
             print(x,y)
             print(len(images))
-            xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-1)%4][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%4][1])
+            xcoin,ycoin= recupCoordonnéeCarte(x,y,variableJeu["decalage"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]][0],variableJeu["decalage"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]][1])
             affichageCarteVerso(variableJeu["nouvCarte"],xcoin,ycoin)
             instructionJeuJn(variableJeu)
             affichagepioche(variableJeu["defausse"][0])
