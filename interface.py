@@ -636,12 +636,15 @@ def valider(variableJeu) :
 
 
     '''listeNomJoueurs.append(cadreNomJ1.get())
-    listeNomJoueurs.append(cadreNomJ2.get())        
-    listeNomJoueurs.append(cadreNomJ3.get())        
-    listeNomJoueurs.append(cadreNomJ4.get())'''
+    listeNomJoueurs.append(cadreNomJ2.get())  
+    if variableJeu["nbJoueur"]>=3:
+        listeNomJoueurs.append(cadreNomJ3.get())   
+    if variableJeu["nbJoueur"]==4:     
+        listeNomJoueurs.append(cadreNomJ4.get())'''
 
     variableJeu["nomJoueurs"] = listeNomJoueurs
     variableJeu=actionStart(variableJeu)
+    instructionRetournerCarteDebutJn(variableJeu)
     affichagecarteJnRecto(variableJeu)
     affichagepioche(variableJeu["defausse"][0])
     
