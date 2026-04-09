@@ -610,32 +610,33 @@ def valider(variableJeu) :
     #print("test valider")
     listeNomJoueurs = []
     variableJeu["nbJoueur"] = choixNbJoueurs.get()
-    nb = variableJeu["nbJoueur"] 
-    #print(nb)
+    nb = variableJeu["nbJoueur"]
+
     
+    if nb == 2 and (cadreNomJ1.get() == "" or cadreNomJ2.get() == ""):
+        popupErreur()
 
-    if nb == 2 :
-        if cadreNomJ1.get() == "" or cadreNomJ2.get() == "" :
-            popupErreur()
-
-    elif nb == 3 :
-        if cadreNomJ1.get() == "" or cadreNomJ2.get() == "" or cadreNomJ3.get() == "" :
-            popupErreur()
+    elif nb == 3 and (cadreNomJ1.get() == "" or cadreNomJ2.get() == "" or cadreNomJ3.get() == "") :
+        popupErreur()
     
-    elif nb == 4 :
-        if cadreNomJ1.get() == "" or cadreNomJ2.get() == "" or cadreNomJ3.get() == "" or cadreNomJ4.get() == "" :
-            popupErreur()
+    elif nb == 4 and (cadreNomJ1.get() == "" or cadreNomJ2.get() == "" or cadreNomJ3.get() == "" or cadreNomJ4.get() == ""):
+        popupErreur()
 
-        '''listeNomJoueurs.append(cadreNomJ1.get())
-        listeNomJoueurs.append(cadreNomJ2.get())        
-        listeNomJoueurs.append(cadreNomJ3.get())        
-        listeNomJoueurs.append(cadreNomJ4.get())'''
+    else :
+        frameMenu.pack_forget() # permet de cacher la Frame du menu
+        frameJeu.pack(fill="both", expand=True) # permet d'afficher la Frame du jeu
+
+
+
+    '''listeNomJoueurs.append(cadreNomJ1.get())
+    listeNomJoueurs.append(cadreNomJ2.get())        
+    listeNomJoueurs.append(cadreNomJ3.get())        
+    listeNomJoueurs.append(cadreNomJ4.get())'''
 
     variableJeu["nomJoueurs"] = listeNomJoueurs
 
     
-    frameMenu.pack_forget() # permet de cacher la Frame du menu
-    frameJeu.pack(fill="both", expand=True) # permet d'afficher la Frame du jeu
+
 
 
 
@@ -645,12 +646,6 @@ def valider(variableJeu) :
 
 def fenetreMenu(variableJeu) :
 
-    #Création des éléments à afficher 
-
-    #options = ["2" , "3" , "4"]
-    #choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
-    
-    
 
     # bouton valider 
     
