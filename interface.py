@@ -345,7 +345,7 @@ def actionStart (variableJeu):
 
     # Pour test :
     listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
-    listeJn[1]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    listeJn[1]=[[4,6,7,7],[4,5,9,3],[4,7,7,8]]
     #listeJn[2]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     #listeJn[3]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
@@ -363,7 +363,7 @@ def actionStart (variableJeu):
     variableJeu["sommeCarteRetourne"]=[0,0,0,0]                     # pour savoir quel joueur commence
     variableJeu["dernierJoueur"]=None                               # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le test
     variableJeu["jeuTermine"]=False
-    variableJeu["nomJoueurs"]=[]                                    # liste contenant le nom des joueurs dans l'ordre (1,2,3 et 4)
+    #variableJeu["nomJoueurs"]=[]                                    # liste contenant le nom des joueurs dans l'ordre (1,2,3 et 4)
     # Variable initialisé plus tard dans le jeu
     #"typeJeu": None,                                               # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                                             # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
@@ -531,19 +531,19 @@ def allerAuMenu() :
 
 
 
-def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
+def fenetreScore(listeNom,vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTroisieme=0, quatrieme=0, sQuatrieme=0) :
     
 
     # messages    
     messageFin = "La partie est terminée ! " 
-    messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
-    message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
+    messageVainqueur = listeNom[int(vainqueur)-1] + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
+    message2e = listeNom[int(deuxieme)-1] + " a fini avec " + str(sDeuxieme) + " points"
     
     if variableJeu["nbJoueur"]>=3:        #if troisieme != 0 : # il y a un troisième joueur
-        message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
+        message3e = listeNom[int(troisieme)-1] + " a fini avec " + str(sTroisieme) + " points"
     
     if variableJeu["nbJoueur"]==4:      #if quatrieme != 0 : # il y a un quatrième joueur
-        message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
+        message4e = listeNom[int(quatrieme)-1] +listeNom[0]+ " a fini avec " + str(sQuatrieme) + " points"
     
 
     message1 = Label(frameScore, text=messageFin, fg="black", bg="#1BB5E4", font='Selestin 20')
@@ -640,12 +640,12 @@ def valider(variableJeu) :
 
 
 
-    '''listeNomJoueurs.append(cadreNomJ1.get())
+    listeNomJoueurs.append(cadreNomJ1.get())
     listeNomJoueurs.append(cadreNomJ2.get())  
     if variableJeu["nbJoueur"]>=3:
         listeNomJoueurs.append(cadreNomJ3.get())   
     if variableJeu["nbJoueur"]==4:     
-        listeNomJoueurs.append(cadreNomJ4.get())'''
+        listeNomJoueurs.append(cadreNomJ4.get())
 
 
     variableJeu["nomJoueurs"] = listeNomJoueurs
@@ -773,7 +773,7 @@ def go(event,variableJeu):
         if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
             classement,score =chercheClassement(variableJeu)
             frameJeu.pack_forget()
-            fenetreScore(variableJeu["nomJoueurs"][classement[0]],score[classement[0]], variableJeu["nomJoueurs"][classement[1]],score[classement[1]], variableJeu["nomJoueurs"][classement[2]],score[classement[2]],variableJeu["nomJoueurs"][classement[3]],score[classement[3]])
+            fenetreScore(variableJeu["nomJoueurs"],str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])        #fenetreScore(variableJeu["nomJoueurs"],classement[0],score[classement[0]], classement[1],score[classement[1]], classement[2],score[classement[2]],classement[3],score[classement[3]])
             frameScore.pack(fill="both", expand=True)            # afficher frame des scores
             
 
