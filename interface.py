@@ -105,10 +105,10 @@ def affichageCarreNoire(x,y):
 def affichageColonneSup(variableJeu) :
     joueur = variableJeu["liste_clonne_sup"][0]
     colonne= variableJeu["liste_clonne_sup"][1]
-    xCoin= recupCoordoXColonneSup(colonne, variableJeu["decalage"][variableJeu["joueur"]-1][0])
+    xCoin= recupCoordoXColonneSup(colonne, variableJeu["decalage"][joueur][0])
 
     for i in range (3):
-        affichageCarreNoire(xCoin, 10+i*110+variableJeu["decalage"][variableJeu["joueur"]-1][1])
+        affichageCarreNoire(xCoin, 10+i*110+variableJeu["decalage"][joueur][1])
 
 
 
@@ -296,9 +296,9 @@ def instructionRetournerCarteDebutJn(variableJeu) :
 
 ''' Action mise en route du jeu -------------------------------------------------------------------------------------------------'''
 
-def actionStart ():
+def actionStart (variableJeu):
     
-    variableJeu = {}
+    #variableJeu = {}
 
     # A faire qu'au premier tour
     #nbJoueur = 4
@@ -309,12 +309,12 @@ def actionStart ():
     listeJ3 =[]
     listeJ4 =[]
 
-    listeEtatCarteJ1 =[[False for i in range (4)] for i in range (3)]
+    '''listeEtatCarteJ1 =[[False for i in range (4)] for i in range (3)]
     listeEtatCarteJ2 =[[False for i in range (4)] for i in range (3)]
     listeEtatCarteJ3 =[[False for i in range (4)] for i in range (3)]
-    listeEtatCarteJ4 =[[False for i in range (4)] for i in range (3)]
+    listeEtatCarteJ4 =[[False for i in range (4)] for i in range (3)]'''
 
-    listeEtatCarteJn = [listeEtatCarteJ1,listeEtatCarteJ2,listeEtatCarteJ3,listeEtatCarteJ4]
+    listeEtatCarteJn = [[[False for i in range (4)] for i in range (3)] for i in range (variableJeu["nbJoueur"])]
 
     # Distribution des cartes
     pioche = melangeCartes(cartes)
@@ -322,16 +322,20 @@ def actionStart ():
     for i in range (12):
         listeJ1.append(pioche.pop(0))
         listeJ2.append(pioche.pop(0))
-        listeJ3.append(pioche.pop(0))
-        listeJ4.append(pioche.pop(0))
+        if variableJeu["nbJoueur"]>= 3:
+            listeJ3.append(pioche.pop(0))
+        if variableJeu["nbJoueur"]==4 :
+            listeJ4.append(pioche.pop(0))
 
 
 
     print("")
     listeJ1 = convertirJeuCartes3Tableau(listeJ1)
     listeJ2 = convertirJeuCartes3Tableau(listeJ2)
-    listeJ3 = convertirJeuCartes3Tableau(listeJ3)
-    listeJ4 = convertirJeuCartes3Tableau(listeJ4)
+    if variableJeu["nbJoueur"]>=3:
+        listeJ3 = convertirJeuCartes3Tableau(listeJ3)
+    if variableJeu["nbJoueur"]==4:
+        listeJ4 = convertirJeuCartes3Tableau(listeJ4)
 
     listeJn = [listeJ1,listeJ2,listeJ3,listeJ4]
 
@@ -344,8 +348,8 @@ def actionStart ():
     # Pour test :
     listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     listeJn[1]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
-    listeJn[2]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
-    listeJn[3]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    #listeJn[2]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    #listeJn[3]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
     
 
@@ -430,7 +434,7 @@ def regles():
     fenetreRegles=Toplevel()
     fenetreRegles.config(background='white')
     fenetreRegles.title('Règles Skyjo')
-    fenetreRegles.geometry("600x550+430+180")
+    fenetreRegles.geometry("600x550+400+100")
     regles = (
         "RÈGLES DU SKYJO\n\n"
         "But du jeu :\n"
@@ -536,10 +540,10 @@ def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTrois
     messageVainqueur = vainqueur + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
     message2e = deuxieme + " a fini avec " + str(sDeuxieme) + " points"
     
-    if troisieme != 0 : # il y a un troisième joueur
+    if variableJeu["nbJoueur"]>=3:        #if troisieme != 0 : # il y a un troisième joueur
         message3e = troisieme + " a fini avec " + str(sTroisieme) + " points"
     
-    if quatrieme != 0 : # il y a un quatrième joueur
+    if variableJeu["nbJoueur"]==4:      #if quatrieme != 0 : # il y a un quatrième joueur
         message4e = quatrieme + " a fini avec " + str(sQuatrieme) + " points"
     
 
@@ -547,10 +551,10 @@ def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTrois
     message2 = Label(frameScore, text=messageVainqueur, fg="black", bg="#1BB5E4", font='Selestin 20')
     message3 = Label(frameScore, text=message2e, fg="black", bg="#1BB5E4", font='Selestin 17')
     
-    if troisieme != 0 : 
+    if variableJeu["nbJoueur"]>=3:      #if troisieme != 0 : 
         message4 = Label(frameScore, text=message3e, fg="black", bg="#1BB5E4", font='Selestin 17')
     
-    if quatrieme != 0 :
+    if variableJeu["nbJoueur"]==4:      #if quatrieme != 0 :
         message5 = Label(frameScore, text=message4e, fg="black", bg="#1BB5E4", font='Selestin 17')
 
     # bouton menu
@@ -565,10 +569,10 @@ def fenetreScore(vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=0, sTrois
     message3.pack(anchor='center', padx = 10, pady = 15)
 
     
-    if troisieme != 0 : 
+    if variableJeu["nbJoueur"]>=3:      #if troisieme != 0 : 
         message4.pack(anchor='center', padx = 10, pady = 15)
     
-    if quatrieme != 0 :
+    if variableJeu["nbJoueur"]==4:      #if quatrieme != 0 :
         message5.pack(anchor='center', padx = 10, pady = 15)
 
     blanc3.pack(anchor='center', padx = 10, pady = 20)
@@ -637,8 +641,10 @@ def valider(variableJeu) :
     listeNomJoueurs.append(cadreNomJ4.get())'''
 
     variableJeu["nomJoueurs"] = listeNomJoueurs
+    variableJeu=actionStart(variableJeu)
     affichagecarteJnRecto(variableJeu)
     affichagepioche(variableJeu["defausse"][0])
+    
 
     
 
@@ -809,9 +815,9 @@ def go(event,variableJeu):
             affichagepioche(variableJeu["defausse"][0])
             variableJeu["etat"]='choix_pioche'
 
-        if verifFinJeu(variableJeu["joueur"]-1,variableJeu["listeEtatCarte"][variableJeu["joueur"]-1]) and not variableJeu["jeuTermine"]:
-            variableJeu["dernierJoueur"] = variableJeu["joueur"]-1
-            variableJeu["jeuTermine"]=TRUE
+        if verifFinJeu((variableJeu["joueur"]-1)%variableJeu["nbJoueur"],variableJeu["listeEtatCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]]) and not variableJeu["jeuTermine"]:
+            variableJeu["dernierJoueur"] = (variableJeu["joueur"]-1)%variableJeu["nbJoueur"]
+            variableJeu["jeuTermine"]=True
 
         if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
             classement,score =chercheClassement(variableJeu)
@@ -894,7 +900,8 @@ blanc3 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20'
 titre = Label(frameMenu, text="Menu Principal", font="Selestin 25", background="#1BB5E4", fg='black')
 
 options = ["2" , "3" , "4"]
-choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
+choixNbJoueurs = ttk.Combobox(frameMenu, values=options, state="readonly")      # state="readonly" empeche que l'utilisateur saisisse autre chose que les possibilitées
+choixNbJoueurs.current(0)           # Met la valeur 2 par défaut
 
 blancA = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
 blancB = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
@@ -923,8 +930,9 @@ labListe = Label(frameMenu, text="Combien de joueurs êtes-vous ?", font="Selest
 
 ''' Lancement des fonctions / Initialisation des variables ------------------------------------------------------------------------------------------------------------------------'''
 
-variableJeu=actionStart()
-instructionRetournerCarteDebutJn(variableJeu)
+#variableJeu=actionStart()
+variableJeu={}
+#instructionRetournerCarteDebutJn(variableJeu)
 boutonRejouer =False
 
 

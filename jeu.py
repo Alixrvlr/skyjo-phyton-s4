@@ -36,6 +36,7 @@ def deroulerJeu(variableJeu):
                     variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne] # On enregistre la nouvelle carte pour son affichage
                     variableJeu["etat"]= 'changement_carte'
                     variableJeu["joueur"] =(variableJeu["joueur"]+1)%variableJeu["nbJoueur"]  # On change de joueur
+                    variableJeu["changement_carte"]=True
  
   
       
@@ -62,6 +63,7 @@ def deroulerJeu(variableJeu):
                         else :
                             variableJeu["defausse"].insert(0,cartePioche)   # on met dans la défausse la carte de la pioche car le joueur ne veut pas la joueur
                             variableJeu["typeJeu"] = "retourneCarte"
+                            variableJeu["changement_carte"]=True
 
 
                 if variableJeu["typeJeu"]=="defausse" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
@@ -72,6 +74,7 @@ def deroulerJeu(variableJeu):
                         variableJeu["nouvCarte"] = carteDefausse
                         variableJeu["defausse"].insert(0,carteEnleve)   # on met la carte remplacer dans la défausse
                         variableJeu["etat"]= 'changement_carte'
+                        variableJeu["changement_carte"]=True
 
                 # on retourne juste une carte du jeu quand le joueur ne veut pas jouer la carte de la pioche
                 if variableJeu["typeJeu"]=="retourneCarte" and variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0":
@@ -80,16 +83,18 @@ def deroulerJeu(variableJeu):
                     variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True 
                     variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne]
                     variableJeu["etat"]= 'changement_carte'   
+                    variableJeu["changement_carte"]=True
         
 
                 variableJeu["joueur"] =(variableJeu["joueur"]+1)%variableJeu["nbJoueur"]  # on change de joueur
 
 
-    if verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1])[0] :     # si il y a une colonne avec les mêmes cartes
-        colonneSup= verifColonne(variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1])[1]
-        carteColonneSup= variableJeu["listeCarte"][variableJeu["joueur"]-1][0][colonne]
-        variableJeu["listeCarte"][variableJeu["joueur"]-1],variableJeu["listeEtatCarte"][variableJeu["joueur"]-1]= supColonne(variableJeu["listeCarte"][variableJeu["joueur"]-1], variableJeu["listeEtatCarte"][variableJeu["joueur"]-1], colonne)
-        variableJeu["liste_clonne_sup"]=[variableJeu["joueur"]-1,colonneSup]
+    if variableJeu["changement_carte"] and verifColonne(variableJeu["listeCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]],variableJeu["listeEtatCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]])[0] :     # si il y a une colonne avec les mêmes cartes
+        colonneSup= verifColonne(variableJeu["listeCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]],variableJeu["listeEtatCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]])[1]
+        carteColonneSup= variableJeu["listeCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]][0][colonne]
+        variableJeu["listeCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]],variableJeu["listeEtatCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]]= supColonne(variableJeu["listeCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]], variableJeu["listeEtatCarte"][(variableJeu["joueur"]-1)%variableJeu["nbJoueur"]], colonne)
+        variableJeu["liste_clonne_sup"]=[(variableJeu["joueur"]-1)%variableJeu["nbJoueur"],colonneSup]
+        variableJeu["changement_carte"]=False
         for i in range (3):
             variableJeu["defausse"].insert(0,carteColonneSup)   
         variableJeu["etat"]='sup_colonne'

@@ -198,10 +198,16 @@ def chercheClassement (varibleJeu):
             for j in range (len(jeu[0])):
                 totalJ+=jeu[i][j]
         totalscore.append(totalJ)
+    if varibleJeu["nbJoueur"]<3:
+        totalscore[2]=145               # On met le score des joueur qui ne joue pas a 145 pour ne pas qu'il soit premier
+        if varibleJeu["nbJoueur"]<4:
+            totalscore[3]=145
     indiceJClassement=[]
     totalscoreChangement=list(totalscore)
     for k in range (varibleJeu["nbJoueur"]):
         joueur=totalscoreChangement.index(min(totalscoreChangement))
         totalscoreChangement[joueur]=145      # max du nombre de carte que l'on peut avoir+1 : carte 12 partout soit 12x12=144
         indiceJClassement.append(joueur)
+    while len(indiceJClassement)<4:
+        indiceJClassement.append(0)
     return indiceJClassement,totalscore
