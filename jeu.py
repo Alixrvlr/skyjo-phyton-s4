@@ -31,7 +31,7 @@ def deroulerJeu(variableJeu):
             elif positionClic == ("jeu"+str(variableJeu["joueur"]+1)) and recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1]) != None :
                 emplacementCarte=recupPositionCarte(variableJeu["position"][0],variableJeu["position"][1],variableJeu["decalage"][variableJeu["joueur"]][0],variableJeu["decalage"][variableJeu["joueur"]][1])        #on recupère la position de la carte choisi (1 à 12 ou None)
                 ligne,colonne = convetirPosition(emplacementCarte,variableJeu)
-                if variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]!="0": # On verifie qu'il y ai bien une carte (pas une colonne supprimé (dans listeEtatCarte on a un "0" si la colonne est supprimé))
+                if not variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]: # On verifie qu'il y ai bien une carte (pas une colonne supprimé (dans listeEtatCarte on a un "0" si la colonne est supprimé)) et quelle ne soit pas déjà retourné
                     variableJeu["listeEtatCarte"][variableJeu["joueur"]][ligne][colonne]= True  # On indique que la carte est retourné
                     variableJeu["nouvCarte"] = variableJeu["listeCarte"][variableJeu["joueur"]][ligne][colonne] # On enregistre la nouvelle carte pour son affichage
                     variableJeu["etat"]= 'changement_carte'
