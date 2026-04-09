@@ -301,7 +301,7 @@ def actionStart ():
     variableJeu = {}
 
     # A faire qu'au premier tour
-    nbJoueur=4
+    nbJoueur = 4
     cartes =([-2]*5 +[0]*15 +[-1]*10 +[1]*10 +[2]*10 +[3]*10 +[4]*10 +[5]*10 +[6]*10 +[7]*10 +[8]*10 +[9]*10 +[10]*10 +[11]*10 +[12]*10)
 
     listeJ1 =[]
@@ -392,9 +392,10 @@ def retournerCarteDebut (x,y,variableJeu):
             joueurDebut=variableJeu["sommeCarteRetourne"].index(max(variableJeu["sommeCarteRetourne"]))
             variableJeu["joueur"]=joueurDebut
             variableJeu["etat"]='choix_pioche'
-
-        if variableJeu["nbCarteRetourner"] == 2*variableJeu["nbJoueur"]:
             instructionJeuJn(variableJeu)
+
+        #if variableJeu["nbCarteRetourner"] == 2*variableJeu["nbJoueur"]:
+            
 
 
 
@@ -609,7 +610,7 @@ def popupErreur() :
 def valider(variableJeu) :
     #print("test valider")
     listeNomJoueurs = []
-    variableJeu["nbJoueur"] = choixNbJoueurs.get()
+    variableJeu["nbJoueur"] = int(choixNbJoueurs.get())
     nb = variableJeu["nbJoueur"] 
     #print(nb)
     
