@@ -560,29 +560,48 @@ def popupErreur() :
     # affiche message d'erreur quand ce n'est pas validé 
 
     fenErreur = Toplevel()
-    fenErreur.iconbitmap("img/logo.ico")
-    fenErreur.config(background='#1d7677')
+    fenErreur.iconbitmap("eseoLogo.ico")
+    fenErreur.config(background="#43c2df")
     fenErreur.title('Erreur')
-    fenErreur.geometry("400x75+200+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
-    message = Label(fenErreur, text="Veuillez saisir toutes les données !!", fg="#6ef31d", bg="#1d7677", font='Calibri 15 bold')
+    fenErreur.geometry("400x75+400+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
+    message = Label(fenErreur, text="Veuillez saisir toutes les données !", fg="black", bg="#43c2df", font='Selestin 15')
     message.pack()
 
 
 
 def valider(variableJeu) :
-
-    nbJoueurs = variableJeu["nbJoueur"] 
-
+    #print("test valider")
     listeNomJoueurs = []
+    variableJeu["nbJoueur"] = choixNbJoueurs.get()
+    nb = variableJeu["nbJoueur"] 
+    #print(nb)
+    
 
-    listeNomJoueurs.append(cadreNomJ1.get())
-    listeNomJoueurs.append(cadreNomJ2.get())
-    listeNomJoueurs.append(cadreNomJ3.get())
-    listeNomJoueurs.append(cadreNomJ4.get())
+    if nb == 2 :
+        if cadreNomJ1.get() == "" or cadreNomJ2.get() == "" :
+            popupErreur()
+
+    elif nb == 3 :
+        if cadreNomJ1.get() == "" or cadreNomJ2.get() == "" or cadreNomJ3.get() == "" :
+            popupErreur()
+    
+    elif nb == 4 :
+        if cadreNomJ1.get() == "" or cadreNomJ2.get() == "" or cadreNomJ3.get() == "" or cadreNomJ4.get() == "" :
+            popupErreur()
+
+        '''listeNomJoueurs.append(cadreNomJ1.get())
+        listeNomJoueurs.append(cadreNomJ2.get())        
+        listeNomJoueurs.append(cadreNomJ3.get())        
+        listeNomJoueurs.append(cadreNomJ4.get())'''
 
     variableJeu["nomJoueurs"] = listeNomJoueurs
+
+    
     frameMenu.pack_forget() # permet de cacher la Frame du menu
     frameJeu.pack(fill="both", expand=True) # permet d'afficher la Frame du jeu
+
+
+
 
 
     
@@ -591,9 +610,15 @@ def fenetreMenu(variableJeu) :
 
     #Création des éléments à afficher 
 
-    options = ["2" , "3" , "4"]
-    choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
-    variableJeu["nbJoueur"] = choixNbJoueurs.get()
+    #options = ["2" , "3" , "4"]
+    #choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
+    
+    
+
+    # bouton valider 
+    
+    bValider = Button(frameMenu, text = "Valider", bg="white", fg="black", font=("Courier New", 11), command = lambda :valider(variableJeu))
+
 
     blancA.grid(row=0, column=0, sticky=E, padx = 10, pady = 10)
     titre.grid(row=1, column=3, columnspan=3)
@@ -691,10 +716,7 @@ def popupMenu(callback):#variableJeu
 def traitement_liste(liste):
     print("Liste reçue :", liste)
 
-#popupMenu(traitement_liste)
 
-#variableJeu=popupMenu(variableJeu)
-#print(variableJeu["listeNomJoueur"])
 
 
 ''' Fonction jeu ----------------------------------------------------------------------------------------'''
@@ -762,15 +784,6 @@ def go(event,variableJeu):
 
         
 
-    #print (etat)
-
-
-'''variableJeu={
-    "etat": "start",                                # Donne dans quel etat est le jeu (start,choix_pioche,choix_carte,changement_carte)
-    "decalage": [[0,0],[980,0],[980,360],[0,360]]   # décalage des coordonnées des positions des jeux en fonction du joueur
-    }
-affichagecarteJnRecto(variableJeu)
-affichagepioche()'''
 
 
 
@@ -796,7 +809,6 @@ ImageCouperSon=PhotoImage(file="img/couper_son.png").subsample(15)
 bStopSon = Button(frameMenu,  image=ImageCouperSon, command=stop_son)                                   #text = "Arrêter son", bg="white", fg="black", font=("Courier New", 11), command=stop_son)
 bSon.image = ImageSon
 
-bValider = Button(frameMenu, text = "Valider", bg="white", fg="black", font=("Courier New", 11), command=valider)
 bVider = Button(frameMenu, text = "Vider", bg="white", fg="black", font=("Courier New", 11), command=vider)
 bQuitter = Button(frameMenu, text = "Quitter", bg="white", fg="black", font=("Courier New", 11), command=fenetrePrincipale.destroy)
 bRejouer = Button(frameMenu, text = "Rejouer", bg="white", fg="black", font=("Courier New", 11), command=rejouer)
@@ -840,6 +852,9 @@ blanc3 = Label(frameScore, text="", fg="black", bg="#1BB5E4", font='Selestin 20'
 ''' Paramètres fenêtre menu ---------------------------------------------------------------------------------------------'''
 
 titre = Label(frameMenu, text="Menu Principal", font="Selestin 25", background="#1BB5E4", fg='black')
+
+options = ["2" , "3" , "4"]
+choixNbJoueurs = ttk.Combobox(frameMenu, values=options)
 
 blancA = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
 blancB = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
