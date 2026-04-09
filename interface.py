@@ -602,19 +602,18 @@ def popupErreur() :
 
     fenErreur = Toplevel()
     fenErreur.iconbitmap("eseoLogo.ico")
-    fenErreur.config(background="#43c2df")
+    fenErreur.config(background="white")
     fenErreur.title('Erreur')
-    fenErreur.geometry("400x300+600+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
+    fenErreur.geometry("400x200+600+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
     
-    blanc = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
     
-    blanc.pack()
-    
-    messageAfficher = Label(fenErreur, text="Attention ! \n\n" \
-        "Il manque des informations\n" \
-        "Veuillez saisir toutes les données utiles", fg="black", bg="#43c2df", wraplength=480, font='Selestin 15')
-    messageAfficher.pack()
+    message = ("Attention ! \n\n" \
+        "Il manque des informations\n\n" \
+        "Veuillez saisir toutes les données utiles")
+    messageAfficher = Label(fenErreur, text=message, justify="center", wraplength=480, bg="white", font='Selestin 15')
+    messageAfficher.pack(pady=10, padx=10)
 
+    
 
 
 def valider(variableJeu) :
