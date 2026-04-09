@@ -200,8 +200,8 @@ def chercheClassement (varibleJeu):
         totalscore.append(totalJ)
     if varibleJeu["nbJoueur"]<3:
         totalscore[2]=145               # On met le score des joueur qui ne joue pas a 145 pour ne pas qu'il soit premier
-        if varibleJeu["nbJoueur"]<4:
-            totalscore[3]=145
+    if varibleJeu["nbJoueur"]<4:
+        totalscore[3]=145
     indiceJClassement=[]
     totalscoreChangement=list(totalscore)
     for k in range (varibleJeu["nbJoueur"]):
