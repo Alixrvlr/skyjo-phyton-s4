@@ -126,7 +126,6 @@ def instructionJeuJn(variableJeu) :
 
     numeroJn = variableJeu["joueur"] + 1
     nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
-    
 
     instructionRetourner2Carte.place_forget()
     instruction_PlacerCarte.place_forget()
@@ -165,7 +164,7 @@ def instructionPlacerCarteJn(variableJeu) :
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))    
 
     # effacer les autres textes
 
@@ -208,7 +207,7 @@ def instructionChoisirEmplacementCarteJn(variableJeu) :
     # variableJeu["joueur"] = (de 0 à 3 : +1 pour le vrai numéro)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))    
 
     # effacer textes
 
@@ -251,8 +250,7 @@ def instructionRetournerCarteDebutJn(variableJeu) :
     # affiche quel joueur doit piocher 2 cartes (seulement en début de partie)
 
     numeroJn = variableJeu["joueur"] + 1
-    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))
-    
+    nomJoueur.config(text = "C'est au tour du joueur " + str(numeroJn))    
 
     # effacer les autres textes
 
@@ -365,6 +363,7 @@ def actionStart (variableJeu):
     variableJeu["sommeCarteRetourne"]=[0,0,0,0]                     # pour savoir quel joueur commence
     variableJeu["dernierJoueur"]=None                               # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le test
     variableJeu["jeuTermine"]=False
+    variableJeu["nomJoueurs"]=[]                                    # liste contenant le nom des joueurs dans l'ordre (1,2,3 et 4)
     # Variable initialisé plus tard dans le jeu
     #"typeJeu": None,                                               # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                                             # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
@@ -605,18 +604,24 @@ def popupErreur() :
     fenErreur.iconbitmap("eseoLogo.ico")
     fenErreur.config(background="#43c2df")
     fenErreur.title('Erreur')
-    fenErreur.geometry("400x75+400+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
-    message = Label(fenErreur, text="Veuillez saisir toutes les données !", fg="black", bg="#43c2df", font='Selestin 15')
-    message.pack()
+    fenErreur.geometry("400x300+600+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
+    
+    blanc = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
+    
+    blanc.pack()
+    
+    messageAfficher = Label(fenErreur, text="Attention ! \n\n" \
+        "Il manque des informations\n" \
+        "Veuillez saisir toutes les données utiles", fg="black", bg="#43c2df", wraplength=480, font='Selestin 15')
+    messageAfficher.pack()
 
 
 
 def valider(variableJeu) :
-    #print("test valider")
+    
     listeNomJoueurs = []
     variableJeu["nbJoueur"] = int(choixNbJoueurs.get())
     nb = variableJeu["nbJoueur"] 
-    #print(nb)
     
 
     
@@ -642,6 +647,7 @@ def valider(variableJeu) :
     if variableJeu["nbJoueur"]==4:     
         listeNomJoueurs.append(cadreNomJ4.get())'''
 
+
     variableJeu["nomJoueurs"] = listeNomJoueurs
     variableJeu=actionStart(variableJeu)
     instructionRetournerCarteDebutJn(variableJeu)
@@ -652,7 +658,7 @@ def valider(variableJeu) :
     
 
 
-
+    
 
 
 
@@ -688,75 +694,17 @@ def fenetreMenu(variableJeu) :
     blancC.grid(row=8, column=7, sticky=E, padx = 10, pady = 10)
     blancD.grid(row=9, column=7, sticky=E, padx = 10, pady = 10)
 
-    bValider.grid(row=10,column=1)
-    bVider.grid(row=10,column=2)
-    bStopSon.grid(row=10,column=4)
-    bSon.grid(row=10,column=6)
-    bRejouer.grid(row=10,column=8)
-    bQuitter.grid(row=10, column=10)
-    bRegles.grid(row=10, column=9)
+    bValider.grid(row=10,column=0, padx = 10, pady = 10)
+    bVider.grid(row=10,column=1, padx = 10, pady = 10)
+    bStopSon.grid(row=10,column=3, padx = 10, pady = 10)
+    bSon.grid(row=10,column=5, padx = 10, pady = 10)
+    bRejouer.grid(row=10,column=7, padx = 40, pady = 10)
+    bQuitter.grid(row=10, column=9, padx = 40, pady = 10)
+    bRegles.grid(row=10, column=8, padx = 40, pady = 10)
 
 
 
 
-
-def popupMenu(callback):#variableJeu
-    #global nomJoueurs
-    nomJoueurs=[]
-    variableJeu["listeNomJoueur"]=nomJoueurs
-    def validerNom():
-        #nomJoueurs=[]
-        nomJoueurs.clear()
-        for entry in entriesJoueurs :
-            nomJoueurs.append(entry.get())
-        variableJeu["listeNomJoueur"]=nomJoueurs
-        callback(nomJoueurs)
-        
-        
-    # Création de la fenêtre
-    fenetreMenu = Toplevel()
-    fenetreMenu.iconbitmap("eseoLogo.ico")
-    fenetreMenu.config(background="#5ab4c9")
-    fenetreMenu.title('Menu')
-    fenetreMenu.geometry("800x600+250+50") # dimensions et position de la fenêtre
-    fenetreMenu.grid_columnconfigure
-
-    # Titre de la fenêtre
-    message1 = Label(fenetreMenu, text="Menu", fg="black", bg="#5ab4c9", font='Selestin 15')
-    message1.grid(row=0, column=0, sticky="n", padx = 10, pady = 10)
-
-    # Création des zones d'entrée
-    entriesJoueurs = []
-    for i in range (4):      #variableJeu["nbJoueur"]
-
-        frameJoueur = Frame(fenetreMenu, background='#3396ff')
-        Prenom = Label(frameJoueur, text="Joueur "+str(i+1),  background='#3396ff', fg="#ffffff")
-        champPrenom = Entry(frameJoueur, bg="#ffffff", fg="green", font="Courier", bd=5, justify=CENTER)
-        Prenom.grid(row=0, column=0, padx=40)
-        champPrenom.grid(row=0, column=1)
-        frameJoueur.grid(row=1+i, column=0, sticky="n", padx = 10, pady = 10)
-        entriesJoueurs.append(champPrenom)
-    
-    # Création du bouton
-    frameBouton= Frame(fenetreMenu,background="#adff33")
-    frameBouton.grid(row=7, column=0, sticky="n", padx = 10, pady = 10)
-    bA = Button(frameBouton, text ='Ajouter', command = validerNom)
-    bA.grid(row=0,column=0)         #.pack(side =LEFT, padx =3, pady =3)
-
-    bRejouer = Button(frameBouton, text ='Rejouer', bg="#43c2df", fg="black", font=("Courier New", 11), command = rejouer) # !!! ne fonctionne pas
-    bRejouer.grid(row=1,column=0,sticky="n", padx = 10, pady = 10) 
-
-    ImageSon=PhotoImage(file="img/son.png").subsample(2)
-    #bSon = Button(frameBouton, text="Son", bg="#43c2df", fg="black", font=("Courier New", 11), command=lambda: son())
-    bSon = Button(frameBouton, image=ImageSon, command=son)
-    bSon.grid(row=2,column=0,sticky="n", padx = 10, pady = 10) 
-    bSon.image = ImageSon
-
-    bCouperSon = Button(frameBouton, text="Couper son", bg="#43c2df", fg="black", font=("Courier New", 11), command=stop_son)
-    bCouperSon.grid(row=2,column=1,sticky="n", padx = 10, pady = 10) 
-    
-
-    return variableJeu
 
     
 
@@ -825,7 +773,7 @@ def go(event,variableJeu):
         if variableJeu["joueur"]== variableJeu["dernierJoueur"]:
             classement,score =chercheClassement(variableJeu)
             frameJeu.pack_forget()
-            fenetreScore(str(classement[0]+1),score[classement[0]], str(classement[1]+1),score[classement[1]], str(classement[2]+1),score[classement[2]],str(classement[3]+1),score[classement[3]])
+            fenetreScore(variableJeu["nomJoueurs"][classement[0]],score[classement[0]], variableJeu["nomJoueurs"][classement[1]],score[classement[1]], variableJeu["nomJoueurs"][classement[2]],score[classement[2]],variableJeu["nomJoueurs"][classement[3]],score[classement[3]])
             frameScore.pack(fill="both", expand=True)            # afficher frame des scores
             
 
