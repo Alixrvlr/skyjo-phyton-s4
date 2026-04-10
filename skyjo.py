@@ -43,7 +43,7 @@ def totalPointJn(listeJn):
 
 
 
-def convertirJeuCartes3Tableau (listeJoueur):
+def convertirJeuCartes3Tableau (listeJoueur): # on convertit le tableau de 12 cartes en un tableau de tableau de 3x4 crates
     listeTrie =[]
     indice=0
     for i in range (3):
@@ -54,10 +54,10 @@ def convertirJeuCartes3Tableau (listeJoueur):
         listeTrie.append(L)
     return listeTrie
 
-def supColonne (listeJn,listeEtatCatreJn,colonne):
+def supColonne (listeJn,listeEtatCatreJn,colonne):  # renvoie la liste du joueur modifier
     for i in range (3):
         listeJn[i][colonne]= 0
-        listeEtatCatreJn[i][colonne]="0"
+        listeEtatCatreJn[i][colonne]="0"    # le "0" signifie que la case n'est plus utilisable
 
     return listeJn,listeEtatCatreJn
 

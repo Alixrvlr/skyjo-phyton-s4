@@ -69,7 +69,7 @@ fleche=[]
 
 def affichagecarteJnRecto(variableJeu):
     for j in range (variableJeu["nbJoueur"]):
-        versocarte=PhotoImage(file="img/verso.png")#.subsample(3)
+        versocarte=PhotoImage(file="img/verso.png")
         x=[30,30,30,110,110,110,190,190,190,270,270,270]
         y=[10,120,230,10,120,230,10,120,230,10,120,230]
         for i in range (12):
@@ -89,14 +89,14 @@ def affichagepiochePopUp(cartePioche,canvas):
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     pioche=PhotoImage(file=listeImgCarteVerso[cartePioche+2])
     canvas.create_image(140+75/2,315+195/2,image=pioche)
-    canvas.image =pioche        #images.append(pioche)
+    canvas.image =pioche       
 
 
 def affichageCarteVerso (carte,x,y):
     global images
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     carte = PhotoImage(file=listeImgCarteVerso[carte+2])
-    can.create_image(x+75/2, y+105/2, image=carte)      #can.create_image(x+a+75/2, y+b+105/2, image=carte)
+    can.create_image(x+75/2, y+105/2, image=carte)     
     images.append(carte)
     
 def affichageCarreNoire(x,y):
@@ -143,7 +143,6 @@ def instructionJeuJn(variableJeu) :
     elif numeroJn == 2 :
         flecheDroite.place_forget()  # caché 
         flecheGauche.place_forget()
-        #flecheGauche.destroy()
         flecheDroite.place(anchor="e", x = 1000, y = 175)
 
     elif numeroJn == 3 :
@@ -187,7 +186,6 @@ def instructionPlacerCarteJn(variableJeu) :
     elif numeroJn == 2 :
         flecheDroite.place_forget()  # caché 
         flecheGauche.place_forget()
-        #flecheGauche.destroy()
         flecheDroite.place(anchor="e", x = 1000, y = 175)
 
     elif numeroJn == 3 :
@@ -229,7 +227,6 @@ def instructionChoisirEmplacementCarteJn(variableJeu) :
     elif numeroJn == 2 :
         flecheDroite.place_forget()  # caché 
         flecheGauche.place_forget()
-        #flecheGauche.destroy()
         flecheDroite.place(anchor="e", x = 1000, y = 175)
 
     elif numeroJn == 3 :
@@ -274,7 +271,6 @@ def instructionRetournerCarteDebutJn(variableJeu) :
     elif numeroJn == 2 :
         flecheDroite.place_forget()  # caché 
         flecheGauche.place_forget()
-        #flecheGauche.destroy()
         flecheDroite.place(anchor="e", x = 1000, y = 175)
 
     elif numeroJn == 3 :
@@ -295,11 +291,9 @@ def instructionRetournerCarteDebutJn(variableJeu) :
 ''' Action mise en route du jeu -------------------------------------------------------------------------------------------------'''
 
 def actionStart (variableJeu):
-    
-    #variableJeu = {}
 
     # A faire qu'au premier tour
-    #nbJoueur = 4
+  
     cartes =([-2]*5 +[0]*15 +[-1]*10 +[1]*10 +[2]*10 +[3]*10 +[4]*10 +[5]*10 +[6]*10 +[7]*10 +[8]*10 +[9]*10 +[10]*10 +[11]*10 +[12]*10)
 
     listeJ1 =[]
@@ -344,8 +338,8 @@ def actionStart (variableJeu):
 
 
     # Pour test :
-    listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
-    listeJn[1]=[[4,6,7,7],[4,5,9,3],[4,7,7,8]]
+    #listeJn[0]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
+    #listeJn[1]=[[4,6,7,7],[4,5,9,3],[4,7,7,8]]
     #listeJn[2]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     #listeJn[3]=[[4,6,7,7],[4,5,9,3],[4,7,7,1]]
     
@@ -355,21 +349,22 @@ def actionStart (variableJeu):
     variableJeu["joueur"]= 0                                        # Donne le joueur auquel c'est le tour de jouer (de 0 à 3 (+1 pour avoir le vrai numéro de joueur))
     variableJeu["listeCarte"]= listeJn                              # Liste des jeux de chaque joueur (le chiffre des cartes)
     variableJeu["listeEtatCarte"]= listeEtatCarteJn                 # Liste des états des cartes de chaque jeu
-    #variableJeu["nbJoueur"]= nbJoueur                               # Nombre de joueur qui jouent
     variableJeu["defausse"]= defausse                               # Liste avec les cartes qui constituent la défausse
     variableJeu["pioche"]= pioche                                   # Liste avec les cartes qui constituent la pioche
     variableJeu["nbCarteRetourner"]=0                               # Pour les 2 carte par joueur à retourner au debut
     variableJeu["decalage"]= [[0,0],[980,0],[980,360],[0,360]]      # décalage des coordonnées des positions des jeux en fonction du joueur
     variableJeu["sommeCarteRetourne"]=[0,0,0,0]                     # pour savoir quel joueur commence
     variableJeu["dernierJoueur"]=None                               # on ne sait pas encore quel est le dernier joueur on met None pour quand même faire le test
-    variableJeu["jeuTermine"]=False
-    #variableJeu["nomJoueurs"]=[]                                    # liste contenant le nom des joueurs dans l'ordre (1,2,3 et 4)
+    variableJeu["jeuTermine"]=False                                 # lorsqu'un joueur à déjà terminé le jeu pour finir le tour
+
     # Variable initialisé plus tard dans le jeu
     #"typeJeu": None,                                               # Donne le type de jeu choisi par le joueur (piocher,defausse,retourneCarte)
     #"nouvCarte": None,                                             # Donne la nouvelle carte du jeu du joueur (pour l'affichage)
     #"position": None                                               # Tuple avec les coordonnées du clic
-    #affichagecarteJnRecto(variableJeu)
-    #affichagepioche(variableJeu["defausse"][0])
+    #variableJeu["nomJoueurs"]=[]                                   # liste contenant le nom des joueurs dans l'ordre (1,2,3 et 4)
+    #variableJeu["nbJoueur"]= nbJoueur                              # Nombre de joueur qui jouent
+
+   
     return variableJeu
 
 
@@ -397,7 +392,7 @@ def retournerCarteDebut (x,y,variableJeu):
             variableJeu["etat"]='choix_pioche'
             instructionJeuJn(variableJeu)
 
-        #if variableJeu["nbCarteRetourner"] == 2*variableJeu["nbJoueur"]:
+        
             
 
 
@@ -493,7 +488,6 @@ def popupChoix(variableJeu) :
     # largeur = 125
     # hauteur = 175
     carte = Canvas(miniFenetre, width=150, height=210)
-    #affichagepiochePopUp(variableJeu['pioche'][0],carte)
     listeImgCarteVerso=["img/-2.png","img/-1.png","img/0.png","img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png"]
     pioche=PhotoImage(file=listeImgCarteVerso[variableJeu['pioche'][0]+2])
     pioche = pioche.zoom(2, 2)          # On zoom l'image pour qu'elle remplisse tout le canvas
@@ -539,10 +533,10 @@ def fenetreScore(listeNom,vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=
     messageVainqueur = listeNom[int(vainqueur)-1] + " a gagné cette partie avec un score de " + str(sVainqueur) + " points"
     message2e = listeNom[int(deuxieme)-1] + " a fini avec " + str(sDeuxieme) + " points"
     
-    if variableJeu["nbJoueur"]>=3:        #if troisieme != 0 : # il y a un troisième joueur
+    if variableJeu["nbJoueur"]>=3:        # il y a un troisième joueur
         message3e = listeNom[int(troisieme)-1] + " a fini avec " + str(sTroisieme) + " points"
     
-    if variableJeu["nbJoueur"]==4:      #if quatrieme != 0 : # il y a un quatrième joueur
+    if variableJeu["nbJoueur"]==4:       # il y a un quatrième joueur
         message4e = listeNom[int(quatrieme)-1] +listeNom[0]+ " a fini avec " + str(sQuatrieme) + " points"
     
 
@@ -550,10 +544,10 @@ def fenetreScore(listeNom,vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=
     message2 = Label(frameScore, text=messageVainqueur, fg="black", bg="#1BB5E4", font='Selestin 20')
     message3 = Label(frameScore, text=message2e, fg="black", bg="#1BB5E4", font='Selestin 17')
     
-    if variableJeu["nbJoueur"]>=3:      #if troisieme != 0 : 
+    if variableJeu["nbJoueur"]>=3:       
         message4 = Label(frameScore, text=message3e, fg="black", bg="#1BB5E4", font='Selestin 17')
     
-    if variableJeu["nbJoueur"]==4:      #if quatrieme != 0 :
+    if variableJeu["nbJoueur"]==4:      
         message5 = Label(frameScore, text=message4e, fg="black", bg="#1BB5E4", font='Selestin 17')
 
     # bouton menu
@@ -568,10 +562,10 @@ def fenetreScore(listeNom,vainqueur, sVainqueur, deuxieme, sDeuxieme, troisieme=
     message3.pack(anchor='center', padx = 10, pady = 15)
 
     
-    if variableJeu["nbJoueur"]>=3:      #if troisieme != 0 : 
+    if variableJeu["nbJoueur"]>=3:     
         message4.pack(anchor='center', padx = 10, pady = 15)
     
-    if variableJeu["nbJoueur"]==4:      #if quatrieme != 0 :
+    if variableJeu["nbJoueur"]==4:      
         message5.pack(anchor='center', padx = 10, pady = 15)
 
     blanc3.pack(anchor='center', padx = 10, pady = 20)
@@ -602,9 +596,9 @@ def popupErreur() :
 
     fenErreur = Toplevel()
     fenErreur.iconbitmap("eseoLogo.ico")
-    fenErreur.config(background="#43c2df")
+    fenErreur.config(background="#43c2df")  
     fenErreur.title('Erreur')
-    fenErreur.geometry("400x300+600+200") # +200 + 200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
+    fenErreur.geometry("400x300+600+200") # +600+200 : permet de positionner le popup sur l'écran - en partant du coin en haut à gauche
     
     blanc = Label(frameMenu, text="    ", font="Selestin 20 bold", background="#1BB5E4")
     
@@ -666,7 +660,6 @@ def valider(variableJeu) :
 
 def fenetreMenu(variableJeu) :
 
-
     # bouton valider 
     
     bValider = Button(frameMenu, text = "Valider", bg="white", fg="black", font=("Courier New", 11), command = lambda :valider(variableJeu))
@@ -708,8 +701,8 @@ def fenetreMenu(variableJeu) :
 
     
 
-def traitement_liste(liste):
-    print("Liste reçue :", liste)
+#def traitement_liste(liste):
+ #   print("Liste reçue :", liste)
 
 
 
@@ -728,13 +721,11 @@ def go(event,variableJeu):
 
 
     if variableJeu["etat"]=='start':
-        #instructionRetournerCarteDebutJn(variableJeu)
         variableJeu=retournerCarteDebut (x,y,variableJeu)
 
     
         
     else:
-        # On refait la pioche avec les cartes de la défausse quand elle est vide
         if len(variableJeu["pioche"])<=0:       # On refait la pioche avec les cartes de la défausse quand elle est vide
             nouvPioche =[variableJeu["defausse"].pop(1) for i in range (len(variableJeu["defausse"])-1)]
             nouvPioche=melangeCartes(nouvPioche)
@@ -797,11 +788,11 @@ bMenu.place(anchor="sw", x=750, y=690)
 
 # Menu 
 ImageSon=PhotoImage(file="img/son.png").subsample(15)
-bSon = Button(frameMenu, image=ImageSon,command=son)            #text = "Son", bg="white", fg="black", font=("Courier New", 11), command=son)
+bSon = Button(frameMenu, image=ImageSon,command=son)            
 bSon.image = ImageSon
 
 ImageCouperSon=PhotoImage(file="img/couper_son.png").subsample(15)
-bStopSon = Button(frameMenu,  image=ImageCouperSon, command=stop_son)                                   #text = "Arrêter son", bg="white", fg="black", font=("Courier New", 11), command=stop_son)
+bStopSon = Button(frameMenu,  image=ImageCouperSon, command=stop_son)                                  
 bSon.image = ImageSon
 
 bVider = Button(frameMenu, text = "Vider", bg="white", fg="black", font=("Courier New", 11), command=vider)
@@ -881,13 +872,12 @@ labListe = Label(frameMenu, text="Combien de joueurs êtes-vous ?", font="Selest
 
 ''' Lancement des fonctions / Initialisation des variables ------------------------------------------------------------------------------------------------------------------------'''
 
-#variableJeu=actionStart()
+
 variableJeu={}
-#instructionRetournerCarteDebutJn(variableJeu)
 boutonRejouer =False
 
 
-fenetreMenu(variableJeu)
+fenetreMenu(variableJeu)                        # Affiche la fenêtre du jeu
 frameMenu.pack(fill='both', expand=True)
 
 
@@ -895,7 +885,7 @@ frameMenu.pack(fill='both', expand=True)
 
 
 
-can.bind('<Button-1>', lambda event: go(event, variableJeu))
+can.bind('<Button-1>', lambda event: go(event, variableJeu))        # Lance le jeu à chaque clique
 
 
 
