@@ -4,7 +4,10 @@ from skyjo import *
 
 
 # Fonction principal du déroulement du jeu
-# X possibilitées pour etat qui permettent de savoir à quelle position du jeu nous sommes pour chaque joueru
+
+
+# Liste des variables principales du jeu (il y en a d'autre qui permette de sauvegarder les catres à changer, ...):
+#   - etat                      X possibilitées pour etat qui permettent de savoir à quelle position du jeu nous sommes pour chaque joueru
 #   - choix_pioche :            le joueur doit choisir de piocher, de prendre la carte dans la défausse ou de retourner une carte
 #   - choix_carte :             le joueur doit choisir quelle carte il vaut retourner
 #   - changement_carte :        la carte a été changé dans la liste du joueur et on attent l'affichage de cette carte dans l'interface
